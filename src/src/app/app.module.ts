@@ -24,7 +24,10 @@ import { ClientComponent } from './admin/client/client.component';
 import { MapperComponent } from './admin/mapper/mapper.component';
 import { PollerComponent } from './admin/poller/poller.component';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSelectModule } from 'ng-zorro-antd/select'; 
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
 registerLocaleData(zh);
 
 @NgModule({
@@ -35,7 +38,7 @@ registerLocaleData(zh);
     ServerComponent,
     ClientComponent,
     MapperComponent, 
-    PollerComponent
+    PollerComponent,  
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,10 @@ registerLocaleData(zh);
     NzLayoutModule,
     NzMenuModule,
     NzIconModule ,
+    NzTableModule,
+    NzTreeModule,
     NzModalModule,
+    NzDividerModule,
     NzButtonModule,
     NzDropDownModule,
     NzFormModule,
