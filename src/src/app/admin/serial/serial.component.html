@@ -1,0 +1,50 @@
+<nz-layout>
+    <nz-header>
+        <nz-page-header 
+        class="site-page-header"
+        nzBackIcon
+        nzTitle="串口连接" 
+      ></nz-page-header
+    ></nz-header>
+      <nz-content  >
+       
+        <form nz-form  >
+            <nz-form-item>
+              <nz-form-label [nzSpan]="6" nzFor="email">id</nz-form-label>
+              <nz-form-control [nzSpan]="5">
+                <input nz-input name="id"    >
+              </nz-form-control>
+            </nz-form-item >
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="email">name</nz-form-label>
+                <nz-form-control [nzSpan]="5">
+                  <input nz-input name="name"    >
+                </nz-form-control>
+              </nz-form-item >
+              
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="email">port</nz-form-label>
+                <nz-form-control [nzSpan]="5">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a port" [(ngModel)]="selectedValue">
+                        <nz-option nzLabel="5001" nzValue="5001"></nz-option>
+                        <nz-option nzLabel="5002" nzValue="5002"></nz-option>
+                        <nz-option nzLabel="5003" nzValue="5003"></nz-option>
+                      </nz-select>
+                </nz-form-control>
+              </nz-form-item >
+              
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="email">created</nz-form-label>
+                <nz-form-control [nzSpan]="5">
+                  <input nz-input name="created"    >
+                </nz-form-control>
+              </nz-form-item >
+              
+          </form>
+       
+        
+        
+        
+      </nz-content>
+    </nz-layout>
+     

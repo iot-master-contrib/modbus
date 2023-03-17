@@ -1,0 +1,75 @@
+<nz-layout>
+  <nz-header> <img src="assets/module.png"  />Modbus网关插件</nz-header>
+  <nz-layout [ngClass]="'main'">
+    <nz-sider>
+      <ul nz-menu nzMode="inline" [nzTheme]="'dark'">
+        <li nz-submenu nzTitle="连接管理" nzIcon="appstore">
+          <ul>
+            <li nz-menu-item routerLink="/admin/server"> TCP服务器   </li>
+            <li nz-menu-item  >TCP连接</li>
+            <li nz-menu-item routerLink="/admin/client">TCP客户端</li>
+            <li nz-menu-item routerLink="/admin/serial">串口连接</li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="轮询器" nzIcon="setting">
+          <ul>
+            <li nz-menu-item routerLink="/admin/mapper">映射表</li>
+            <li nz-menu-item routerLink="/admin/poller">轮询器</li>
+          </ul>
+        </li> 
+
+        <li nz-submenu nzTitle="系统设置" nzIcon="apartment">
+             
+          </li>
+      </ul>
+    </nz-sider>
+    <!-- <nz-modal [(nzVisible)]="v1" nzTitle="TCP服务器" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+          <p>id</p>
+          <p>name</p>
+          <p>desc</p>
+          <p>port</p>
+          <p>created</p>
+        </ng-container>
+      </nz-modal>
+      <nz-modal [(nzVisible)]="v2" nzTitle="TCP客户端" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+          <p>id</p>
+          <p>name</p>
+          <p>address</p>
+          <p>port</p>
+          <p>created</p>
+        </ng-container>
+      </nz-modal>
+      <nz-modal [(nzVisible)]="v3" nzTitle="串口连接" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+          <p>id</p>
+          <p>name</p> 
+          <p>port</p>
+          <p>created</p>
+        </ng-container>
+      </nz-modal>
+      <nz-modal [(nzVisible)]="v4" nzTitle="映射表" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+          <p>id</p>
+          <p>name</p>
+          <p>desc</p>
+          <p>code</p>
+          <p> size</p> 
+          <p>created</p> 
+        </ng-container>
+      </nz-modal>
+      <nz-modal [(nzVisible)]="v5" nzTitle="轮询器" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+            <p>id</p>
+            <p>name</p>
+            <p>desc</p>
+            <p>period</p>
+            <p>interval</p> 
+            <p>created</p> 
+        </ng-container>
+      </nz-modal> -->
+    <nz-content>   <router-outlet></router-outlet>     </nz-content>
+  </nz-layout>
+</nz-layout>
+ 
