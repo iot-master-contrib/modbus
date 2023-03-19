@@ -1,23 +1,53 @@
-<nz-table #basicTable [nzData]="listOfData">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Address</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of basicTable.data">
-      <td>{{data.name}}</td>
-      <td>{{data.age}}</td>
-      <td>{{data.address}}</td>
-      <td>
-        <a>Action 一 {{data.name}}</a>
-        <nz-divider nzType="vertical"></nz-divider>
-        <a>Delete</a>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
-     
+<nz-layout>
+  <nz-header>
+    <nz-page-header class="site-page-header" nzBackIcon nzTitle="TCP服务器" nzSubtitle="tcp_server">
+      <nz-page-header-extra  >
+        <nz-space >
+          <input *nzSpaceItem nz-input  placeholder="search value" [(ngModel)]="input" />
+          <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
+            <span nz-icon nzType="search"></span>
+            search</button>
+        </nz-space>
+      </nz-page-header-extra>
+    </nz-page-header>
+  </nz-header>
+
+
+  <nz-content>
+    <nz-table #basicTable [nzData]="listOfData">
+      <thead>
+        <tr> 
+          <th>id</th>
+          <th>name</th>
+          <th>desc</th>
+          <th>port</th>
+          <th>created</th>
+          <th>action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data;let i=index">
+          <td>{{data.id}}</td>
+          <td>{{data.name}}</td>
+          <td>{{data.desc}}</td>
+          <td>{{data.port}}</td>
+          <td>{{data.created}}</td>
+          <td nzRight>
+            <a nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?" (nzOnConfirm)="delete(i, data.id )"
+            (nzOnCancel)="cancel()" nzPopconfirmPlacement="topLeft">
+            <i nz-icon nzType="delete"></i>
+          </a>
+
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="edit(data.id,data)">
+            <i nz-icon nzType="edit"></i>
+          </a>
+        </td>
+        </tr>
+        <app-server-fm #child [isVisible]="isVisible" [title]="'TCP服务器'" [text]="'修改'" (back)=clientFm($event)>
+        </app-server-fm>
+      </tbody>
+    </nz-table>
+  </nz-content>
+
+</nz-layout>

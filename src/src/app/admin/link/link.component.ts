@@ -1,46 +1,50 @@
 import { RequestService } from './../../request.service';
-import { Component, ViewChild  } from '@angular/core'; 
-import {Router} from "@angular/router"; 
-import {NzMessageService} from "ng-zorro-antd/message";
+import { Component, ViewChild } from '@angular/core';
+import { Router } from "@angular/router";
+import { NzMessageService } from "ng-zorro-antd/message";
 @Component({
-  selector: 'app-serial',
-  templateUrl: './serial.component.html',
-  styleUrls: ['./serial.component.scss']
+  selector: 'app-link',
+  templateUrl: './link.component.html',
+  styleUrls: ['./link.component.scss']
 })
-export class SerialComponent {
+export class LinkComponent {
   constructor(private router: Router,
     private rs: RequestService,
     private msg: NzMessageService
-) { //this.load();
+  ) { //this.load();
 
-}
-@ViewChild('child') child: any
-input!: string
-isVisible=false
-loading = true
-datum: any[] = []
-total = 1;
-pageSize = 20;
-pageIndex = 1;
-query: any = {}
-  listOfData  = [
-    { 
+  }
+  @ViewChild('child') child: any 
+  input!: string
+  isVisible!: boolean
+  loading = true
+  datum: any[] = []
+  total = 1;
+  pageSize = 20;
+  pageIndex = 1;
+  query: any = {}
+
+  listOfData = [
+    {
       id: 53001,
       name: 'John Brown',
-      port: "8080", 
-      created:new Date()
+      port: "8080",
+      address: '1001',
+      created: new Date()
     },
     {
       id: 53002,
       name: 'Jim Green',
-      port: "8081", 
-      created:new Date()
+      port: "8081",
+      address: '1002',
+      created: new Date()
     },
     {
       id: 53003,
       name: 'Joe Black',
-      port: "8082", 
-      created:new Date()
+      port: "8082",
+      address: '1003',
+      created: new Date()
     }
   ];
   clientFm(num: number) {
@@ -48,10 +52,10 @@ query: any = {}
   }
   load() {
     this.loading = true
-    this.rs.post("client/search", this.query).subscribe(res=>{
+    this.rs.post("client/search", this.query).subscribe(res => {
       this.datum = res.data;
       this.total = res.total;
-    }).add(()=>{
+    }).add(() => {
       this.loading = false;
     })
   }
@@ -79,4 +83,3 @@ query: any = {}
   }
   cancel() { this.msg.info('click cancel'); }
 }
-

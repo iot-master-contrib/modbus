@@ -1,26 +1,36 @@
 <nz-layout>
-  <nz-header> <img src="assets/module.png" />Modbus网关插件</nz-header>
+  <nz-header>
+    <div [ngClass]="'title'"><img src="assets/module.png" />Modbus网关插件</div>
+
+    <div [ngClass]="'user'" nzTrigger="click" nz-dropdown [nzDropdownMenu]="menuDp">
+      <img class="avatar" src="/assets/manager.png" alt="logo">
+      manager
+    </div>
+    <nz-dropdown-menu #menuDp="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item>编辑</li>
+        <li nz-menu-item>退出</li>
+      </ul>
+    </nz-dropdown-menu>
+  </nz-header>
   <nz-layout [ngClass]="'main'">
     <nz-sider>
       <ul nz-menu nzMode="inline" [nzTheme]="'dark'">
         <li nz-submenu nzTitle="连接管理" nzIcon="appstore">
           <ul>
-            <li nz-menu-item (contextmenu)="contextMenu($event, menu)" routerLink="/admin/server"
-              (click)="this.v1=true"> TCP服务器 </li>
-            <li nz-menu-item>TCP连接</li>
-            <li nz-menu-item routerLink="/admin/client"  (click)="this.v2=true"> TCP客户端
-              <!-- <ul nz-menu nzMode]="'vertical'"><li (click)="this.v2=true">编辑</li></ul> -->
+            <li nz-menu-item (contextmenu)="contextMenu($event, menu,0)" routerLink="/admin/server"> TCP服务器 </li>
+            <li nz-menu-item routerLink="/admin/link">TCP连接</li>
+            <li nz-menu-item (contextmenu)="contextMenu($event, menu,1)" routerLink="/admin/client"> TCP客户端
 
             </li>
-            <li nz-menu-item routerLink="/admin/serial" (click)="this.v3=true">串口连接</li>
+            <li nz-menu-item (contextmenu)="contextMenu($event, menu,2)" routerLink="/admin/serial">串口连接</li>
           </ul>
         </li>
 
-
         <li nz-submenu nzTitle="轮询器" nzIcon="setting">
           <ul>
-            <li nz-menu-item routerLink="/admin/mapper" (click)="this.v4=true">映射表</li>
-            <li nz-menu-item routerLink="/admin/poller" (click)="this.v5=true">轮询器</li>
+            <li nz-menu-item (contextmenu)="contextMenu($event, menu,3)" routerLink="/admin/mapper">映射表</li>
+            <li nz-menu-item (contextmenu)="contextMenu($event, menu,4)" routerLink="/admin/poller">轮询器</li>
           </ul>
         </li>
 
@@ -31,223 +41,18 @@
     </nz-sider>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item (click)="selectDropdown()">Action 1</li>
-        <li nz-menu-item (click)="selectDropdown()">Action 2</li>
+        <li nz-menu-item (click)="selectDropdown( )">编辑</li>
       </ul>
     </nz-dropdown-menu>
-    <nz-modal [(nzVisible)]="v1" nzTitle="TCP服务器" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
-      <ng-container *nzModalContent>
-        <form nz-form >
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="id"  >id</nz-form-label>
-            <nz-form-control [nzSpan]="3"  >
-              <input nz-input name="id">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="name">name</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="name">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="desc">desc</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="desc">
-            </nz-form-control>
-          </nz-form-item>
+    <app-server-fm [isVisible]="ary[0]" [title]="'TCP服务器'" [text]="'提交'" (back)=clientFm($event)></app-server-fm>
+    <app-client-fm [isVisible]="ary[1]" [title]="'TCP客户端'"  [text]="'提交'" (back)=clientFm($event)></app-client-fm>
+    <app-serial-fm [isVisible]="ary[2]" [title]="'串口连接'" [text]="'提交'" (back)=clientFm($event)></app-serial-fm>
+    <app-mapper-fm [isVisible]="ary[3]" [title]="'映射表'" [text]="'提交'" (back)=clientFm($event)></app-mapper-fm>
+    <app-poller-fm [isVisible]="ary[4]" [title]="'轮询器'" [text]="'提交'" (back)=clientFm($event)></app-poller-fm>
+    
 
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">port</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a port" name="port">
-                <nz-option nzLabel="5001" nzValue="5001"></nz-option>
-                <nz-option nzLabel="5002" nzValue="5002"></nz-option>
-                <nz-option nzLabel="5003" nzValue="5003"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="created">created</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="created">
-            </nz-form-control>
-          </nz-form-item>
-
-        </form>
-      </ng-container>
-    </nz-modal>
-    <nz-modal [(nzVisible)]="v2" nzTitle="TCP客户端" (nzOnCancel)="handleCancel2()" (nzOnOk)="handleOk2()">
-      <ng-container *nzModalContent>
-        <form nz-form>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="id">id</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="id">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="name">name</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="name">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="address">address</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="address">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="port">port</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a port">
-                <nz-option nzLabel="5001" nzValue="5001"></nz-option>
-                <nz-option nzLabel="5002" nzValue="5002"></nz-option>
-                <nz-option nzLabel="5003" nzValue="5003"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="created">created</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="created">
-            </nz-form-control>
-          </nz-form-item>
-
-        </form>
-
-      </ng-container>
-    </nz-modal>
-    <nz-modal [(nzVisible)]="v3" nzTitle="串口连接" (nzOnCancel)="handleCancel3()" (nzOnOk)="handleOk3()">
-      <ng-container *nzModalContent>
-        <form nz-form>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">id</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="id">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">name</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="name">
-            </nz-form-control>
-          </nz-form-item>
-
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">port</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a port">
-                <nz-option nzLabel="5001" nzValue="5001"></nz-option>
-                <nz-option nzLabel="5002" nzValue="5002"></nz-option>
-                <nz-option nzLabel="5003" nzValue="5003"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">created</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="created">
-            </nz-form-control>
-          </nz-form-item>
-
-        </form>
-      </ng-container>
-    </nz-modal>
-
-
-    <nz-modal [(nzVisible)]="v4" nzTitle="映射表" (nzOnCancel)="handleCancel4()" (nzOnOk)="handleOk4()">
-      <ng-container *nzModalContent>
-        <form nz-form>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="id">id</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="id">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="name">name</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="name">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="desc">desc</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="desc">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="code">code</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="code">
-            </nz-form-control>
-          </nz-form-item>
-          
-            <nz-form-item>
-              <nz-form-label [nzSpan]="6" nzFor="size">size</nz-form-label>
-              <nz-form-control [nzSpan]="5">
-                <input nz-input name="size">
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="created">created</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="created">
-            </nz-form-control>
-          </nz-form-item>
-
-        </form>
-      </ng-container>
-    </nz-modal>
-
-
-    <nz-modal [(nzVisible)]="v5" nzTitle="轮询器" (nzOnCancel)="handleCancel5()" (nzOnOk)="handleOk5()">
-      <ng-container *nzModalContent>
-        <form nz-form>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">id</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="id">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">name</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="name">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">desc</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="desc">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">period</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="period">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">interval</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="interval">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">created</nz-form-label>
-            <nz-form-control [nzSpan]="5">
-              <input nz-input name="created">
-            </nz-form-control>
-          </nz-form-item>
-
-        </form>
-      </ng-container>
-    </nz-modal>
+     
+     
     <nz-content>
       <router-outlet></router-outlet>
     </nz-content>

@@ -1,0 +1,43 @@
+<nz-modal [nzVisible]="isVisible" [nzTitle]="title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkText]="text" >
+    <ng-container *nzModalContent>
+      <form nz-form [formGroup]="validateForm">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="id" nzRequired>id</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="idErrorTpl">
+            <input nz-input name="id" formControlName="id">
+            <ng-template #idErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">Please input id!</ng-container> 
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="name" nzRequired>name</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="nameErrorTpl">
+            <input nz-input name="name" formControlName="name">
+            <ng-template #nameErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">Please input name!</ng-container> 
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        
+  
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="port" nzRequired>port</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="portErrorTpl">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a port" name="port" formControlName="port">
+              <nz-option nzLabel="5001" nzValue="5001"></nz-option>
+              <nz-option nzLabel="5002" nzValue="5002"></nz-option>
+              <nz-option nzLabel="5003" nzValue="5003"></nz-option>
+            </nz-select>
+            <ng-template #portErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">Please input port!</ng-container> 
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+  
+        
+  
+      </form>
+    </ng-container>
+  </nz-modal>
+  
