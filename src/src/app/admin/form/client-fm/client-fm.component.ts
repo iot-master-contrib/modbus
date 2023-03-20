@@ -29,7 +29,7 @@ export class ClientFmComponent implements OnInit {
   @Output() back = new EventEmitter() //modal close
   handleCancel() {
     this.isVisible = false;
-    this.back.emit(0)
+    this.back.emit(1)
     this.reset();
   }
   handleOk() {
