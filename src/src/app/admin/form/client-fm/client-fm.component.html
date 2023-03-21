@@ -1,6 +1,6 @@
 <nz-modal [nzVisible]="isVisible" [nzTitle]="title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkText]="text" >
     <ng-container *nzModalContent>
-     <form nz-form [formGroup]="validateForm"    >  <!-- ngModelGroup="css" -->
+     <form nz-form [formGroup]="validateForm"    >   
         <nz-form-item>
           <nz-form-label [nzSpan]="5" nzFor="id" nzRequired>id</nz-form-label>
           <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="idErrorTpl">

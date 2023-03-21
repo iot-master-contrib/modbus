@@ -30,7 +30,7 @@ export class MapperFmComponent implements OnInit{
   @Output() back = new EventEmitter()
   handleCancel() {
     this.isVisible = false;  
-    this.back.emit(2)
+    this.back.emit(3)
     this.reset();
   }
   handleOk() {

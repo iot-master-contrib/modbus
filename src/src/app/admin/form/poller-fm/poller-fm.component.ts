@@ -30,7 +30,7 @@ export class PollerFmComponent implements OnInit {
   @Output() back = new EventEmitter()
   handleCancel() {
     this.isVisible = false;
-    this.back.emit(0)
+    this.back.emit(4)
     this.reset();
   }
   handleOk() {
