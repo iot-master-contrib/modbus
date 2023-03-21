@@ -2,16 +2,16 @@ package types
 
 import "github.com/zgwit/iot-master/v3/model"
 
-type Mapper struct {
-	Id   string
-	Name string
-	Desc string
+type Product struct {
+	//Id   string `json:"id" xorm:"pk"`
+	model.Product `xorm:"extends"`
+	Mappers       []Mapper `json:"mappers" xorm:"json"`
+}
 
-	Code   uint8
+type Mapper struct {
+	Code   uint8 //指令
 	Size   uint16
 	Points []Point
-
-	Created model.Time
 }
 
 type Point struct {

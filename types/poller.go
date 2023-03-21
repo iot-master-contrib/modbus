@@ -12,11 +12,10 @@ type Poller struct {
 	Id       string
 	TunnelId string
 
+	Slave uint8
+
 	ProductId string //产品ID
 	DeviceId  string //子设备号
-
-	Slave   uint8
-	Mappers []string
 
 	Created model.Time
 }
