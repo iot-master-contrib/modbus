@@ -2,12 +2,6 @@ package types
 
 import "github.com/zgwit/iot-master/v3/model"
 
-type PollerOptions struct {
-	Period   uint //采集周期
-	Interval uint //采集间隔
-
-}
-
 type Poller struct {
 	Id       string
 	TunnelId string

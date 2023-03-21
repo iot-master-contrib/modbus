@@ -1,14 +1,9 @@
 package types
 
-import "github.com/zgwit/iot-master/v3/model"
-
 type Client struct {
-	Id        string
-	Name      string
-	Addr      string
-	Port      uint16
-	Heartbeat string //心跳包
-	Period    uint   //采集周期
-	Interval  uint
-	Created   model.Time
+	Tunnel `xorm:"extends"`
+	Retry  `xorm:"extends"`
+	Net    string `json:"net"`            //类型 tcp udp
+	Addr   string `json:"addr,omitempty"` //地址，主机名或IP
+	Port   uint16 `json:"port,omitempty"` //端口号
 }

@@ -1,10 +1,9 @@
 package types
 
-import "github.com/zgwit/iot-master/v3/model"
+import "github.com/jacobsa/go-serial/serial"
 
 type Serial struct {
-	Id      string
-	Name    string
-	Port    string
-	Created model.Time
+	Tunnel             `xorm:"extends"`
+	Retry              `xorm:"extends"`
+	serial.OpenOptions `xorm:"extends"`
 }
