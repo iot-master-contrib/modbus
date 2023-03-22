@@ -11,11 +11,11 @@ import { NzNotificationService } from "ng-zorro-antd/notification";
 })
 export class RequestService {
 
-  public base = '/app/modbus/api/'; //使用ng brokers proxy.config.json
+  public base = '/api/'; //使用ng brokers proxy.config.json
   //public base = environment.host;
 
   constructor(
-    private http: HttpClient,   private message: NzNotificationService, 
+    private http: HttpClient,   private message: NzNotificationService,
     private route: Router
     ) {
   }
