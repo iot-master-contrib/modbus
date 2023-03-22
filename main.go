@@ -133,7 +133,7 @@ func originMain() {
 	//同步表结构
 	err = db.Engine.Sync2(
 		new(model.Client), new(model.Server),
-		new(model.ServerClient), new(model.Serial),
+		new(model.Link), new(model.Serial),
 		new(model.Product),
 	)
 	if err != nil {

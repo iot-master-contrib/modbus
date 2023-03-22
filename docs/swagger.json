@@ -7,5 +7,1946 @@
         "version": "1.0 版本"
     },
     "basePath": "/api/",
-    "paths": {}
+    "paths": {
+        "/client/count": {
+            "post": {
+                "description": "查询客户端数量",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "client"
+                ],
+                "summary": "查询客户端数量",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
+        "/client/create": {
+            "post": {
+                "description": "创建客户端",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "client"
+                ],
+                "summary": "创建客户端",
+                "parameters": [
+                    {
+                        "description": "客户端信息",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Client"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                        }
+                    }
+                }
+            }
+        },
+        "/client/list": {
+            "get": {
+                "description": "查询客户端",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "client"
+                ],
+                "summary": "查询客户端",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "skip",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-model_Client"
+                        }
+                    }
+                }
+            }
+        },
+        "/client/search": {
+            "post": {
+                "description": "查询客户端",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "client"
+                ],
+                "summary": "查询客户端",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-model_Client"
+                        }
+                    }
+                }
+            }
+        },
+        "/client/{id}": {
+            "get": {
+                "description": "获取客户端",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "client"
+                ],
+                "summary": "获取客户端",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "客户端ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改客户端",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "client"
+                ],
+                "summary": "修改客户端",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "客户端ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "客户端信息",
+                        "name": "client",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Client"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                        }
+                    }
+                }
+            }
+        },
+        "/client/{id}/delete": {
+            "get": {
+                "description": "删除客户端",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "client"
+                ],
+                "summary": "删除客户端",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "客户端ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                        }
+                    }
+                }
+            }
+        },
+        "/client/{id}/disable": {
+            "get": {
+                "description": "禁用客户端",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "client"
+                ],
+                "summary": "禁用客户端",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "客户端ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                        }
+                    }
+                }
+            }
+        },
+        "/client/{id}/enable": {
+            "get": {
+                "description": "启用客户端",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "client"
+                ],
+                "summary": "启用客户端",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "客户端ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/count": {
+            "post": {
+                "description": "查询连接数量",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link"
+                ],
+                "summary": "查询连接数量",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/create": {
+            "post": {
+                "description": "创建连接",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link"
+                ],
+                "summary": "创建连接",
+                "parameters": [
+                    {
+                        "description": "连接信息",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Link"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/list": {
+            "get": {
+                "description": "查询连接",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link"
+                ],
+                "summary": "查询连接",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "skip",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-model_Link"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/search": {
+            "post": {
+                "description": "查询连接",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link"
+                ],
+                "summary": "查询连接",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-model_Link"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/{id}": {
+            "get": {
+                "description": "获取连接",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link"
+                ],
+                "summary": "获取连接",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "连接ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改连接",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link"
+                ],
+                "summary": "修改连接",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "连接ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "连接信息",
+                        "name": "link",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Link"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/{id}/delete": {
+            "get": {
+                "description": "删除连接",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link"
+                ],
+                "summary": "删除连接",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "连接ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/{id}/disable": {
+            "get": {
+                "description": "禁用连接",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link"
+                ],
+                "summary": "禁用连接",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "连接ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                        }
+                    }
+                }
+            }
+        },
+        "/link/{id}/enable": {
+            "get": {
+                "description": "启用连接",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "link"
+                ],
+                "summary": "启用连接",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "连接ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/count": {
+            "post": {
+                "description": "查询产品数量",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "查询产品数量",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/create": {
+            "post": {
+                "description": "创建产品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "创建产品",
+                "parameters": [
+                    {
+                        "description": "产品信息",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Product"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/list": {
+            "get": {
+                "description": "查询产品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "查询产品",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "skip",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-model_Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/search": {
+            "post": {
+                "description": "查询产品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "查询产品",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-model_Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{id}": {
+            "get": {
+                "description": "获取产品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "获取产品",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "产品ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改产品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "修改产品",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "产品ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "产品信息",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Product"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{id}/delete": {
+            "get": {
+                "description": "删除产品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "删除产品",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "产品ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/serial/count": {
+            "post": {
+                "description": "查询串口数量",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "serial"
+                ],
+                "summary": "查询串口数量",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
+        "/serial/create": {
+            "post": {
+                "description": "创建串口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "serial"
+                ],
+                "summary": "创建串口",
+                "parameters": [
+                    {
+                        "description": "串口信息",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Serial"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                        }
+                    }
+                }
+            }
+        },
+        "/serial/list": {
+            "get": {
+                "description": "查询串口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "serial"
+                ],
+                "summary": "查询串口",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "skip",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-model_Serial"
+                        }
+                    }
+                }
+            }
+        },
+        "/serial/search": {
+            "post": {
+                "description": "查询串口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "serial"
+                ],
+                "summary": "查询串口",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-model_Serial"
+                        }
+                    }
+                }
+            }
+        },
+        "/serial/{id}": {
+            "get": {
+                "description": "获取串口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "serial"
+                ],
+                "summary": "获取串口",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "串口ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改串口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "serial"
+                ],
+                "summary": "修改串口",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "串口ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "串口信息",
+                        "name": "serial",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Serial"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                        }
+                    }
+                }
+            }
+        },
+        "/serial/{id}/delete": {
+            "get": {
+                "description": "删除串口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "serial"
+                ],
+                "summary": "删除串口",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "串口ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                        }
+                    }
+                }
+            }
+        },
+        "/serial/{id}/disable": {
+            "get": {
+                "description": "禁用串口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "serial"
+                ],
+                "summary": "禁用串口",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "串口ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                        }
+                    }
+                }
+            }
+        },
+        "/serial/{id}/enable": {
+            "get": {
+                "description": "启用串口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "serial"
+                ],
+                "summary": "启用串口",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "串口ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                        }
+                    }
+                }
+            }
+        },
+        "/server/count": {
+            "post": {
+                "description": "查询服务器数量",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "server"
+                ],
+                "summary": "查询服务器数量",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
+        "/server/create": {
+            "post": {
+                "description": "创建服务器",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "server"
+                ],
+                "summary": "创建服务器",
+                "parameters": [
+                    {
+                        "description": "服务器信息",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Server"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                        }
+                    }
+                }
+            }
+        },
+        "/server/list": {
+            "get": {
+                "description": "查询服务器",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "server"
+                ],
+                "summary": "查询服务器",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "skip",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-model_Server"
+                        }
+                    }
+                }
+            }
+        },
+        "/server/search": {
+            "post": {
+                "description": "查询服务器",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "server"
+                ],
+                "summary": "查询服务器",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-model_Server"
+                        }
+                    }
+                }
+            }
+        },
+        "/server/{id}": {
+            "get": {
+                "description": "获取服务器",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "server"
+                ],
+                "summary": "获取服务器",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "服务器ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改服务器",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "server"
+                ],
+                "summary": "修改服务器",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "服务器ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "服务器信息",
+                        "name": "server",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Server"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                        }
+                    }
+                }
+            }
+        },
+        "/server/{id}/delete": {
+            "get": {
+                "description": "删除服务器",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "server"
+                ],
+                "summary": "删除服务器",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "服务器ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                        }
+                    }
+                }
+            }
+        },
+        "/server/{id}/disable": {
+            "get": {
+                "description": "禁用服务器",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "server"
+                ],
+                "summary": "禁用服务器",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "服务器ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                        }
+                    }
+                }
+            }
+        },
+        "/server/{id}/enable": {
+            "get": {
+                "description": "启用服务器",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "server"
+                ],
+                "summary": "启用服务器",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "服务器ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "api.ParamSearch": {
+            "type": "object",
+            "properties": {
+                "filter": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "keyword": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "skip": {
+                    "type": "integer"
+                },
+                "sort": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "api.ReplyData-int64": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "integer"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-model_Client": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.Client"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-model_Link": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.Link"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-model_Product": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.Product"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-model_Serial": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.Serial"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-model_Server": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.Server"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyList-model_Client": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Client"
+                    }
+                },
+                "error": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ReplyList-model_Link": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Link"
+                    }
+                },
+                "error": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ReplyList-model_Product": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Product"
+                    }
+                },
+                "error": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ReplyList-model_Serial": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Serial"
+                    }
+                },
+                "error": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ReplyList-model_Server": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Server"
+                    }
+                },
+                "error": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.Client": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "description": "地址，主机名或IP",
+                    "type": "string"
+                },
+                "created": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "说明",
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "heartbeat": {
+                    "description": "心跳包",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "ID",
+                    "type": "string"
+                },
+                "interval": {
+                    "description": "采集间隔",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "net": {
+                    "description": "类型 tcp udp",
+                    "type": "string"
+                },
+                "period": {
+                    "description": "采集周期",
+                    "type": "integer"
+                },
+                "port": {
+                    "description": "端口号",
+                    "type": "integer"
+                },
+                "retry": {
+                    "$ref": "#/definitions/model.Retry"
+                }
+            }
+        },
+        "model.Link": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "说明",
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "heartbeat": {
+                    "description": "心跳包",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "ID",
+                    "type": "string"
+                },
+                "interval": {
+                    "description": "采集间隔",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "period": {
+                    "description": "采集周期",
+                    "type": "integer"
+                },
+                "remote": {
+                    "description": "远程地址",
+                    "type": "string"
+                },
+                "server_id": {
+                    "description": "服务器ID",
+                    "type": "string"
+                }
+            }
+        },
+        "model.Mapper": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "指令",
+                    "type": "integer"
+                },
+                "points": {
+                    "description": "数据点",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Point"
+                    }
+                },
+                "size": {
+                    "description": "长度",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.Point": {
+            "type": "object",
+            "properties": {
+                "be": {
+                    "description": "大端模式",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "offset": {
+                    "description": "偏移",
+                    "type": "integer"
+                },
+                "rate": {
+                    "description": "倍率",
+                    "type": "number"
+                },
+                "type": {
+                    "description": "类型",
+                    "type": "string"
+                }
+            }
+        },
+        "model.Product": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "说明",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "mappers": {
+                    "description": "model.Product `xorm:\"extends\"`",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Mapper"
+                    }
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                }
+            }
+        },
+        "model.Retry": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean"
+                },
+                "maximum": {
+                    "type": "integer"
+                },
+                "minimum": {
+                    "type": "integer"
+                },
+                "timeout": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.Serial": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "说明",
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "heartbeat": {
+                    "description": "心跳包",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "ID",
+                    "type": "string"
+                },
+                "interval": {
+                    "description": "采集间隔",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "options": {
+                    "$ref": "#/definitions/model.SerialOptions"
+                },
+                "period": {
+                    "description": "采集周期",
+                    "type": "integer"
+                },
+                "retry": {
+                    "$ref": "#/definitions/model.Retry"
+                }
+            }
+        },
+        "model.SerialOptions": {
+            "type": "object",
+            "properties": {
+                "baud_rate": {
+                    "description": "9600 115200",
+                    "type": "integer"
+                },
+                "data_bits": {
+                    "description": "5 6 7 8",
+                    "type": "integer"
+                },
+                "inter_character_timeout": {
+                    "type": "integer"
+                },
+                "minimum_read_size": {
+                    "type": "integer"
+                },
+                "parity_mode": {
+                    "description": "0 1 2 NONE ODD EVEN",
+                    "type": "integer"
+                },
+                "port_name": {
+                    "description": "port, e.g. COM1 \"/dev/ttySerial1\".",
+                    "type": "string"
+                },
+                "rs485_enable": {
+                    "type": "boolean"
+                },
+                "stop_bits": {
+                    "description": "1 2",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.Server": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "说明",
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "heartbeat": {
+                    "description": "心跳包",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "ID",
+                    "type": "string"
+                },
+                "interval": {
+                    "description": "采集间隔",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "period": {
+                    "description": "采集周期",
+                    "type": "integer"
+                },
+                "port": {
+                    "description": "监听端口",
+                    "type": "integer"
+                },
+                "standalone": {
+                    "description": "单例模式（不支持注册）",
+                    "type": "boolean"
+                }
+            }
+        }
+    }
 }

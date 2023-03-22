@@ -12,7 +12,8 @@ type Tunnel struct {
 	Period   uint `json:"period,omitempty"`   //采集周期
 	Interval uint `json:"interval,omitempty"` //采集间隔
 
-	Created model.Time `json:"created" xorm:"created"` //创建时间
+	Disabled bool       `json:"disabled"`
+	Created  model.Time `json:"created" xorm:"created"` //创建时间
 }
 
 type Retry struct {

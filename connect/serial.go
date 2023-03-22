@@ -26,7 +26,18 @@ func (s *Serial) Open() error {
 		return errors.New("serial is opened")
 	}
 
-	port, err := serial.Open(s.model.OpenOptions)
+	opts := serial.OpenOptions{
+		PortName:              s.model.Options.PortName,
+		BaudRate:              s.model.Options.BaudRate,
+		DataBits:              s.model.Options.DataBits,
+		StopBits:              s.model.Options.StopBits,
+		ParityMode:            serial.ParityMode(s.model.Options.ParityMode),
+		InterCharacterTimeout: s.model.Options.InterCharacterTimeout,
+		MinimumReadSize:       s.model.Options.MinimumReadSize,
+		Rs485Enable:           s.model.Options.Rs485Enable,
+	}
+
+	port, err := serial.Open(opts)
 	if err != nil {
 		//TODO 串口重试
 		s.Retry()

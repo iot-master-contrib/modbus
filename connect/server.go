@@ -12,7 +12,7 @@ import (
 type Server struct {
 	model *model.Server
 
-	children map[string]*ServerClient
+	children map[string]*Link
 
 	listener *net.TCPListener
 
@@ -22,7 +22,7 @@ type Server struct {
 func NewServer(model *model.Server) *Server {
 	s := &Server{
 		model:    model,
-		children: make(map[string]*ServerClient),
+		children: make(map[string]*Link),
 	}
 	return s
 }
@@ -57,7 +57,7 @@ func (s *Server) Open() error {
 				if cc, ok := s.children[k]; ok {
 					_ = cc.Close()
 				}
-				s.children[k] = newServerClient(&model.ServerClient{
+				s.children[k] = newLink(&model.Link{
 					Tunnel:   s.model.Tunnel,
 					ServerId: s.model.Id,
 					Remote:   c.RemoteAddr().String(),
@@ -75,7 +75,7 @@ func (s *Server) Open() error {
 			data := buf[:n]
 			sn := string(data)
 
-			var client model.ServerClient
+			var client model.Link
 			//get, err := db.Engine.Where("server_id=?", s.model.Id).And("sn=?", sn).Get(&client)
 			get, err := db.Engine.ID(sn).Get(&client)
 			if err != nil {
@@ -84,7 +84,7 @@ func (s *Server) Open() error {
 				return
 			}
 			if !get {
-				client = model.ServerClient{
+				client = model.Link{
 					Tunnel:   s.model.Tunnel,
 					ServerId: s.model.Id,
 					Remote:   c.RemoteAddr().String(),
@@ -98,7 +98,7 @@ func (s *Server) Open() error {
 				}
 			}
 
-			tnl := newServerClient(&client, c)
+			tnl := newLink(&client, c)
 			s.children[sn] = tnl
 		}
 

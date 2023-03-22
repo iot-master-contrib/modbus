@@ -15,7 +15,7 @@ type Configure struct {
 	Node     string       `yaml:"node" json:"node"`
 	Web      web.Options  `yaml:"web" json:"web"`
 	Database db.Options   `yaml:"database" json:"database"`
-	MQTT     mqtt.Options `yaml:"mqtt" json:"mqtt"`
+	Mqtt     mqtt.Options `yaml:"mqtt" json:"mqtt"`
 	Log      log.Options  `yaml:"log" json:"log"`
 }
 
@@ -24,7 +24,7 @@ var Config = Configure{
 	Node:     "root",
 	Web:      web.Default(),
 	Database: db.Default(),
-	MQTT:     mqtt.Default(),
+	Mqtt:     mqtt.Default(),
 	Log:      log.Default(),
 }
 
