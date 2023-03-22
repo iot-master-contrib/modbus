@@ -4,6 +4,7 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
+	"github.com/zgwit/iot-master/v3/pkg/web"
 	"gopkg.in/yaml.v3"
 	"modbus/args"
 	"os"
@@ -12,6 +13,7 @@ import (
 // Configure 配置
 type Configure struct {
 	Node     string       `yaml:"node" json:"node"`
+	Web      web.Options  `yaml:"web" json:"web"`
 	Database db.Options   `yaml:"database" json:"database"`
 	MQTT     mqtt.Options `yaml:"mqtt" json:"mqtt"`
 	Log      log.Options  `yaml:"log" json:"log"`
@@ -20,6 +22,7 @@ type Configure struct {
 // Config 全局配置
 var Config = Configure{
 	Node:     "root",
+	Web:      web.Default(),
 	Database: db.Default(),
 	MQTT:     mqtt.Default(),
 	Log:      log.Default(),
@@ -27,7 +30,9 @@ var Config = Configure{
 
 func init() {
 	Config.Node, _ = os.Hostname()
-	//TODO imei sn
+	Config.Web.Addr = ":8088"
+	Config.Database.URL = "root:root@tcp(git.zgwit.com:3306)/modbus?charset=utf8"
+	//TODO get imei sn
 }
 
 // Load 加载

@@ -1,4 +1,4 @@
-package types
+package model
 
 import "github.com/jacobsa/go-serial/serial"
 

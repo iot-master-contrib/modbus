@@ -1,17 +1,27 @@
 package main
 
 import (
+	"embed"
 	"github.com/kardianos/service"
-	"github.com/zgwit/iot-master/v2/pkg/log"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/zgwit/iot-master/v3/pkg/db"
+	"github.com/zgwit/iot-master/v3/pkg/log"
+	"github.com/zgwit/iot-master/v3/pkg/mqtt"
+	"github.com/zgwit/iot-master/v3/pkg/web"
+	swaggerFiles "github.com/zgwit/swagger-files"
+	"modbus/api"
 	"modbus/args"
 	"modbus/config"
-	"modbus/core"
-	"modbus/db"
-	"modbus/dbus"
+	_ "modbus/docs"
+	"modbus/model"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 )
+
+//go:embed all:www
+var wwwFiles embed.FS
 
 var serviceConfig = &service.Config{
 	Name:        "iot-master-gateway",
@@ -20,6 +30,11 @@ var serviceConfig = &service.Config{
 	Arguments:   nil,
 }
 
+// @title 物联大师网关接口文档
+// @version 1.0 版本
+// @description API文档
+// @BasePath /api/
+// @query.collection.format multi
 func main() {
 	args.Parse()
 
@@ -115,16 +130,53 @@ func originMain() {
 	}
 	defer db.Close()
 
-	dbus.Open(config.Config.MQTT)
+	//同步表结构
+	err = db.Engine.Sync2(
+		new(model.Client), new(model.Server),
+		new(model.ServerClient), new(model.Serial),
+		new(model.Product),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	core.Open(config.Config.Node)
+	//MQTT总线
+	err = mqtt.Open(config.Config.Mqtt)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer mqtt.Close()
+	//
+	////加载主程序
+	//err = internal.Open()
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//defer internal.Close()
+
+	app := web.CreateEngine(config.Config.Web)
+
+	//注册前端接口
+	api.RegisterRoutes(app.Group("/api"))
+
+	//注册接口文档
+	app.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	//前端静态文件
+	web.RegisterFS(app, http.FS(wwwFiles))
+
+	//监听HTTP
+	err = app.Run(config.Config.Web.Addr)
+	if err != nil {
+		log.Fatal("HTTP 服务启动错误", err)
+	}
 }
 
 func shutdown() error {
 
 	//_ = database.Close()
 	//_ = tsdb.Close()
-	//core.Close()
+	//connect.Close()
 	//master.Close()
 
 	//只关闭Web就行了，其他通过defer关闭

@@ -4,17 +4,17 @@ import (
 	"errors"
 	"github.com/jacobsa/go-serial/serial"
 	"github.com/zgwit/iot-master/v3/pkg/log"
-	"modbus/types"
+	"modbus/model"
 	"time"
 )
 
 // Serial 串口
 type Serial struct {
 	tunnelBase
-	model *types.Serial
+	model *model.Serial
 }
 
-func NewSerial(model *types.Serial) *Serial {
+func NewSerial(model *model.Serial) *Serial {
 	return &Serial{
 		model: model,
 	}

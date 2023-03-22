@@ -1,4 +1,4 @@
-package types
+package model
 
 type Product struct {
 	Id string `json:"id" xorm:"pk"`

@@ -2,17 +2,17 @@ package connect
 
 import (
 	"errors"
-	"modbus/types"
+	"modbus/model"
 	"net"
 )
 
 // ServerClient 网络连接
 type ServerClient struct {
 	tunnelBase
-	model *types.ServerClient
+	model *model.ServerClient
 }
 
-func newServerClient(client *types.ServerClient, conn net.Conn) *ServerClient {
+func newServerClient(client *model.ServerClient, conn net.Conn) *ServerClient {
 	return &ServerClient{
 		model: client,
 		tunnelBase: tunnelBase{

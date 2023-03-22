@@ -3,7 +3,7 @@ package connect
 import (
 	"errors"
 	"github.com/zgwit/iot-master/v3/pkg/log"
-	"modbus/types"
+	"modbus/model"
 	"net"
 	"time"
 )
@@ -11,10 +11,10 @@ import (
 // Client 网络链接
 type Client struct {
 	tunnelBase
-	model *types.Client
+	model *model.Client
 }
 
-func NewClient(client *types.Client) *Client {
+func NewClient(client *model.Client) *Client {
 	return &Client{
 		model: client,
 	}

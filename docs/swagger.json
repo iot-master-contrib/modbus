@@ -1,0 +1,11 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API文档",
+        "title": "物联大师网关接口文档",
+        "contact": {},
+        "version": "1.0 版本"
+    },
+    "basePath": "/api/",
+    "paths": {}
+}

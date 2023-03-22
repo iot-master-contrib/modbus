@@ -4,13 +4,13 @@ import (
 	"errors"
 	"fmt"
 	"github.com/zgwit/iot-master/v3/pkg/db"
-	"modbus/types"
+	"modbus/model"
 	"net"
 )
 
 // Server TCP服务器
 type Server struct {
-	model *types.Server
+	model *model.Server
 
 	children map[string]*ServerClient
 
@@ -19,7 +19,7 @@ type Server struct {
 	running bool
 }
 
-func NewServer(model *types.Server) *Server {
+func NewServer(model *model.Server) *Server {
 	s := &Server{
 		model:    model,
 		children: make(map[string]*ServerClient),
@@ -57,7 +57,7 @@ func (s *Server) Open() error {
 				if cc, ok := s.children[k]; ok {
 					_ = cc.Close()
 				}
-				s.children[k] = newServerClient(&types.ServerClient{
+				s.children[k] = newServerClient(&model.ServerClient{
 					Tunnel:   s.model.Tunnel,
 					ServerId: s.model.Id,
 					Remote:   c.RemoteAddr().String(),
@@ -75,7 +75,7 @@ func (s *Server) Open() error {
 			data := buf[:n]
 			sn := string(data)
 
-			var client types.ServerClient
+			var client model.ServerClient
 			//get, err := db.Engine.Where("server_id=?", s.model.Id).And("sn=?", sn).Get(&client)
 			get, err := db.Engine.ID(sn).Get(&client)
 			if err != nil {
@@ -84,7 +84,7 @@ func (s *Server) Open() error {
 				return
 			}
 			if !get {
-				client = types.ServerClient{
+				client = model.ServerClient{
 					Tunnel:   s.model.Tunnel,
 					ServerId: s.model.Id,
 					Remote:   c.RemoteAddr().String(),
