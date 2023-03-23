@@ -134,7 +134,7 @@ func originMain() {
 	err = db.Engine.Sync2(
 		new(model.Client), new(model.Server),
 		new(model.Link), new(model.Serial),
-		new(model.Product),
+		new(model.Product), new(model.Device),
 	)
 	if err != nil {
 		log.Fatal(err)
