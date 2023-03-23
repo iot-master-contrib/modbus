@@ -1,0 +1,107 @@
+<ng-template #extra>
+
+    <button nz-button nzType="primary" (click)="submit()">
+      <i nz-icon nzType="save" nzTheme="outline"></i>
+      保存
+    </button>
+  </ng-template>
+  
+  <nz-card nzTitle="日志" [nzExtra]="extra">
+    <form nz-form [formGroup]="group" (ngSubmit)="submit()">
+    
+       
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="Filename">文件名</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="FilenameErrorTpl">
+          <input nz-input name="Filename"  formControlName="Filename"/>
+          <ng-template #FilenameErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入文件名!</ng-container> 
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+  
+       
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="Level">等级</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="LevelErrorTpl">
+          <input nz-input name="Level" formControlName="Level"/>
+          <ng-template #LevelErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入日志等级!</ng-container> 
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+  
+      
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="Format">文本格式</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="FormatErrorTpl">
+          <input nz-input name="Format" formControlName="Format"/>
+          <ng-template #FormatErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请设置文本格式!</ng-container> 
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+       
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="Output">输出</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="OutputErrorTpl">
+          <input nz-input name="Output"  formControlName="Output"/>
+          <ng-template #OutputErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请设置输出信息!</ng-container> 
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="MaxSize" nzRequired>最大容量</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="MaxSizeErrorTpl">
+          <nz-input-number class="num"  formControlName="MaxSize" name="MaxSize"   [nzMax]="5" [nzMin]="1"></nz-input-number>
+           <ng-template #MaxSizeErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入日志最大容量!</ng-container> 
+          </ng-template>
+          
+        </nz-form-control>
+      </nz-form-item>
+
+     
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="MaxAge" nzRequired>保留时间</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="MaxAgeErrorTpl">
+          <nz-input-number  class="num"   formControlName="MaxAge" name="MaxAge"   [nzMax]="5" [nzMin]="1"></nz-input-number>
+           <ng-template #MaxAgeErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入日志保留时间!</ng-container> 
+          </ng-template>
+          
+        </nz-form-control>
+      </nz-form-item>
+
+      
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="MaxBackups" nzRequired>最大备份数</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="MaxBackupsErrorTpl">
+          <nz-input-number class="num"  formControlName="MaxBackups" name="MaxBackups"   [nzMax]="5" [nzMin]="1"></nz-input-number>
+        <ng-template #MaxBackupsErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入备份数量!</ng-container> 
+          </ng-template>
+          </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Text"  >文本</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback  > 
+          <nz-switch [ngModel]="false"  name="Text"  formControlName="Text"></nz-switch>  
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Caller"  >显示调用</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback  > 
+          <nz-switch [ngModel]="false"  name="Caller"  formControlName="Caller"></nz-switch>  
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+  </nz-card>
+  

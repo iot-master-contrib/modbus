@@ -16,6 +16,13 @@
   <nz-layout class="main">
     <nz-sider>
       <ul nz-menu nzMode="inline" [nzTheme]="'dark'">
+        <li nz-submenu nzTitle="产品管理" nzIcon="project">
+          <ul>
+            <li nz-menu-item routerLink="/admin/product">产品</li>
+            <li nz-menu-item (contextmenu)="contextMenu($event, menu,4)" routerLink="/admin/poller">轮询器</li>
+          </ul>
+        </li>
+
         <li nz-submenu nzTitle="连接管理" nzIcon="appstore">
           <ul>
             <li nz-menu-item (contextmenu)="contextMenu($event, menu,0)" routerLink="/admin/server"> TCP服务器 </li>
@@ -27,15 +34,20 @@
           </ul>
         </li>
 
-        <li nz-submenu nzTitle="轮询器" nzIcon="setting">
+        <!-- <li nz-submenu nzTitle="轮询器" nzIcon="setting">
           <ul>
             <li nz-menu-item (contextmenu)="contextMenu($event, menu,3)" routerLink="/admin/mapper">映射表</li>
             <li nz-menu-item (contextmenu)="contextMenu($event, menu,4)" routerLink="/admin/poller">轮询器</li>
           </ul>
-        </li>
+        </li> -->
 
         <li nz-submenu nzTitle="系统设置" nzIcon="apartment">
-
+          <ul>
+            <li nz-menu-item (contextmenu)="contextMenu($event, menu,9)" routerLink="/admin/setting/web"> Web</li>
+            <li nz-menu-item routerLink="/admin/setting/mqtt">消息总线</li>
+            <li nz-menu-item routerLink="/admin/setting/log">日志</li>
+            <li nz-menu-item routerLink="/admin/setting/database">数据库</li>
+          </ul>
         </li>
       </ul>
     </nz-sider>
@@ -45,14 +57,14 @@
       </ul>
     </nz-dropdown-menu>
     <app-server-fm [isVisible]="ary[0]" [title]="'TCP服务器'" [text]="'提交'" (back)=clientFm($event)></app-server-fm>
-    <app-client-fm [isVisible]="ary[1]" [title]="'TCP客户端'"  [text]="'提交'" (back)=clientFm($event)></app-client-fm>
+    <app-client-fm [isVisible]="ary[1]" [title]="'TCP客户端'" [text]="'提交'" (back)=clientFm($event)></app-client-fm>
     <app-serial-fm [isVisible]="ary[2]" [title]="'串口连接'" [text]="'提交'" (back)=clientFm($event)></app-serial-fm>
     <app-mapper-fm [isVisible]="ary[3]" [title]="'映射表'" [text]="'提交'" (back)=clientFm($event)></app-mapper-fm>
     <app-poller-fm [isVisible]="ary[4]" [title]="'轮询器'" [text]="'提交'" (back)=clientFm($event)></app-poller-fm>
-    
 
-     
-     
+
+
+
     <nz-content>
       <router-outlet></router-outlet>
     </nz-content>

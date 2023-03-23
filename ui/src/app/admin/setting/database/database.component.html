@@ -1,0 +1,65 @@
+<ng-template #extra>
+
+  <button nz-button nzType="primary" (click)="submit()">
+    <i nz-icon nzType="save" nzTheme="outline"></i>
+    保存
+  </button>
+</ng-template>
+
+<nz-card nzTitle="数据库" [nzExtra]="extra">
+
+  <form nz-form [formGroup]="group" (ngSubmit)="submit()">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Type" nzRequired>类型</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback  [nzErrorTip]="TypeErrorTpl">
+        <nz-select nzShowSearch nzAllowClear  name="Type" formControlName="Type">
+          <nz-option nzValue="sqlite3" nzLabel="SQLite3" nzDisabled></nz-option>
+          <nz-option nzValue="mysql" nzLabel="MySQL"></nz-option>
+          <nz-option nzValue="postgres" nzLabel="PostgreSQL"></nz-option>
+          <nz-option nzValue="oci8" nzLabel="Oracle"></nz-option>
+          <nz-option nzValue="mssql" nzLabel="MS SQL Server"></nz-option>
+        </nz-select>
+        <ng-template #TypeErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">请选择类型!</ng-container> 
+        </ng-template> 
+      </nz-form-control>
+    </nz-form-item>
+ 
+ 
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="URL">地址</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="UrlErrorTpl">
+        <input nz-input name="URL"   formControlName="URL"/>
+        <ng-template #UrlErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">请输入地址信息!</ng-container> 
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+     
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Debug"  >调试</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback  > 
+        <nz-switch [ngModel]="false"  name="Debug"  formControlName="Debug"></nz-switch>  
+      </nz-form-control>
+    </nz-form-item>
+
+
+    
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="LogLevel" nzRequired>日志</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="logErrorTpl">
+          <nz-input-number     formControlName="LogLevel" name="LogLevel"   [nzMax]="5" [nzMin]="1"></nz-input-number>
+
+          <ng-template #logErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请选择日志等级!</ng-container> 
+          </ng-template>
+          
+        </nz-form-control>
+      </nz-form-item>
+
+
+
+  </form>
+</nz-card>
