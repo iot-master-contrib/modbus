@@ -1,6 +1,6 @@
 <nz-layout>
   <nz-header>
-    <nz-page-header class="site-page-header" nzBackIcon nzTitle="轮询器" nzSubtitle="modbus_poller">
+    <nz-page-header class="site-page-header" nzBackIcon nzTitle="轮询器" nzSubtitle="modbus_device">
       <nz-page-header-extra  >
         <nz-space >
           <input *nzSpaceItem nz-input  placeholder="search value" [(ngModel)]="input" />
@@ -13,7 +13,7 @@
   </nz-header>
  
   <nz-content>
-    <nz-table #basicTable [nzData]="listOfData">
+    <nz-table #basicTable [nzData]="datum">
       <thead>
         <tr>
           <th>id</th>
@@ -45,8 +45,8 @@
             </a>
           </td>
         </tr>
-        <app-poller-fm #child [isVisible]="isVisible" [title]="'轮询器'" [text]="'修改'" (back)=clientFm($event)>
-        </app-poller-fm>
+        <app-device-fm #child [isVisible]="isVisible" [title]="'轮询器'" [text]="'修改'" (back)=clientFm($event)>
+        </app-device-fm>
       </tbody>
     </nz-table>
   </nz-content>

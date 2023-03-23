@@ -22,7 +22,7 @@ import { SerialComponent } from './admin/serial/serial.component';
 import { ServerComponent } from './admin/server/server.component';
 import { ClientComponent } from './admin/client/client.component';
 import { MapperComponent } from './admin/mapper/mapper.component';
-import { PollerComponent } from './admin/poller/poller.component';
+import { DeviceComponent } from './admin/device/device.component';
 import { ProductComponent } from './admin/product/product.component';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -32,7 +32,7 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { LinkComponent } from './admin/link/link.component';
 import { ClientFmComponent } from './admin/form/client-fm/client-fm.component';
 import { MapperFmComponent } from './admin/form/mapper-fm/mapper-fm.component';
-import { PollerFmComponent } from './admin/form/poller-fm/poller-fm.component';
+import { DeviceFmComponent } from './admin/form/device-fm/device-fm.component';
 import { SerialFmComponent } from './admin/form/serial-fm/serial-fm.component';
 import { ServerFmComponent } from './admin/form/server-fm/server-fm.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
@@ -50,11 +50,11 @@ registerLocaleData(zh);
     ServerComponent,
     ClientComponent,
     MapperComponent,
-    PollerComponent,
+    DeviceComponent,
     LinkComponent,
     ClientFmComponent,
     MapperFmComponent,
-    PollerFmComponent,
+    DeviceFmComponent,
     SerialFmComponent,
     ServerFmComponent,
     LinkFmComponent,

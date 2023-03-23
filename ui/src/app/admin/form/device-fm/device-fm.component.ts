@@ -1,13 +1,13 @@
-import { RequestService } from './../../../request.service';
+import { RequestService } from '../../../request.service';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, FormGroup, UntypedFormGroup, ValidationErrors, Validators, FormsModule } from '@angular/forms';
 import { NzMessageService } from "ng-zorro-antd/message";
 @Component({
-  selector: 'app-poller-fm',
-  templateUrl: './poller-fm.component.html',
-  styleUrls: ['./poller-fm.component.scss']
+  selector: 'app-device-fm',
+  templateUrl: './device-fm.component.html',
+  styleUrls: ['./device-fm.component.scss']
 })
-export class PollerFmComponent implements OnInit {
+export class DeviceFmComponent implements OnInit {
   validateForm: UntypedFormGroup;
   constructor(private fb: UntypedFormBuilder, private msg: NzMessageService, private rs: RequestService) {
     this.validateForm = this.fb.group({

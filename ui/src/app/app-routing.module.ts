@@ -6,7 +6,7 @@ import { SerialComponent } from './admin/serial/serial.component';
 import { ServerComponent } from './admin/server/server.component';
 import { ClientComponent } from './admin/client/client.component';
 import { MapperComponent } from './admin/mapper/mapper.component';
-import { PollerComponent } from './admin/poller/poller.component';
+import { DeviceComponent } from './admin/device/device.component';
 import { ProductComponent } from './admin/product/product.component';
 const pages: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
       { path: 'serial', component: SerialComponent },
       { path: 'client', component: ClientComponent },
       { path: 'mapper', component: MapperComponent },
-      { path: 'poller', component: PollerComponent },
+      { path: 'device', component: DeviceComponent },
       { path: 'link', component: LinkComponent },
       { path: 'product', component: ProductComponent },
       ...pages,
