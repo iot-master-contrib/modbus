@@ -1,9 +1,9 @@
 <nz-layout>
   <nz-header>
     <nz-page-header class="site-page-header" nzBackIcon nzTitle="TCP服务器" nzSubtitle="tcp_server">
-      <nz-page-header-extra  >
-        <nz-space >
-          <input *nzSpaceItem nz-input  placeholder="search value" [(ngModel)]="input" />
+      <nz-page-header-extra>
+        <nz-space>
+          <input *nzSpaceItem nz-input placeholder="search value" [(ngModel)]="input" />
           <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
             <span nz-icon nzType="search"></span>
             search</button>
@@ -16,7 +16,7 @@
   <nz-content>
     <nz-table #basicTable [nzData]="listOfData">
       <thead>
-        <tr> 
+        <tr>
           <th>id</th>
           <th>name</th>
           <th>desc</th>
@@ -34,15 +34,15 @@
           <td>{{data.created}}</td>
           <td nzRight>
             <a nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?" (nzOnConfirm)="delete(i, data.id )"
-            (nzOnCancel)="cancel()" nzPopconfirmPlacement="topLeft">
-            <i nz-icon nzType="delete"></i>
-          </a>
+              (nzOnCancel)="cancel()" nzPopconfirmPlacement="topLeft">
+              <i nz-icon nzType="delete"></i>
+            </a>
 
-          <nz-divider nzType="vertical"></nz-divider>
-          <a (click)="edit(data.id,data)">
-            <i nz-icon nzType="edit"></i>
-          </a>
-        </td>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="edit(data.id,data)">
+              <i nz-icon nzType="edit"></i>
+            </a>
+          </td>
         </tr>
         <app-server-fm #child [isVisible]="isVisible" [title]="'TCP服务器'" [text]="'修改'" (back)=clientFm($event)>
         </app-server-fm>
