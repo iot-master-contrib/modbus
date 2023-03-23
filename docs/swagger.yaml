@@ -32,6 +32,13 @@ definitions:
       error:
         type: string
     type: object
+  api.ReplyData-model_Device:
+    properties:
+      data:
+        $ref: '#/definitions/model.Device'
+      error:
+        type: string
+    type: object
   api.ReplyData-model_Link:
     properties:
       data:
@@ -65,6 +72,17 @@ definitions:
       data:
         items:
           $ref: '#/definitions/model.Client'
+        type: array
+      error:
+        type: string
+      total:
+        type: integer
+    type: object
+  api.ReplyList-model_Device:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.Device'
         type: array
       error:
         type: string
@@ -151,6 +169,30 @@ definitions:
         type: integer
       retry:
         $ref: '#/definitions/model.Retry'
+    type: object
+  model.Device:
+    properties:
+      created:
+        type: string
+      desc:
+        description: 说明
+        type: string
+      disabled:
+        type: boolean
+      id:
+        type: string
+      name:
+        description: 名称
+        type: string
+      product_id:
+        description: 产品ID
+        type: string
+      slave:
+        description: 从站号
+        type: integer
+      tunnel_id:
+        description: 通道
+        type: string
     type: object
   model.Link:
     properties:
@@ -536,6 +578,204 @@ paths:
       summary: 查询客户端
       tags:
       - client
+  /device/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获取设备
+      parameters:
+      - description: 设备ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-model_Device'
+      summary: 获取设备
+      tags:
+      - device
+    post:
+      consumes:
+      - application/json
+      description: 修改设备
+      parameters:
+      - description: 设备ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 设备信息
+        in: body
+        name: device
+        required: true
+        schema:
+          $ref: '#/definitions/model.Device'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-model_Device'
+      summary: 修改设备
+      tags:
+      - device
+  /device/{id}/delete:
+    get:
+      consumes:
+      - application/json
+      description: 删除设备
+      parameters:
+      - description: 设备ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-model_Device'
+      summary: 删除设备
+      tags:
+      - device
+  /device/{id}/disable:
+    get:
+      consumes:
+      - application/json
+      description: 禁用设备
+      parameters:
+      - description: 设备ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-model_Device'
+      summary: 禁用设备
+      tags:
+      - device
+  /device/{id}/enable:
+    get:
+      consumes:
+      - application/json
+      description: 启用设备
+      parameters:
+      - description: 设备ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-model_Device'
+      summary: 启用设备
+      tags:
+      - device
+  /device/count:
+    post:
+      consumes:
+      - application/json
+      description: 查询设备数量
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 查询设备数量
+      tags:
+      - device
+  /device/create:
+    post:
+      consumes:
+      - application/json
+      description: 创建设备
+      parameters:
+      - description: 设备信息
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/model.Device'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-model_Device'
+      summary: 创建设备
+      tags:
+      - device
+  /device/list:
+    get:
+      consumes:
+      - application/json
+      description: 查询设备
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: skip
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-model_Device'
+      summary: 查询设备
+      tags:
+      - device
+  /device/search:
+    post:
+      consumes:
+      - application/json
+      description: 查询设备
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-model_Device'
+      summary: 查询设备
+      tags:
+      - device
   /link/{id}:
     get:
       consumes:

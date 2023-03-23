@@ -6,6 +6,8 @@ func RegisterRoutes(app *gin.RouterGroup) {
 
 	productRouter(app.Group("/product"))
 
+	deviceRouter(app.Group("/device"))
+
 	serialRouter(app.Group("/serial"))
 
 	clientRouter(app.Group("/client"))
