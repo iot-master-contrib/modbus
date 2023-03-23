@@ -24,30 +24,6 @@ export class ClientComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {}
-
-  listOfData = [
-    {
-      id: 53001,
-      name: 'John Brown',
-      port: "8080",
-      address: '1001',
-      created: new Date()
-    },
-    {
-      id: 53002,
-      name: 'Jim Green',
-      port: "8081",
-      address: '1002',
-      created: new Date()
-    },
-    {
-      id: 53003,
-      name: 'Joe Black',
-      port: "8082",
-      address: '1003',
-      created: new Date()
-    }
-  ];
   clientFm(num: number) {
     this.isVisible = false
   }

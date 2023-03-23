@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://demo.iot-master.com:8888",
+    "target": "http://demo.iot-master.com:8088",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
