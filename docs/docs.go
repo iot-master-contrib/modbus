@@ -319,6 +319,226 @@ const docTemplate = `{
                 }
             }
         },
+        "/config/db": {
+            "get": {
+                "description": "查询数据库配置",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "查询数据库配置",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_dbOptions"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改数据库配置",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "修改数据库配置",
+                "parameters": [
+                    {
+                        "description": "数据库配置",
+                        "name": "cfg",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.dbOptions"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int"
+                        }
+                    }
+                }
+            }
+        },
+        "/config/log": {
+            "get": {
+                "description": "查询日志配置",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "查询日志配置",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_logOptions"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改日志配置",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "修改日志配置",
+                "parameters": [
+                    {
+                        "description": "日志配置",
+                        "name": "cfg",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.logOptions"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int"
+                        }
+                    }
+                }
+            }
+        },
+        "/config/mqtt": {
+            "get": {
+                "description": "查询MQTT配置",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "查询MQTT配置",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_mqttOptions"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改MQTT配置",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "修改MQTT配置",
+                "parameters": [
+                    {
+                        "description": "MQTT配置",
+                        "name": "cfg",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.mqttOptions"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int"
+                        }
+                    }
+                }
+            }
+        },
+        "/config/web": {
+            "get": {
+                "description": "查询WEB配置",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "查询WEB配置",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_webOptions"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改WEB配置",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "修改WEB配置",
+                "parameters": [
+                    {
+                        "description": "WEB配置",
+                        "name": "cfg",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.webOptions"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int"
+                        }
+                    }
+                }
+            }
+        },
         "/device/count": {
             "post": {
                 "description": "查询设备数量",
@@ -1804,6 +2024,61 @@ const docTemplate = `{
                 }
             }
         },
+        "api.ReplyData-api_dbOptions": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/api.dbOptions"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-api_logOptions": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/api.logOptions"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-api_mqttOptions": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/api.mqttOptions"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-api_webOptions": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/api.webOptions"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-int": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "integer"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
         "api.ReplyData-int64": {
             "type": "object",
             "properties": {
@@ -1980,6 +2255,94 @@ const docTemplate = `{
                 },
                 "total": {
                     "type": "integer"
+                }
+            }
+        },
+        "api.dbOptions": {
+            "type": "object",
+            "properties": {
+                "debug": {
+                    "type": "boolean"
+                },
+                "log_level": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.logOptions": {
+            "type": "object",
+            "properties": {
+                "caller": {
+                    "type": "boolean"
+                },
+                "format": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "output": {
+                    "$ref": "#/definitions/api.logOutput"
+                },
+                "text": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "api.logOutput": {
+            "type": "object",
+            "properties": {
+                "filename": {
+                    "type": "string"
+                },
+                "max_age": {
+                    "type": "integer"
+                },
+                "max_backups": {
+                    "type": "integer"
+                },
+                "max_size": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.mqttOptions": {
+            "type": "object",
+            "properties": {
+                "clientId": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.webOptions": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "cors": {
+                    "type": "boolean"
+                },
+                "debug": {
+                    "type": "boolean"
+                },
+                "gzip": {
+                    "type": "boolean"
                 }
             }
         },

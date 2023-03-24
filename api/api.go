@@ -16,4 +16,6 @@ func RegisterRoutes(app *gin.RouterGroup) {
 
 	linkRouter(app.Group("/link"))
 
+	configRouter(app.Group("/config"))
+
 }
