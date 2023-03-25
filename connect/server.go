@@ -57,11 +57,16 @@ func (s *Server) Open() error {
 				if cc, ok := s.children[k]; ok {
 					_ = cc.Close()
 				}
-				s.children[k] = newLink(&model.Link{
+
+				lnk := newLink(&model.Link{
 					Tunnel:   s.model.Tunnel,
 					ServerId: s.model.Id,
 					Remote:   c.RemoteAddr().String(),
 				}, c)
+				s.children[k] = lnk
+
+				//以ServerID保存
+				links.Store(s.model.Id, lnk)
 				continue
 			}
 
@@ -75,22 +80,22 @@ func (s *Server) Open() error {
 			data := buf[:n]
 			sn := string(data)
 
-			var client model.Link
-			//get, err := db.Engine.Where("server_id=?", s.model.Id).And("sn=?", sn).Get(&client)
-			get, err := db.Engine.ID(sn).Get(&client)
+			var link model.Link
+			//get, err := db.Engine.Where("server_id=?", s.model.Id).And("sn=?", sn).Get(&link)
+			get, err := db.Engine.ID(sn).Get(&link)
 			if err != nil {
 				_, _ = c.Write([]byte(err.Error()))
 				_ = c.Close()
 				return
 			}
 			if !get {
-				client = model.Link{
+				link = model.Link{
 					Tunnel:   s.model.Tunnel,
 					ServerId: s.model.Id,
 					Remote:   c.RemoteAddr().String(),
 				}
-				client.Id = sn
-				_, err := db.Engine.InsertOne(&client)
+				link.Id = sn
+				_, err := db.Engine.InsertOne(&link)
 				if err != nil {
 					_, _ = c.Write([]byte(err.Error()))
 					_ = c.Close()
@@ -98,8 +103,10 @@ func (s *Server) Open() error {
 				}
 			}
 
-			tnl := newLink(&client, c)
-			s.children[sn] = tnl
+			lnk := newLink(&link, c)
+			s.children[sn] = lnk
+
+			links.Store(link.Id, lnk)
 		}
 
 		s.running = false
