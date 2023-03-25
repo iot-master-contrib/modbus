@@ -1,5 +1,5 @@
 {
-  "name": "src",
+  "name": "iot-master-modbus",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
