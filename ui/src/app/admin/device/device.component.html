@@ -1,12 +1,17 @@
 <nz-layout>
   <nz-header>
-    <nz-page-header class="site-page-header" nzBackIcon nzTitle="轮询器" nzSubtitle="modbus_device">
+    <nz-page-header class="site-page-header" nzBackIcon nzTitle="设备" nzSubtitle="modbus_device">
       <nz-page-header-extra  >
         <nz-space >
-          <input *nzSpaceItem nz-input  placeholder="search value" [(ngModel)]="input" />
+          <input *nzSpaceItem nz-input  placeholder="输入查询字段" [(ngModel)]="input" />
           <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
             <span nz-icon nzType="search"></span>
-            search</button>
+            查询</button>
+            <button *nzSpaceItem nz-button nzType="primary" (click)="add()">
+              <i nz-icon nzType="plus"></i>
+             新增
+            </button>
+            <app-device-fm [isVisible]="addVisible" [title]="'设备'" [text]="'提交'" (back)=clientFm($event)></app-device-fm>
         </nz-space>
       </nz-page-header-extra>
     </nz-page-header>
@@ -16,13 +21,13 @@
     <nz-table #basicTable [nzData]="datum">
       <thead>
         <tr>
-          <th>id</th>
-          <th>name</th>
-          <th>desc</th>
-          <th>period</th>
-          <th>interval</th>
-          <th>created</th>
-          <th>action</th>
+          <th>设备id</th>
+          <th>名称</th>
+          <th>描述</th> 
+          <th>周期</th>
+          <th>间隔</th>
+          <th>创建时间</th>
+          <th>操作</th>
         </tr>
       </thead>
       <tbody>

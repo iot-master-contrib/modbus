@@ -1,0 +1,39 @@
+<nz-modal [nzVisible]="isVisible" [nzTitle]="title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkText]="text" >
+    <ng-container *nzModalContent>
+      <form nz-form [formGroup]="validateForm">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="id" nzRequired>id</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="idErrorTpl">
+            <input nz-input name="id" formControlName="id">
+            <ng-template #idErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">请输入id!</ng-container> 
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="name"  >名称</nz-form-label>
+          <nz-form-control [nzSpan]="16"   >
+            <input nz-input name="name" formControlName="name"> 
+          </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="desc"  >描述</nz-form-label>
+            <nz-form-control [nzSpan]="16"   >
+              <input nz-input name="desc" formControlName="desc"> 
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="mappers"  >映射</nz-form-label>
+            <nz-form-control [nzSpan]="16"    >
+              <input nz-input name="mappers" formControlName="mappers"> 
+            </nz-form-control>
+          </nz-form-item> 
+       
+  
+        
+  
+      </form>
+    </ng-container>
+  </nz-modal>
+  

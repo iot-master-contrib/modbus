@@ -18,6 +18,7 @@ export class ClientComponent {
   @ViewChild('child') child: any
   input!: string
   isVisible = false
+  addVisible = false
   loading = true
   datum: any[] = []
   total = 1;
@@ -26,7 +27,9 @@ export class ClientComponent {
   query: any = {}
   clientFm(num: number) {
     this.isVisible = false
+    this.addVisible = false
   }
+  add(){this.addVisible=true}
   load() {
     this.loading = true
     this.rs.post("client/search", this.query).subscribe(res => {

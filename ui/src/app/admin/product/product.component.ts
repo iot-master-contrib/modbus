@@ -18,6 +18,7 @@ export class ProductComponent {
   @ViewChild('child') child: any
   input!: string
   isVisible = false
+  addVisible =false
   loading = true
   datum: any[] = []
   total = 1;
@@ -26,6 +27,7 @@ export class ProductComponent {
   query: any = {}
   clientFm(num: number) {
     this.isVisible = false
+    this.addVisible=false
   }
   load() {
     this.loading = true
@@ -47,6 +49,7 @@ export class ProductComponent {
       data.read = true;
     })
   }
+  add(){this.addVisible=true}
   edit(id: number, data: any) {
     this.isVisible = true
     this.child.show(data)

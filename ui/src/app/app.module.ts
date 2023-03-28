@@ -40,6 +40,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { LinkFmComponent } from './admin/form/link-fm/link-fm.component';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { ProFmComponent } from './admin/form/pro-fm/pro-fm.component';
 registerLocaleData(zh);
 
 @NgModule({
@@ -59,6 +60,7 @@ registerLocaleData(zh);
     ServerFmComponent,
     LinkFmComponent,
     ProductComponent,
+    ProFmComponent,
   ],
   imports: [
     BrowserModule,

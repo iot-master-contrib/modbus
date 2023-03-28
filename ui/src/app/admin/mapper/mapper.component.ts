@@ -17,6 +17,7 @@ export class MapperComponent {
 @ViewChild('child') child: any 
 input!: string
 isVisible!:boolean
+addVisible=false
 loading = true
 datum: any[] = []
 total = 1;
@@ -51,7 +52,9 @@ query: any = {}
   ];
   clientFm(num: number) {
     this.isVisible = false
+    this.addVisible=false
   }
+  add(){this.addVisible=true}
   load() {
     this.loading = true
     this.rs.post("client/search", this.query).subscribe(res=>{

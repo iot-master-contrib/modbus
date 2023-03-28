@@ -19,18 +19,18 @@
         <li nz-submenu nzTitle="产品管理" nzIcon="project">
           <ul>
             <li nz-menu-item routerLink="/admin/product">产品</li>
-            <li nz-menu-item (contextmenu)="contextMenu($event, menu,4)" routerLink="/admin/device">轮询器</li>
+            <li nz-menu-item   routerLink="/admin/device">设备</li>
           </ul>
         </li>
 
         <li nz-submenu nzTitle="连接管理" nzIcon="appstore">
           <ul>
-            <li nz-menu-item (contextmenu)="contextMenu($event, menu,0)" routerLink="/admin/server"> TCP服务器 </li>
+            <li nz-menu-item   routerLink="/admin/server"> TCP服务器 </li>
             <li nz-menu-item routerLink="/admin/link">TCP连接</li>
-            <li nz-menu-item (contextmenu)="contextMenu($event, menu,1)" routerLink="/admin/client"> TCP客户端
+            <li nz-menu-item   routerLink="/admin/client"> TCP客户端
 
             </li>
-            <li nz-menu-item (contextmenu)="contextMenu($event, menu,2)" routerLink="/admin/serial">串口连接</li>
+            <li nz-menu-item   routerLink="/admin/serial">串口连接</li>
           </ul>
         </li>
 
@@ -42,7 +42,7 @@
 
         <li nz-submenu nzTitle="系统设置" nzIcon="apartment">
           <ul>
-            <li nz-menu-item (contextmenu)="contextMenu($event, menu,9)" routerLink="/admin/setting/web"> Web</li>
+            <li nz-menu-item   routerLink="/admin/setting/web"> Web</li>
             <li nz-menu-item routerLink="/admin/setting/mqtt">消息总线</li>
             <li nz-menu-item routerLink="/admin/setting/log">日志</li>
             <li nz-menu-item routerLink="/admin/setting/database">数据库</li>
@@ -55,11 +55,11 @@
         <li nz-menu-item (click)="selectDropdown( )">编辑</li>
       </ul>
     </nz-dropdown-menu>
-    <app-server-fm [isVisible]="ary[0]" [title]="'TCP服务器'" [text]="'提交'" (back)=clientFm($event)></app-server-fm>
+    <!-- <app-server-fm [isVisible]="ary[0]" [title]="'TCP服务器'" [text]="'提交'" (back)=clientFm($event)></app-server-fm>
     <app-client-fm [isVisible]="ary[1]" [title]="'TCP客户端'" [text]="'提交'" (back)=clientFm($event)></app-client-fm>
     <app-serial-fm [isVisible]="ary[2]" [title]="'串口连接'" [text]="'提交'" (back)=clientFm($event)></app-serial-fm>
     <app-mapper-fm [isVisible]="ary[3]" [title]="'映射表'" [text]="'提交'" (back)=clientFm($event)></app-mapper-fm>
-    <app-device-fm [isVisible]="ary[4]" [title]="'轮询器'" [text]="'提交'" (back)=clientFm($event)></app-device-fm>
+    <app-device-fm [isVisible]="ary[4]" [title]="'轮询器'" [text]="'提交'" (back)=clientFm($event)></app-device-fm> -->
 
 
 

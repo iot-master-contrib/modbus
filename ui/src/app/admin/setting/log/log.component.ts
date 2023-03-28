@@ -16,7 +16,7 @@ export class LogComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private rs: RequestService,
-              private msg: NzMessageService) {
+              private msg: NzMessageService) {this.load()
   }
 
 
@@ -62,5 +62,15 @@ export class LogComponent implements OnInit {
     });
      
    }
+  }
+  loading=false
+  query={}
+  logData=[] 
+  load(){ 
+      this.rs.get(`config/log`).subscribe((res) => {    
+        this.logData=res.data 
+        this.group.patchValue({Caller:res.data.caller,Level:res.data.level ,Text:res.data.text,
+          Output:JSON.stringify(res.data.output)  })
+      }); 
   }
 }

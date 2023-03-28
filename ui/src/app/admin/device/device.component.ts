@@ -16,7 +16,8 @@ export class DeviceComponent {
   }
   @ViewChild('child') child: any
   input!: string
-  isVisible = false
+  isVisible = false 
+  addVisible=false
   loading = true
   datum: any[] = []
   total = 1;
@@ -25,6 +26,7 @@ export class DeviceComponent {
   query: any = {}
   clientFm(num: number) {
     this.isVisible = false
+    this.addVisible = false 
   }
   load() {
     this.loading = true
@@ -50,6 +52,7 @@ export class DeviceComponent {
     this.isVisible = true
     this.child.show(data)
   }
+  add(){this.addVisible=true} 
   search() {
     this.query.keyword = {
       name: this.input,

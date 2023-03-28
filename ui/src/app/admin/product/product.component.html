@@ -3,10 +3,15 @@
       <nz-page-header class="site-page-header" nzBackIcon nzTitle="产品" nzSubtitle="product">
         <nz-page-header-extra  >
           <nz-space >
-            <input *nzSpaceItem nz-input  placeholder="search value" [(ngModel)]="input" />
+            <input *nzSpaceItem nz-input  placeholder="输入查询字段" [(ngModel)]="input" />
             <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
               <span nz-icon nzType="search"></span>
-              search</button>
+              查询</button>
+              <button *nzSpaceItem nz-button nzType="primary" (click)="add()">
+                <i nz-icon nzType="plus"></i>
+               新增
+              </button>
+              <app-pro-fm [isVisible]="addVisible" [title]="'产品'" [text]="'提交'" (back)=clientFm($event)></app-pro-fm>
           </nz-space>
         </nz-page-header-extra>
       </nz-page-header>
@@ -15,20 +20,20 @@
       <nz-table #basicTable [nzData]="datum">
         <thead>
           <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>address</th>
-            <th>port</th>
-            <th>created</th>
-            <th>action</th>
+            <th>产品id</th>
+            <th>产品名称</th>
+            <th>描述</th>
+            <th>映射</th>
+            <th>创建时间</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of basicTable.data; let i = index">
             <td>{{data.id}}</td>
             <td>{{data.name}}</td>
-            <td>{{data.address}}</td>
-            <td>{{data.port}}</td>
+            <td>{{data.desc}}</td>
+            <td>{{data.mappers}}</td>
             <td>{{data.created}}</td>
             <td nzRight>
   
@@ -43,8 +48,8 @@
               </a>
             </td>
           </tr>
-          <app-client-fm #child [isVisible]="isVisible" [title]="'产品'" [text]="'修改'" (back)=clientFm($event)>
-          </app-client-fm>
+          <app-pro-fm #child [isVisible]="isVisible" [title]="'产品'" [text]="'修改'" (back)=clientFm($event)>
+          </app-pro-fm>
         </tbody>
       </nz-table>
     </nz-content>

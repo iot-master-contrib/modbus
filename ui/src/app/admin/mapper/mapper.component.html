@@ -3,10 +3,15 @@
     <nz-page-header class="site-page-header" nzBackIcon nzTitle="映射表" nzSubtitle="modbus_mapper">
       <nz-page-header-extra  >
         <nz-space >
-          <input *nzSpaceItem nz-input  placeholder="search value" [(ngModel)]="input" />
+          <input *nzSpaceItem nz-input  placeholder="输入查询字段" [(ngModel)]="input" />
           <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
             <span nz-icon nzType="search"></span>
-            search</button>
+            查询</button>
+            <button *nzSpaceItem nz-button nzType="primary" (click)="add()">
+              <i nz-icon nzType="plus"></i>
+             新增
+            </button>
+            <app-mapper-fm [isVisible]="addVisible" [title]="'映射表'" [text]="'提交'" (back)=clientFm($event)></app-mapper-fm>
         </nz-space>
       </nz-page-header-extra>
     </nz-page-header>
@@ -18,12 +23,12 @@
       <thead>
         <tr>
           <th>id</th>
-          <th>name</th>
-          <th>desc</th>
-          <th>code</th>
-          <th>size</th>
-          <th>created</th>
-          <th>action</th>
+          <th>名称</th>
+          <th>描述</th>
+          <th>代号</th>
+          <th>规格</th>
+          <th>创建时间</th>
+          <th>操作</th>
         </tr>
       </thead>
       <tbody>

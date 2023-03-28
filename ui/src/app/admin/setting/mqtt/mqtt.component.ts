@@ -9,6 +9,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./mqtt.component.scss']
 })
 export class MqttComponent  implements OnInit {
+   
   group!: FormGroup;
   id: any = 0;
   constructor(
@@ -17,7 +18,7 @@ export class MqttComponent  implements OnInit {
     private route: ActivatedRoute,
     private rs: RequestService,
     private msg: NzMessageService
-  ) {}
+  ) {this.load()}
 
   ngOnInit(): void {
     this.group = this.fb.group({
@@ -50,6 +51,15 @@ export class MqttComponent  implements OnInit {
     });
      
    }
+  }
+  loading=false
+  query={}
+ mqttData=[] 
+  load(){ 
+      this.rs.get(`config/mqtt`).subscribe((res) => {  
+        this.mqttData=res.data
+        this.group.patchValue({ClientId:res.data.clientId,Url:res.data.url })
+      }); 
   }
    
 }

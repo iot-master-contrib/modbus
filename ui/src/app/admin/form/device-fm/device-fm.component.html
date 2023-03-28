@@ -6,47 +6,47 @@
           <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="idErrorTpl">
             <input nz-input name="id" formControlName="id">
             <ng-template #idErrorTpl let-control>
-              <ng-container *ngIf="control.hasError('required')">Please input id!</ng-container> 
+              <ng-container *ngIf="control.hasError('required')">请输入id!</ng-container> 
             </ng-template>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-label [nzSpan]="5" nzFor="name" nzRequired>name</nz-form-label>
-          <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="nameErrorTpl">
+          <nz-form-label [nzSpan]="5" nzFor="name"  >名称</nz-form-label>
+          <nz-form-control [nzSpan]="16"   [nzErrorTip]="nameErrorTpl">
             <input nz-input name="name" formControlName="name">
             <ng-template #nameErrorTpl let-control>
-              <ng-container *ngIf="control.hasError('required')">Please input name!</ng-container> 
+              <ng-container *ngIf="control.hasError('required')">请输入名称!</ng-container> 
             </ng-template>
           </nz-form-control>
         </nz-form-item>
        
         <nz-form-item>
-            <nz-form-label [nzSpan]="5" nzFor="desc" nzRequired>desc</nz-form-label>
-            <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="descErrorTpl">
+            <nz-form-label [nzSpan]="5" nzFor="desc"  >描述</nz-form-label>
+            <nz-form-control [nzSpan]="16"   [nzErrorTip]="descErrorTpl">
               <input nz-input name="desc" formControlName="desc">
               <ng-template #descErrorTpl let-control>
-                <ng-container *ngIf="control.hasError('required')">Please input desc!</ng-container> 
+                <ng-container *ngIf="control.hasError('required')">请输入描述!</ng-container> 
               </ng-template>
             </nz-form-control>
           </nz-form-item>
 
 
         <nz-form-item>
-            <nz-form-label [nzSpan]="5" nzFor="period" nzRequired>period</nz-form-label>
-            <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="periodErrorTpl">
+            <nz-form-label [nzSpan]="5" nzFor="period"  >周期</nz-form-label>
+            <nz-form-control [nzSpan]="16"   [nzErrorTip]="periodErrorTpl">
               <input nz-input name="period" formControlName="period">
               <ng-template #periodErrorTpl let-control>
-                <ng-container *ngIf="control.hasError('required')">Please input period!</ng-container> 
+                <ng-container *ngIf="control.hasError('required')">请输入周期!</ng-container> 
               </ng-template>
             </nz-form-control>
           </nz-form-item>
   
           <nz-form-item>
-            <nz-form-label [nzSpan]="5" nzFor="interval" nzRequired>interval</nz-form-label>
-            <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="intervalErrorTpl">
+            <nz-form-label [nzSpan]="5" nzFor="interval"  >间隔</nz-form-label>
+            <nz-form-control [nzSpan]="16"   [nzErrorTip]="intervalErrorTpl">
               <input nz-input name="interval" formControlName="interval">
               <ng-template #intervalErrorTpl let-control>
-                <ng-container *ngIf="control.hasError('required')">Please input interval!</ng-container> 
+                <ng-container *ngIf="control.hasError('required')">请输入间隔!</ng-container> 
               </ng-template>
             </nz-form-control>
           </nz-form-item>
