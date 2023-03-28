@@ -17,6 +17,7 @@ export class ServerComponent {
   @ViewChild('child') child: any
   input!: string
   isVisible = false
+  addVisible=false
   loading = true
   datum: any[] = []
   total = 1;
@@ -25,6 +26,7 @@ export class ServerComponent {
   query: any = {}
   clientFm(num: number) {
     this.isVisible = false
+    this.addVisible=false
   }
   load() {
     this.loading = true
@@ -35,6 +37,7 @@ export class ServerComponent {
       this.loading = false;
     })
   }
+  add(){this.addVisible=true}
   delete(index: number, id: number) {
     this.datum.splice(index, 1);
     this.rs.get(`server/${id}/delete`).subscribe(res => {

@@ -3,10 +3,10 @@
       <nz-page-header class="site-page-header" nzBackIcon nzTitle="TCP连接" nzSubtitle="tcp_server_client">
         <nz-page-header-extra  >
           <nz-space >
-            <input *nzSpaceItem nz-input  placeholder="search value" [(ngModel)]="input" />
+            <input *nzSpaceItem nz-input  placeholder="输入查询字段" [(ngModel)]="input" />
             <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
               <span nz-icon nzType="search"></span>
-              search</button>
+             查询</button>
           </nz-space>
         </nz-page-header-extra>
       </nz-page-header>
@@ -18,11 +18,11 @@
         <thead>
           <tr>
             <th>id</th>
-            <th>name</th>
-            <th>address</th>
-            <th>port</th>
-            <th>created</th>
-            <th>action</th>
+            <th>名称</th>
+            <th>地址</th>
+            <th>端口</th>
+            <th>创建时间</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody>

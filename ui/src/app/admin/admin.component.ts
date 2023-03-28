@@ -14,13 +14,13 @@ export class AdminComponent {
     , false
     , false]
 
-  contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent, mes: number): void {
-    this.edit = mes
-    this.nzContextMenuService.create($event, menu);
-  }
-  clientFm(num: number) {
-    this.ary[num] = false
-  }
+  // contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent, mes: number): void {
+  //   this.edit = mes
+  //   this.nzContextMenuService.create($event, menu);
+  // }
+  // clientFm(num: number) {
+  //   this.ary[num] = false
+  // }
   selectDropdown(): void {
     this.ary[this.edit] = true
   }

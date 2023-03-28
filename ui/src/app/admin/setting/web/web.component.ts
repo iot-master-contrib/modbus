@@ -16,7 +16,7 @@ export class WebComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private rs: RequestService,
-              private msg: NzMessageService) {
+              private msg: NzMessageService) { this.load()
   }
 
 
@@ -61,5 +61,15 @@ export class WebComponent implements OnInit {
      
    }
 
+  }
+  loading=false
+  query={}
+  webData=[] 
+  load(){ 
+      this.rs.get(`config/web`).subscribe((res) => {
+       
+        this.webData=res.data
+        this.group.patchValue({Addr:res.data.addr })
+      }); 
   }
 }

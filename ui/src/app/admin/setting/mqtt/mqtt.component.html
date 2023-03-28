@@ -11,6 +11,16 @@
     <form nz-form [formGroup]="group" (ngSubmit)="submit()" >
        
 
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="ClientId">Id</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="ClientIdErrorTpl">
+          <input nz-input name="ClientId"   formControlName="ClientId"/>
+          <ng-template #ClientIdErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入Id!</ng-container> 
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
   <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Username">用户名</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="nameErrorTpl">
@@ -42,15 +52,7 @@
         </nz-form-control>
       </nz-form-item>
   
-      <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="ClientId">Id</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="ClientIdErrorTpl">
-          <input nz-input name="ClientId"   formControlName="ClientId"/>
-          <ng-template #ClientIdErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')">请输入Id!</ng-container> 
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
+       
  
      
 

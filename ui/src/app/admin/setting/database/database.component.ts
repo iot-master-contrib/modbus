@@ -16,7 +16,7 @@ export class DatabaseComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private rs: RequestService,
-    private msg: NzMessageService) {
+    private msg: NzMessageService) {this.load()
   }
   switchValue = false;
 
@@ -57,5 +57,15 @@ export class DatabaseComponent implements OnInit {
       });
 
     }
+  }
+  loading=false
+  query={}
+  dbData=[] 
+  load(){ 
+      this.rs.get(`config/database`).subscribe((res) => {   
+       this.dbData=res.data
+       this.group.patchValue({LogLevel:res.data.log_level,Type:res.data.type,
+        URL:res.data.url  })
+      }); 
   }
 }
