@@ -11,10 +11,10 @@ export class ServerFmComponent implements OnInit{
   validateForm: UntypedFormGroup;
   constructor(private fb: UntypedFormBuilder,  private msg: NzMessageService,private rs: RequestService) {
     this.validateForm = this.fb.group({
-      id: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      desc: ['', [Validators.required]],
-      port: ['', [Validators.required]]
+      id: ['' ],
+      name: ['' ],
+      desc: ['' ],
+      port: [0 ] 
     });
   }
   ngOnInit(): void {
@@ -22,7 +22,7 @@ export class ServerFmComponent implements OnInit{
    show(data:any) { 
     this.validateForm.patchValue(data) 
     }    
- @Input() text!: string;  
+  @Input() text!: string;  
   @Input() isVisible!: boolean;
   @Input() title!: string; 
   @Output() back = new EventEmitter()
@@ -32,15 +32,16 @@ export class ServerFmComponent implements OnInit{
     this.reset();
   }
   handleOk() {
-
-    if (this.validateForm.valid) {
  
-       let id=this.validateForm.value.id
-       let url =  id ? `client/${ id}` : `client/create`
-       this.rs.post(url, this.validateForm.value).subscribe(res => { 
-       this.msg.success("保存成功")
-
-     }) 
+     if (this.validateForm.valid) { 
+      let id=this.validateForm.value.id
+      let url =  id ? `server/${ id}` : `server/create`
+      this.validateForm.patchValue({port:Number(this.validateForm.value.port)})
+      this.rs.post(url, this.validateForm.value).subscribe(res => { 
+      this.msg.success("保存成功")
+      this.isVisible=false
+      this.back.emit(1)
+    }) 
       return;
     }
     else {

@@ -12,24 +12,25 @@ export class ClientComponent {
   constructor(private router: Router,
     private rs: RequestService,
     private msg: NzMessageService
-  ) { //this.load();
+  ) { this.load();
 
   }
   @ViewChild('child') child: any
   input!: string
-  isVisible = false
-  addVisible = false
+  isVisible = false 
   loading = true
   datum: any[] = []
   total = 1;
   pageSize = 20;
   pageIndex = 1;
   query: any = {}
+  text!:string
+  title!:string
   clientFm(num: number) {
+    if(num)this.load() 
     this.isVisible = false
-    this.addVisible = false
   }
-  add(){this.addVisible=true}
+   
   load() {
     this.loading = true
     this.rs.post("client/search", this.query).subscribe(res => {
@@ -43,23 +44,28 @@ export class ClientComponent {
     this.datum.splice(index, 1);
     this.rs.get(`client/${id}/delete`).subscribe(res => {
       this.msg.success("删除成功")
+      this.isVisible=false;
+      this.load()
     })
   }
-  read(data: any) {
-    this.rs.get(`client/${data.id}/read`).subscribe(res => {
-      data.read = true;
-    })
-  }
+  add(){ 
+    this.child.reset()
+    this.title="客户端添加"
+    this.text="提交"
+    this.isVisible=true}
   edit(id: number, data: any) {
+    this.title="客户端修改"
+    this.text="修改"
     this.isVisible = true
     this.child.show(data)
   }
   search() {
-    this.query.keyword = {
-      name: this.input,
+    if(this.input)
+    this.query.filter = {
+      id: this.input,
     };
-    this.query.skip = 0;
+     else this.query={}
     this.load();
   }
-  cancel() { this.msg.info('click cancel'); }
+  cancel() { this.msg.info('取消删除'); }
 }

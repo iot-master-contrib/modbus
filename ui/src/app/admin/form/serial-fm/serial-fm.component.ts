@@ -11,9 +11,9 @@ export class SerialFmComponent implements OnInit {
   validateForm: UntypedFormGroup;
   constructor(private fb: UntypedFormBuilder,  private msg: NzMessageService,private rs: RequestService) {
     this.validateForm = this.fb.group({
-      id: ['', [Validators.required]],
-      name: ['', [Validators.required]], 
-      port: ['', [Validators.required]]
+      id: ['' ],
+      name: ['' ], 
+      port: ['' ]
     });
   }
   ngOnInit(): void {
@@ -27,20 +27,19 @@ export class SerialFmComponent implements OnInit {
   @Input() title!: string; 
   @Output() back = new EventEmitter()
   handleCancel() {
-    this.isVisible = false;  
-    this.back.emit(2)
+    this.isVisible = false;
+    this.back.emit(0);
     this.reset();
   }
   handleOk() {
-
     if (this.validateForm.valid) {
- 
-       let id=this.validateForm.value.id
-       let url =  id ? `client/${ id}` : `client/create`
-       this.rs.post(url, this.validateForm.value).subscribe(res => { 
-       this.msg.success("保存成功")
-
-     }) 
+      let id = this.validateForm.value.id;
+      let url = id ? `serial/${id}` : `serial/create`;
+      this.rs.post(url, this.validateForm.value).subscribe((res) => {
+        this.msg.success('保存成功');
+        this.isVisible = false;
+        this.back.emit(1);
+      });
       return;
     }
     else {

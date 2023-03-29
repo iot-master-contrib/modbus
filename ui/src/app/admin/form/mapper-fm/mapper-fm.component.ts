@@ -11,11 +11,11 @@ export class MapperFmComponent implements OnInit{
   validateForm: UntypedFormGroup;
   constructor(private fb: UntypedFormBuilder,  private msg: NzMessageService,private rs: RequestService) {
     this.validateForm = this.fb.group({
-      id: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      desc: ['', [Validators.required]],
-      code: ['', [Validators.required]], 
-      size: ['', [Validators.required]]
+      id: ['' ],
+      name: ['' ],
+      desc: ['' ],
+      code: ['' ], 
+      size: ['' ]
     });
   }
   ngOnInit(): void {
@@ -30,19 +30,18 @@ export class MapperFmComponent implements OnInit{
   @Output() back = new EventEmitter()
   handleCancel() {
     this.isVisible = false;  
-    this.back.emit(3)
+    this.back.emit(0)
     this.reset();
   }
   handleOk() {
-
     if (this.validateForm.valid) {
- 
-       let id=this.validateForm.value.id
-       let url =  id ? `mapper/${ id}` : `mapper/create`
-       this.rs.post(url, this.validateForm.value).subscribe(res => { 
-       this.msg.success("保存成功")
-
-     }) 
+      let id = this.validateForm.value.id;
+       let url = id ? `mapper/${id}` : `mapper/create`;
+      this.rs.post(url, this.validateForm.value).subscribe((res) => {
+        this.msg.success('保存成功');
+        this.isVisible = false;
+        this.back.emit(1);
+      });
       return;
     }
     else {

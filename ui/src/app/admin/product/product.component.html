@@ -3,7 +3,7 @@
       <nz-page-header class="site-page-header" nzBackIcon nzTitle="产品" nzSubtitle="product">
         <nz-page-header-extra  >
           <nz-space >
-            <input *nzSpaceItem nz-input  placeholder="输入查询字段" [(ngModel)]="input" />
+            <input *nzSpaceItem nz-input  placeholder="产品id" [(ngModel)]="input" />
             <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
               <span nz-icon nzType="search"></span>
               查询</button>
@@ -11,7 +11,7 @@
                 <i nz-icon nzType="plus"></i>
                新增
               </button>
-              <app-pro-fm [isVisible]="addVisible" [title]="'产品'" [text]="'提交'" (back)=clientFm($event)></app-pro-fm>
+           
           </nz-space>
         </nz-page-header-extra>
       </nz-page-header>
@@ -37,7 +37,7 @@
             <td>{{data.created}}</td>
             <td nzRight>
   
-              <a nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?" (nzOnConfirm)="delete(i, data.id )"
+              <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id )"
                 (nzOnCancel)="cancel()" nzPopconfirmPlacement="topLeft">
                 <i nz-icon nzType="delete"></i>
               </a>
@@ -48,7 +48,7 @@
               </a>
             </td>
           </tr>
-          <app-pro-fm #child [isVisible]="isVisible" [title]="'产品'" [text]="'修改'" (back)=clientFm($event)>
+          <app-pro-fm #child [isVisible]="isVisible" [title]="title" [text]="text" (back)=clientFm($event)>
           </app-pro-fm>
         </tbody>
       </nz-table>

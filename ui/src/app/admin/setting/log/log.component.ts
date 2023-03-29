@@ -47,7 +47,7 @@ export class LogComponent implements OnInit {
   submit() {
     
     if (this.group.valid) {
- 
+ this.group.patchValue({Level:this.group.value.Level})
       this.rs.post(`config`, this.group.value).subscribe(res => {
         this.msg.success("保存成功")
       })
@@ -69,7 +69,7 @@ export class LogComponent implements OnInit {
   load(){ 
       this.rs.get(`config/log`).subscribe((res) => {    
         this.logData=res.data 
-        this.group.patchValue({Caller:res.data.caller,Level:res.data.level ,Text:res.data.text,
+        this.group.patchValue({Caller:res.data.caller,Level:String(res.data.level)   ,Text:res.data.text,
           Output:JSON.stringify(res.data.output)  })
       }); 
   }

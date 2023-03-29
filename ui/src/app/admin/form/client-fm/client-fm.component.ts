@@ -11,10 +11,10 @@ export class ClientFmComponent implements OnInit {
   validateForm: UntypedFormGroup;
   constructor(private fb: UntypedFormBuilder,  private msg: NzMessageService,private rs: RequestService) {
     this.validateForm = this.fb.group({
-      id: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      port: ['', [Validators.required]], 
+      id: ['' ],
+      name: ['' ],
+      address: ['' ],
+      port: [0 ], 
     });
   }
   ngOnInit(): void {
@@ -29,19 +29,19 @@ export class ClientFmComponent implements OnInit {
   @Output() back = new EventEmitter() //modal close
   handleCancel() {
     this.isVisible = false;
-    this.back.emit(1)
+    this.back.emit(0)
     this.reset();
   }
   handleOk() {
 
-    if (this.validateForm.valid) {
- 
-       let id=this.validateForm.value.id
-       let url =  id ? `client/${ id}` : `client/create`
-       this.rs.post(url, this.validateForm.value).subscribe(res => { 
-       this.msg.success("保存成功")
-
-     }) 
+    if (this.validateForm.valid) { 
+      let id=this.validateForm.value.id
+      let url =  id ? `client/${ id}` : `client/create`
+      this.rs.post(url, this.validateForm.value).subscribe(res => { 
+      this.msg.success("保存成功")
+      this.isVisible=false
+      this.back.emit(1)
+    }) 
       return;
     }
     else {

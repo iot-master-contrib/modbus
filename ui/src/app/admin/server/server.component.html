@@ -3,7 +3,7 @@
     <nz-page-header class="site-page-header" nzBackIcon nzTitle="TCP服务器" nzSubtitle="tcp_server">
       <nz-page-header-extra>
         <nz-space>
-          <input *nzSpaceItem nz-input placeholder="输入查询字段" [(ngModel)]="input" />
+          <input *nzSpaceItem nz-input placeholder="服务器id" [(ngModel)]="input" />
           <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
             <span nz-icon nzType="search"></span>
             查询</button>
@@ -11,8 +11,7 @@
               <i nz-icon nzType="plus"></i>
              新增
             </button>
-            <app-server-fm [isVisible]="addVisible" [title]="'TCP服务器'" [text]="'提交'" (back)=clientFm($event)></app-server-fm>
-        </nz-space>
+          </nz-space>
       </nz-page-header-extra>
     </nz-page-header>
   </nz-header>
@@ -38,7 +37,7 @@
           <td>{{data.port}}</td>
           <td>{{data.created}}</td>
           <td nzRight>
-            <a nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?" (nzOnConfirm)="delete(i, data.id )"
+            <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id )"
               (nzOnCancel)="cancel()" nzPopconfirmPlacement="topLeft">
               <i nz-icon nzType="delete"></i>
             </a>
@@ -49,7 +48,7 @@
             </a>
           </td>
         </tr>
-        <app-server-fm #child [isVisible]="isVisible" [title]="'TCP服务器'" [text]="'修改'" (back)=clientFm($event)>
+        <app-server-fm #child [isVisible]="isVisible" [title]="title" [text]="text" (back)=clientFm($event)>
         </app-server-fm>
       </tbody>
     </nz-table>

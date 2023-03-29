@@ -1,55 +1,61 @@
-
 import { RequestService } from './../../../request.service';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, FormGroup, UntypedFormGroup, ValidationErrors, Validators, FormsModule } from '@angular/forms';
- import {NzMessageService} from "ng-zorro-antd/message";
-  
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  FormGroup,
+  UntypedFormGroup,
+  ValidationErrors,
+  Validators,
+  FormsModule,
+} from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
- @Component({
-   selector: 'app-link-fm',
-   templateUrl: './link-fm.component.html',
-   styleUrls: ['./link-fm.component.scss']
- })
- export class LinkFmComponent implements OnInit {
+@Component({
+  selector: 'app-link-fm',
+  templateUrl: './link-fm.component.html',
+  styleUrls: ['./link-fm.component.scss'],
+})
+export class LinkFmComponent implements OnInit {
   validateForm: UntypedFormGroup;
-  constructor(private fb: UntypedFormBuilder,  private msg: NzMessageService,private rs: RequestService) {
+  constructor(
+    private fb: UntypedFormBuilder,
+    private msg: NzMessageService,
+    private rs: RequestService
+  ) {
     this.validateForm = this.fb.group({
-      id: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      port: ['', [Validators.required]], 
+      id: [''],
+      name: [''],
+      address: [''],
+      port: [0],
     });
   }
-  ngOnInit(): void {
-
+  ngOnInit(): void {}
+  show(data: any) {
+    this.validateForm.patchValue(data);
   }
-  show(data:any) { 
-  this.validateForm.patchValue(data) 
-  }  
-  @Input() data: any //加载数据
-  @Input() text!: string;  //update add 
+  @Input() data: any; //加载数据
+  @Input() text!: string; //update add
   @Input() isVisible = false;
-  @Input() title!: string; 
-  @Output() back = new EventEmitter() //modal close
+  @Input() title!: string;
+  @Output() back = new EventEmitter(); //modal close
   handleCancel() {
     this.isVisible = false;
-    this.back.emit(0)
+    this.back.emit(0);
     this.reset();
   }
   handleOk() {
-
     if (this.validateForm.valid) {
- 
-       let id=this.validateForm.value.id
-       let url =  id ? `client/${ id}` : `client/create`
-       this.rs.post(url, this.validateForm.value).subscribe(res => { 
-       this.msg.success("保存成功")
-
-     }) 
+      let id = this.validateForm.value.id;
+        let url = id ? `link/${id}` : `link/create`;
+        this.rs.post(url, this.validateForm.value).subscribe((res) => {
+        this.msg.success('保存成功');
+        this.isVisible = false;
+        this.back.emit(1);
+      });
       return;
-    }
-    else {
-      Object.values(this.validateForm.controls).forEach(control => {
+    } else {
+      Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });

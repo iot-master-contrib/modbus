@@ -11,7 +11,7 @@ export class DeviceComponent {
   constructor(private router: Router,
     private rs: RequestService,
     private msg: NzMessageService
-  ) { //this.load();
+  ) {  this.load();
 
   }
   @ViewChild('child') child: any
@@ -24,9 +24,11 @@ export class DeviceComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {}
+  title!:string
+  text!:string
   clientFm(num: number) {
+    if(num)this.load() 
     this.isVisible = false
-    this.addVisible = false 
   }
   load() {
     this.loading = true
@@ -37,28 +39,32 @@ export class DeviceComponent {
       this.loading = false;
     })
   }
-  delete(index: number, id: number) {
+  delete(index: number, id: number) { 
     this.datum.splice(index, 1);
     this.rs.get(`device/${id}/delete`).subscribe(res => {
       this.msg.success("删除成功")
+      this.isVisible=false;
+      this.load()
     })
-  }
-  read(data: any) {
-    this.rs.get(`device/${data.id}/read`).subscribe(res => {
-      data.read = true;
-    })
-  }
+  } 
+  add(){ 
+    this.child.reset()
+    this.title="设备添加"
+    this.text="提交"
+    this.isVisible=true}
   edit(id: number, data: any) {
+    this.title="设备修改"
+    this.text="修改"
     this.isVisible = true
     this.child.show(data)
   }
-  add(){this.addVisible=true} 
   search() {
-    this.query.keyword = {
-      name: this.input,
+    if(this.input)
+    this.query.filter = {
+      id: this.input,
     };
-    this.query.skip = 0;
+     else this.query={}
     this.load();
   }
-  cancel() { this.msg.info('click cancel'); }
+  cancel() { this.msg.info('取消删除'); }
 }
