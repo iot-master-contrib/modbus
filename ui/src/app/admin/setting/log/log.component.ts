@@ -47,7 +47,7 @@ export class LogComponent implements OnInit {
   submit() {
     
     if (this.group.valid) {
- this.group.patchValue({Level:this.group.value.Level})
+ 
       this.rs.post(`config`, this.group.value).subscribe(res => {
         this.msg.success("保存成功")
       })

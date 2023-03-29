@@ -26,11 +26,14 @@
         <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="Level">等级</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback  > 
           <nz-select nzShowSearch nzAllowClear  formControlName="Level" >
-            <nz-option nzLabel="1" nzValue="1"></nz-option>
-            <nz-option nzLabel="2" nzValue="2"></nz-option>
-            <nz-option nzLabel="3" nzValue="3"></nz-option>
-            <nz-option nzLabel= "4"  nzValue= "4" ></nz-option>
-            <nz-option nzLabel="5" nzValue="5"></nz-option> 
+            <nz-option nzLabel="panic" nzValue="panic"></nz-option>
+            <nz-option nzLabel="fatal" nzValue="fatal"></nz-option>
+            <nz-option nzLabel="error" nzValue="error"></nz-option>
+            <nz-option nzLabel= "warn"  nzValue= "warn" ></nz-option>
+            <nz-option nzLabel= "warning"  nzValue= "warning" ></nz-option>
+            <nz-option nzLabel="info" nzValue="info"></nz-option> 
+            <nz-option nzLabel="debug" nzValue="debug"></nz-option> 
+            <nz-option nzLabel="trace" nzValue="trace"></nz-option> 
           </nz-select>
           <!-- <ng-template #LevelErrorTpl let-control>
             <ng-container *ngIf="control.hasError('required')">请输入日志等级!</ng-container> 
