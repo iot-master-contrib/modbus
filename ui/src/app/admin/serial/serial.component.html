@@ -3,7 +3,7 @@
     <nz-page-header class="site-page-header" nzBackIcon nzTitle="串口连接" nzSubtitle="serial">
       <nz-page-header-extra  >
         <nz-space >
-          <input *nzSpaceItem nz-input  placeholder="输入查询字段" [(ngModel)]="input" />
+          <input *nzSpaceItem nz-input  placeholder="串口id" [(ngModel)]="input" />
           <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
             <span nz-icon nzType="search"></span>
             查询</button>
@@ -11,8 +11,7 @@
               <i nz-icon nzType="plus"></i>
              新增
             </button>
-            <app-serial-fm [isVisible]="addVisible" [title]="'串口连接'" [text]="'提交'" (back)=clientFm($event)></app-serial-fm>
-        </nz-space>
+                 </nz-space>
       </nz-page-header-extra>
     </nz-page-header>
   </nz-header>
@@ -36,7 +35,7 @@
           <td>{{data.port}}</td>
           <td>{{data.created}}</td>
           <td nzRight>
-            <a nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?" (nzOnConfirm)="delete(i, data.id )"
+            <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id )"
               (nzOnCancel)="cancel()" nzPopconfirmPlacement="topLeft">
               <i nz-icon nzType="delete"></i>
             </a>
@@ -47,7 +46,7 @@
             </a>
           </td>
         </tr>
-        <app-serial-fm #child [isVisible]="isVisible" [title]="'串口连接'" [text]="'修改'" (back)=clientFm($event)>
+        <app-serial-fm #child [isVisible]="isVisible" [title]="title" [text]="text" (back)=clientFm($event)>
         </app-serial-fm>
       </tbody>
     </nz-table>

@@ -21,6 +21,18 @@
         </nz-form-control>
       </nz-form-item>
 
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="Url">地址</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="UrlErrorTpl">
+          <input nz-input name="Url" formControlName="Url"/>
+          <ng-template #UrlErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入地址!</ng-container> 
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      
   <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Username">用户名</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="nameErrorTpl">
@@ -42,15 +54,7 @@
         </nz-form-control>
       </nz-form-item>
 
-      <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="Url">地址</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback [nzErrorTip]="UrlErrorTpl">
-          <input nz-input name="Url" formControlName="Url"/>
-          <ng-template #UrlErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')">请输入地址!</ng-container> 
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
+       
   
        
  

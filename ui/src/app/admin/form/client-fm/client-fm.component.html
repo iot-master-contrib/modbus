@@ -1,7 +1,7 @@
 <nz-modal [nzVisible]="isVisible" [nzTitle]="title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkText]="text" >
     <ng-container *nzModalContent>
      <form nz-form [formGroup]="validateForm"    >   
-        <nz-form-item>
+        <!-- <nz-form-item>
           <nz-form-label [nzSpan]="5" nzFor="id" nzRequired>id</nz-form-label>
           <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="idErrorTpl">
             <input nz-input   name="id" formControlName="id">
@@ -9,38 +9,38 @@
               <ng-container *ngIf="control.hasError('required')">请输入id!</ng-container> 
             </ng-template>
           </nz-form-control>
-        </nz-form-item>
+        </nz-form-item> -->
         <nz-form-item>
           <nz-form-label [nzSpan]="5" nzFor="name"  >名称</nz-form-label>
-          <nz-form-control [nzSpan]="16"   [nzErrorTip]="nameErrorTpl">
+          <nz-form-control [nzSpan]="16"    >
             <input nz-input name="name" formControlName="name">
-            <ng-template #nameErrorTpl let-control>
+            <!-- <ng-template #nameErrorTpl let-control>
               <ng-container *ngIf="control.hasError('required')">请输入名称!</ng-container> 
-            </ng-template>
+            </ng-template> -->
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-label [nzSpan]="5" nzFor="address"  >地址</nz-form-label>
-          <nz-form-control [nzSpan]="16"   [nzErrorTip]="addressErrorTpl">
+          <nz-form-control [nzSpan]="16"    >
             <input nz-input name="address" formControlName="address">
-            <ng-template #addressErrorTpl let-control>
+            <!-- <ng-template #addressErrorTpl let-control>
               <ng-container *ngIf="control.hasError('required')">请输入地址!</ng-container> 
-            </ng-template>
+            </ng-template> -->
           </nz-form-control>
         </nz-form-item>
   
         <nz-form-item>
           <nz-form-label [nzSpan]="5" nzFor="port"  >端口</nz-form-label>
-          <nz-form-control [nzSpan]="16" nzHasFeedback [nzErrorTip]="portErrorTpl">
+          <nz-form-control [nzSpan]="16" nzHasFeedback  >
             <nz-select nzShowSearch nzAllowClear   name="port" formControlName="port"  >
               <nz-option nzLabel="8080" nzValue="8080"></nz-option>
               <nz-option nzLabel="8081" nzValue="8081"></nz-option>
               <nz-option nzLabel="8082" nzValue="8082"></nz-option> 
               
             </nz-select>
-            <ng-template #portErrorTpl let-control>
+            <!-- <ng-template #portErrorTpl let-control>
               <ng-container *ngIf="control.hasError('required')">请输入端口!</ng-container> 
-            </ng-template>
+            </ng-template> -->
           </nz-form-control>
         </nz-form-item>
   

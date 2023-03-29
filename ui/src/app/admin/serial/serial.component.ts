@@ -11,22 +11,23 @@ export class SerialComponent {
   constructor(private router: Router,
     private rs: RequestService,
     private msg: NzMessageService
-  ) { //this.load();
+  ) {  this.load();
 
   }
   @ViewChild('child') child: any
   input!: string
-  isVisible = false
-  addVisible=false
+  isVisible = false 
   loading = true
   datum: any[] = []
   total = 1;
   pageSize = 20;
   pageIndex = 1;
   query: any = {}
+  title!:string
+  text!:string
   clientFm(num: number) {
+    if(num)this.load() 
     this.isVisible = false
-    this.addVisible=false
   }
   load() {
     this.loading = true
@@ -37,29 +38,34 @@ export class SerialComponent {
       this.loading = false;
     })
   }
-  add(){this.addVisible=true}
+   
   delete(index: number, id: number) {
     this.datum.splice(index, 1);
     this.rs.get(`serial/${id}/delete`).subscribe(res => {
       this.msg.success("删除成功")
+      this.isVisible=false;
+      this.load()
     })
-  }
-  read(data: any) {
-    this.rs.get(`serial/${data.id}/read`).subscribe(res => {
-      data.read = true;
-    })
-  }
+  } 
+  add(){ 
+    this.child.reset()
+    this.title="串口添加"
+    this.text="提交"
+    this.isVisible=true}
   edit(id: number, data: any) {
+    this.title="串口修改"
+    this.text="修改"
     this.isVisible = true
     this.child.show(data)
   }
   search() {
-    this.query.keyword = {
-      name: this.input,
+    if(this.input)
+    this.query.filter = {
+      id: this.input,
     };
-    this.query.skip = 0;
+     else this.query={}
     this.load();
   }
-  cancel() { this.msg.info('click cancel'); }
+  cancel() { this.msg.info('取消删除'); }
 }
 

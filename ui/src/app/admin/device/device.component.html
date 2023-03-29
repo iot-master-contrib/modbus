@@ -3,7 +3,7 @@
     <nz-page-header class="site-page-header" nzBackIcon nzTitle="设备" nzSubtitle="modbus_device">
       <nz-page-header-extra  >
         <nz-space >
-          <input *nzSpaceItem nz-input  placeholder="输入查询字段" [(ngModel)]="input" />
+          <input *nzSpaceItem nz-input  placeholder="设备id" [(ngModel)]="input" />
           <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
             <span nz-icon nzType="search"></span>
             查询</button>
@@ -11,7 +11,7 @@
               <i nz-icon nzType="plus"></i>
              新增
             </button>
-            <app-device-fm [isVisible]="addVisible" [title]="'设备'" [text]="'提交'" (back)=clientFm($event)></app-device-fm>
+            
         </nz-space>
       </nz-page-header-extra>
     </nz-page-header>
@@ -39,7 +39,7 @@
           <td>{{data.interval}}</td>
           <td>{{data.created}}</td>
           <td nzRight>
-            <a nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?" (nzOnConfirm)="delete(i, data.id )"
+            <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id )"
               (nzOnCancel)="cancel()" nzPopconfirmPlacement="topLeft">
               <i nz-icon nzType="delete"></i>
             </a>
@@ -50,7 +50,7 @@
             </a>
           </td>
         </tr>
-        <app-device-fm #child [isVisible]="isVisible" [title]="'轮询器'" [text]="'修改'" (back)=clientFm($event)>
+        <app-device-fm #child [isVisible]="isVisible" [title]="title" [text]="text" (back)=clientFm($event)>
         </app-device-fm>
       </tbody>
     </nz-table>

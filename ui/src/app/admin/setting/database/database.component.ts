@@ -11,7 +11,9 @@ import { NzMessageService } from "ng-zorro-antd/message";
 })
 export class DatabaseComponent implements OnInit {
   group!: FormGroup;
-
+  loading=false
+  query={}
+  dbData=[] 
   constructor(private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
@@ -29,20 +31,28 @@ export class DatabaseComponent implements OnInit {
     this.build()
   }
 
+  load(){ 
+    this.rs.get(`config/database`).subscribe((res) => {   
+     this.dbData=res.data
+     this.group.patchValue({LogLevel:String(res.data.log_level)  ,Type:res.data.type,
+      URL:res.data.url  })
+    }); 
+}
+
   build(obj?: any) {
     obj = obj || {}
     this.group = this.fb.group({
       Type: [obj.type || 'mysql', []],
-      URL: ['', [Validators.required]],
-      Debug: ['', [Validators.required]],
-      LogLevel: ['', [Validators.required]]
+      URL: ['' ],
+      Debug: ['' ],
+      LogLevel: ['']
     })
   }
 
   submit() {
     if (this.group.valid) {
-
-      this.rs.post(`config`, this.group.value).subscribe(res => {
+      this.group.patchValue({LogLevel:Number(this.group.value.LogLevel)})
+      this.rs.post(`config/database`, this.group.value).subscribe(res => {
         this.msg.success("保存成功")
       })
 
@@ -58,14 +68,6 @@ export class DatabaseComponent implements OnInit {
 
     }
   }
-  loading=false
-  query={}
-  dbData=[] 
-  load(){ 
-      this.rs.get(`config/database`).subscribe((res) => {   
-       this.dbData=res.data
-       this.group.patchValue({LogLevel:res.data.log_level,Type:res.data.type,
-        URL:res.data.url  })
-      }); 
-  }
+   
+   
 }
