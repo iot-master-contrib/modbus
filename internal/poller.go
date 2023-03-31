@@ -28,3 +28,7 @@ type Poller struct {
 	devices []model.Device
 	modbus  Modbus
 }
+
+func (p *Poller) execute() {
+
+}

@@ -2,8 +2,15 @@ package model
 
 type Server struct {
 	Tunnel     `xorm:"extends"`
-	Port       uint16 `json:"port,omitempty"`       //监听端口
-	Standalone bool   `json:"standalone,omitempty"` //单例模式（不支持注册）
+	Port       uint16          `json:"port,omitempty"`       //监听端口
+	Standalone bool            `json:"standalone,omitempty"` //单例模式（不支持注册）
+	Defaults   []DefaultDevice `json:"defaults,omitempty"`
+}
+
+type DefaultDevice struct {
+	Slave     uint8  `json:"slave"`          //从站号
+	Name      string `json:"name,omitempty"` //名称
+	ProductId string `json:"product_id"`     //产品ID
 }
 
 type Link struct {

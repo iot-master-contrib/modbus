@@ -2397,6 +2397,23 @@ const docTemplate = `{
                 }
             }
         },
+        "model.DefaultDevice": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "product_id": {
+                    "description": "产品ID",
+                    "type": "string"
+                },
+                "slave": {
+                    "description": "从站号",
+                    "type": "integer"
+                }
+            }
+        },
         "model.Device": {
             "type": "object",
             "properties": {
@@ -2646,6 +2663,12 @@ const docTemplate = `{
                 "created": {
                     "description": "创建时间",
                     "type": "string"
+                },
+                "defaults": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.DefaultDevice"
+                    }
                 },
                 "desc": {
                     "description": "说明",

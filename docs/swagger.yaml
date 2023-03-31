@@ -262,6 +262,18 @@ definitions:
       retry:
         $ref: '#/definitions/model.Retry'
     type: object
+  model.DefaultDevice:
+    properties:
+      name:
+        description: 名称
+        type: string
+      product_id:
+        description: 产品ID
+        type: string
+      slave:
+        description: 从站号
+        type: integer
+    type: object
   model.Device:
     properties:
       created:
@@ -439,6 +451,10 @@ definitions:
       created:
         description: 创建时间
         type: string
+      defaults:
+        items:
+          $ref: '#/definitions/model.DefaultDevice'
+        type: array
       desc:
         description: 说明
         type: string
