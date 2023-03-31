@@ -1,29 +1,26 @@
 <nz-layout>
   <nz-header>
     <nz-page-header class="site-page-header" nzBackIcon nzTitle="设备" nzSubtitle="modbus_device">
-      <nz-page-header-extra  >
-        <nz-space >
-          <input *nzSpaceItem nz-input  placeholder="设备id" [(ngModel)]="input" />
-          <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
-            <span nz-icon nzType="search"></span>
-            查询</button>
-            <button *nzSpaceItem nz-button nzType="primary" (click)="add()">
-              <i nz-icon nzType="plus"></i>
-             新增
-            </button>
-            
+      <nz-page-header-extra>
+        <nz-space>
+          <app-search-box *nzSpaceItem placeholder="设备id" (onSearch)="search($event)"></app-search-box>
+          <button *nzSpaceItem nz-button nzType="primary" (click)="add()">
+            <i nz-icon nzType="plus"></i>
+            新增
+          </button>
+
         </nz-space>
       </nz-page-header-extra>
     </nz-page-header>
   </nz-header>
- 
+
   <nz-content>
     <nz-table #basicTable [nzData]="datum">
       <thead>
         <tr>
           <th>设备id</th>
           <th>名称</th>
-          <th>描述</th> 
+          <th>描述</th>
           <th>周期</th>
           <th>间隔</th>
           <th>创建时间</th>
@@ -39,8 +36,8 @@
           <td>{{data.interval}}</td>
           <td>{{data.created}}</td>
           <td nzRight>
-            <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id )"
-              (nzOnCancel)="cancel()" nzPopconfirmPlacement="topLeft">
+            <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id )" (nzOnCancel)="cancel()"
+              nzPopconfirmPlacement="topLeft">
               <i nz-icon nzType="delete"></i>
             </a>
 

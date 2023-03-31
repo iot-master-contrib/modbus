@@ -24,14 +24,7 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="5" nzFor="port"  >端口</nz-form-label>
           <nz-form-control [nzSpan]="16"   >
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a port" name="port" formControlName="port">
-              <nz-option nzLabel="5001" nzValue="5001"></nz-option>
-              <nz-option nzLabel="5002" nzValue="5002"></nz-option>
-              <nz-option nzLabel="5003" nzValue="5003"></nz-option>
-            </nz-select>
-            <!-- <ng-template #portErrorTpl let-control>
-              <ng-container *ngIf="control.hasError('required')">请输入端口!</ng-container> 
-            </ng-template> -->
+            <input nz-input name="port" formControlName="port">
           </nz-form-control>
         </nz-form-item>
   

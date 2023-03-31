@@ -39,19 +39,8 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="5" nzFor="port">端口</nz-form-label>
         <nz-form-control [nzSpan]="16">
-          <nz-select
-            nzShowSearch
-            nzAllowClear 
-            name="port"
-            formControlName="port"
-          >
-            <nz-option nzLabel="8080" nzValue="8080"></nz-option>
-            <nz-option nzLabel="8081" nzValue="8081"></nz-option>
-            <nz-option nzLabel="8082" nzValue="8082"></nz-option>
-          </nz-select>
-          <!-- <ng-template #portErrorTpl let-control>
-              <ng-container *ngIf="control.hasError('required')">请输入端口!</ng-container> 
-            </ng-template> -->
+          <nz-input-number style="width:auto;" formControlName="port" name="port" [nzMin]="1" [nzMax]="65535"
+          [nzStep]="1"></nz-input-number>
         </nz-form-control>
       </nz-form-item>
     </form>
