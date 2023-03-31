@@ -28,9 +28,10 @@ export class DeviceFmComponent implements OnInit {
       desc: [''],
       period: [''],
       interval: [''],
+      link: ['']
     });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   show(data: any) {
     this.validateForm.patchValue(data);
   }
