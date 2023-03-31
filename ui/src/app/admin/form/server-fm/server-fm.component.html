@@ -37,6 +37,15 @@
             [nzStep]="1"></nz-input-number>
         </nz-form-control>
       </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="deviceId">默认设备</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <nz-select nzShowSearch name="deviceId" formControlName="deviceId">
+            <nz-option *ngFor="let item of deviceList" [nzLabel]="item['name']" [nzValue]="item['id']"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
     </form>
   </ng-container>
 </nz-modal>
