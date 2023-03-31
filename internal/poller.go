@@ -3,6 +3,7 @@ package internal
 import (
 	"fmt"
 	"github.com/zgwit/iot-master/v3/pkg/lib"
+	"github.com/zgwit/iot-master/v3/pkg/log"
 	"io"
 	"modbus/model"
 )
@@ -30,5 +31,17 @@ type Poller struct {
 }
 
 func (p *Poller) execute() {
-
+	for _, d := range p.devices {
+		values := make(map[string]interface{})
+		product := Products.Load(d.ProductId)
+		for _, m := range product.Mappers {
+			read, err := p.modbus.Read(d.Slave, m.Code, m.Addr, m.Size)
+			if err != nil {
+				log.Error(err)
+				continue
+			}
+			m.Parse(read, values)
+		}
+		//TODO mqtt
+	}
 }
