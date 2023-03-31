@@ -11,11 +11,11 @@ export class LinkComponent {
   constructor(private router: Router,
     private rs: RequestService,
     private msg: NzMessageService
-  ) { this.load();
+  ) {
+    this.load();
 
   }
-  @ViewChild('child') child: any 
-  input!: string
+  @ViewChild('child') child: any
   isVisible!: boolean
   loading = true
   datum: any[] = []
@@ -23,16 +23,16 @@ export class LinkComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {}
-  title!:string
-  text!:string
+  title!: string
+  text!: string
   clientFm(num: number) {
-    if(num)this.load() 
+    if (num) this.load()
     this.isVisible = false
   }
   load() {
     this.loading = true
     this.rs.post("link/search", this.query).subscribe(res => {
-      this.datum = res.data; 
+      this.datum = res.data;
       this.total = res.total;
     }).add(() => {
       this.loading = false;
@@ -42,28 +42,29 @@ export class LinkComponent {
     this.datum.splice(index, 1);
     this.rs.get(`link/${id}/delete`).subscribe(res => {
       this.msg.success("删除成功")
-      this.isVisible=false;
+      this.isVisible = false;
       this.load()
     })
   }
-   
-  add(){ 
+
+  add() {
     this.child.reset()
-    this.title="连接端添加"
-    this.text="提交"
-    this.isVisible=true}
+    this.title = "连接端添加"
+    this.text = "提交"
+    this.isVisible = true
+  }
   edit(id: number, data: any) {
-    this.title="连接端修改"
-    this.text="修改"
+    this.title = "连接端修改"
+    this.text = "修改"
     this.isVisible = true
     this.child.show(data)
   }
-  search() {
-    if(this.input)
-    this.query.filter = {
-      id: this.input,
-    };
-     else this.query={}
+  search(text: any) {
+    if (text)
+      this.query.filter = {
+        id: text,
+      };
+    else this.query = {}
     this.load();
   }
   cancel() { this.msg.info('取消删除'); }

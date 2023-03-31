@@ -3,10 +3,7 @@
     <nz-page-header class="site-page-header" nzBackIcon nzTitle="TCP服务器" nzSubtitle="tcp_server">
       <nz-page-header-extra>
         <nz-space>
-          <input *nzSpaceItem nz-input placeholder="服务器id" [(ngModel)]="input" />
-          <button *nzSpaceItem nz-button nzType="primary" (click)="search()">
-            <span nz-icon nzType="search"></span>
-            查询</button>
+          <app-search-box *nzSpaceItem placeholder="服务器id" (onSearch)="search($event)"></app-search-box>
             <button *nzSpaceItem nz-button nzType="primary" (click)="add()">
               <i nz-icon nzType="plus"></i>
              新增
@@ -15,8 +12,6 @@
       </nz-page-header-extra>
     </nz-page-header>
   </nz-header>
-
-
   <nz-content>
     <nz-table #basicTable [nzData]="datum">
       <thead>

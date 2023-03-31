@@ -17,6 +17,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { SerialComponent } from './admin/serial/serial.component';
 import { ServerComponent } from './admin/server/server.component';
@@ -35,6 +36,7 @@ import { MapperFmComponent } from './admin/form/mapper-fm/mapper-fm.component';
 import { DeviceFmComponent } from './admin/form/device-fm/device-fm.component';
 import { SerialFmComponent } from './admin/form/serial-fm/serial-fm.component';
 import { ServerFmComponent } from './admin/form/server-fm/server-fm.component';
+import { BaseModule } from './admin/base/base.module';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
@@ -80,11 +82,13 @@ registerLocaleData(zh);
     NzDividerModule,
     NzButtonModule,
     NzDropDownModule,
+    NzInputNumberModule,
     NzPopconfirmModule,
     NzFormModule,
     ReactiveFormsModule,
     NzPageHeaderModule,
-    NzSelectModule
+    NzSelectModule,
+    BaseModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN }
