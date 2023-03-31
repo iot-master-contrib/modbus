@@ -16,36 +16,10 @@
   <nz-layout class="main">
     <nz-sider>
       <ul nz-menu nzMode="inline" [nzTheme]="'dark'">
-        <li nz-submenu nzTitle="产品管理" nzIcon="project">
+        <li *ngFor="let item of menuList" nz-submenu [nzTitle]="item['title']" [nzIcon]="item['icon']"
+          [nzOpen]="item.open">
           <ul>
-            <li nz-menu-item routerLink="/admin/product">产品</li>
-            <li nz-menu-item   routerLink="/admin/device">设备</li>
-          </ul>
-        </li>
-
-        <li nz-submenu nzTitle="连接管理" nzIcon="appstore">
-          <ul>
-            <li nz-menu-item   routerLink="/admin/server"> TCP服务器 </li>
-            <li nz-menu-item routerLink="/admin/link">TCP连接</li>
-            <li nz-menu-item   routerLink="/admin/client"> TCP客户端
-
-            </li>
-            <li nz-menu-item   routerLink="/admin/serial">串口连接</li>
-          </ul>
-        </li>
-
-        <!-- <li nz-submenu nzTitle="轮询器" nzIcon="setting">
-          <ul>
-            <li nz-menu-item (contextmenu)="contextMenu($event, menu,3)" routerLink="/admin/mapper">映射表</li>
-          </ul>
-        </li> -->
-
-        <li nz-submenu nzTitle="系统设置" nzIcon="apartment">
-          <ul>
-            <li nz-menu-item   routerLink="/admin/setting/web"> 网站</li>
-            <li nz-menu-item routerLink="/admin/setting/database">数据库</li>
-            <li nz-menu-item routerLink="/admin/setting/log">日志</li>
-            <li nz-menu-item routerLink="/admin/setting/mqtt">消息总线</li>
+            <li nz-menu-item *ngFor="let it of item.children" [routerLink]="it['path']" nzMatchRouter>{{it.title}}</li>
           </ul>
         </li>
       </ul>
@@ -60,10 +34,6 @@
     <app-serial-fm [isVisible]="ary[2]" [title]="'串口连接'" [text]="'提交'" (back)=clientFm($event)></app-serial-fm>
     <app-mapper-fm [isVisible]="ary[3]" [title]="'映射表'" [text]="'提交'" (back)=clientFm($event)></app-mapper-fm>
     <app-device-fm [isVisible]="ary[4]" [title]="'轮询器'" [text]="'提交'" (back)=clientFm($event)></app-device-fm> -->
-
-
-
-
     <nz-content>
       <router-outlet></router-outlet>
     </nz-content>

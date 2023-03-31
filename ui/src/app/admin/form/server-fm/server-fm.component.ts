@@ -26,7 +26,6 @@ export class ServerFmComponent implements OnInit {
       if (data.length) {
         this.validateForm.patchValue({ deviceId: data[0].id });
       }
-      console.log("🚀 ~ file: server-fm.component.ts:23 ~ ServerFmComponent ~ this.rs.get ~ res:", res)
     })
   }
   show(data: any) {
