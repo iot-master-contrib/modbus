@@ -12,12 +12,12 @@ import {
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { DatePipe } from '@angular/common';
 @Component({
-  selector: 'app-pro-fm',
-  templateUrl: './pro-fm.component.html',
-  styleUrls: ['./pro-fm.component.scss'],
+  selector: 'app-product-fm',
+  templateUrl: './product-fm.component.html',
+  styleUrls: ['./product-fm.component.scss'],
   providers: [DatePipe],
 })
-export class ProFmComponent implements OnInit {
+export class ProductFmComponent implements OnInit {
   validateForm: UntypedFormGroup;
   constructor(
     private readonly datePipe: DatePipe,

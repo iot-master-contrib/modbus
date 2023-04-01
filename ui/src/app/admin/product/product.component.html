@@ -1,6 +1,6 @@
 <nz-layout>
   <nz-header>
-    <nz-page-header class="site-page-header" nzBackIcon nzTitle="产品" nzSubtitle="product">
+    <nz-page-header class="site-page-header" nzBackIcon nzTitle="产品">
       <nz-page-header-extra>
         <nz-space>
           <app-search-box *nzSpaceItem placeholder="产品id" (onSearch)="search($event)"></app-search-box>
@@ -40,8 +40,8 @@
             </a>
           </td>
         </tr>
-        <app-pro-fm #child [isVisible]="isVisible" [title]="title" [text]="text" (back)=clientFm($event)>
-        </app-pro-fm>
+        <app-product-fm #child [isVisible]="isVisible" [title]="title" [text]="text" (back)=clientFm($event)>
+        </app-product-fm>
       </tbody>
     </nz-table>
   </nz-content>

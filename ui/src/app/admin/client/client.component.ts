@@ -1,4 +1,4 @@
-import { RequestService } from './../../request.service';
+import { RequestService } from '../../request.service';
 import { Component, ViewChild } from '@angular/core';
 import { Router } from "@angular/router";
 import { NzMessageService } from "ng-zorro-antd/message";

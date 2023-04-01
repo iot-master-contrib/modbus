@@ -1,6 +1,6 @@
 <nz-layout>
   <nz-header>
-    <div class="title"><img src="assets/module.png" />Modbus网关插件</div>
+    <div class="title"><img src="assets/module.png" />Modbus网关</div>
 
     <div class="user" nzTrigger="click" nz-dropdown [nzDropdownMenu]="menuDp">
       <img class="avatar" src="/assets/manager.png" alt="logo">
@@ -8,7 +8,7 @@
     </div>
     <nz-dropdown-menu #menuDp="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item>编辑</li>
+        <li nz-menu-item>修改密码</li>
         <li nz-menu-item>退出</li>
       </ul>
     </nz-dropdown-menu>
@@ -16,24 +16,14 @@
   <nz-layout class="main">
     <nz-sider>
       <ul nz-menu nzMode="inline" [nzTheme]="'dark'">
-        <li *ngFor="let item of menuList" nz-submenu [nzTitle]="item['title']" [nzIcon]="item['icon']"
-          [nzOpen]="item.open">
+        <li *ngFor="let item of menuList" nz-submenu
+            [nzTitle]="item['title']" [nzIcon]="item['icon']" [nzOpen]="item.open">
           <ul>
             <li nz-menu-item *ngFor="let it of item.children" [routerLink]="it['path']" nzMatchRouter>{{it.title}}</li>
           </ul>
         </li>
       </ul>
     </nz-sider>
-    <nz-dropdown-menu #menu="nzDropdownMenu">
-      <ul nz-menu>
-        <li nz-menu-item (click)="selectDropdown( )">编辑</li>
-      </ul>
-    </nz-dropdown-menu>
-    <!-- <app-server-fm [isVisible]="ary[0]" [title]="'TCP服务器'" [text]="'提交'" (back)=clientFm($event)></app-server-fm>
-    <app-client-fm [isVisible]="ary[1]" [title]="'TCP客户端'" [text]="'提交'" (back)=clientFm($event)></app-client-fm>
-    <app-serial-fm [isVisible]="ary[2]" [title]="'串口连接'" [text]="'提交'" (back)=clientFm($event)></app-serial-fm>
-    <app-mapper-fm [isVisible]="ary[3]" [title]="'映射表'" [text]="'提交'" (back)=clientFm($event)></app-mapper-fm>
-    <app-device-fm [isVisible]="ary[4]" [title]="'轮询器'" [text]="'提交'" (back)=clientFm($event)></app-device-fm> -->
     <nz-content>
       <router-outlet></router-outlet>
     </nz-content>

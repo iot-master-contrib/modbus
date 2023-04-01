@@ -32,11 +32,11 @@ export class AdminComponent {
     open: false,
     children: [
       {
-        title: '产品',
+        title: '所有产品',
         path: '/admin/product'
       },
       {
-        title: '设备',
+        title: '所有设备',
         path: '/admin/device'
       }
     ]

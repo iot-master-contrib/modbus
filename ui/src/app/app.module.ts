@@ -42,7 +42,8 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { LinkFmComponent } from './admin/form/link-fm/link-fm.component';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { ProFmComponent } from './admin/form/pro-fm/pro-fm.component';
+import { ProductFmComponent } from './admin/form/product-fm/product-fm.component';
+import {NzInputModule} from "ng-zorro-antd/input";
 registerLocaleData(zh);
 
 @NgModule({
@@ -62,7 +63,7 @@ registerLocaleData(zh);
     ServerFmComponent,
     LinkFmComponent,
     ProductComponent,
-    ProFmComponent,
+    ProductFmComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +89,8 @@ registerLocaleData(zh);
     ReactiveFormsModule,
     NzPageHeaderModule,
     NzSelectModule,
-    BaseModule
+    BaseModule,
+    NzInputModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN }
