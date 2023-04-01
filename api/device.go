@@ -114,7 +114,7 @@ func deviceRouter(app *gin.RouterGroup) {
 	app.POST("/create", curd.ApiCreate[model.Device](curd.GenerateRandomKey(8), nil))
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Device]())
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Device](nil, nil,
-		"name", "desc", "tunnel_id", "product_id", "slave", "disabled"))
+		"id", "name", "desc", "tunnel_id", "product_id", "slave", "disabled"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Device](nil, nil))
 
 	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Device](true, nil, nil))

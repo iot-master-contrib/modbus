@@ -1,9 +1,11 @@
 package internal
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/zgwit/iot-master/v3/pkg/lib"
 	"github.com/zgwit/iot-master/v3/pkg/log"
+	"github.com/zgwit/iot-master/v3/pkg/mqtt"
 	"io"
 	"modbus/model"
 )
@@ -31,17 +33,25 @@ type Poller struct {
 }
 
 func (p *Poller) execute() {
-	for _, d := range p.devices {
+
+	for _, device := range p.devices {
 		values := make(map[string]interface{})
-		product := Products.Load(d.ProductId)
-		for _, m := range product.Mappers {
-			read, err := p.modbus.Read(d.Slave, m.Code, m.Addr, m.Size)
+		product := Products.Load(device.ProductId)
+		for _, mapper := range product.Mappers {
+			read, err := p.modbus.Read(device.Slave, mapper.Code, mapper.Addr, mapper.Size)
 			if err != nil {
 				log.Error(err)
 				continue
 			}
-			m.Parse(read, values)
+			mapper.Parse(read, values)
 		}
+
 		//TODO mqtt
+		topic := fmt.Sprintf("up/property/%s/%s/values", product.Id, device.Id)
+		payload, _ := json.Marshal(values)
+		err := mqtt.Publish(topic, payload, false, 0)
+		if err != nil {
+			log.Error(err)
+		}
 	}
 }
