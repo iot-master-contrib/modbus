@@ -1,8 +1,11 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
+	"github.com/zgwit/iot-master/v3/pkg/db"
+	"modbus/connect"
 	"modbus/model"
 )
 
@@ -109,15 +112,51 @@ func noopSerialDisable() {}
 func serialRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[model.Serial]())
-	app.POST("/search", curd.ApiSearch[model.Serial]())
-	app.GET("/list", curd.ApiList[model.Serial]())
-	app.POST("/create", curd.ApiCreate[model.Serial](curd.GenerateRandomKey(8), nil))
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Serial]())
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Serial](nil, nil,
-		"name", "desc", "heartbeat", "period", "interval", "retry", "options", "disabled"))
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Serial](nil, nil))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Serial](true, nil, nil))
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[model.Serial](false, nil, nil))
+	app.POST("/search", curd.ApiSearch[model.Serial]())
+
+	app.GET("/list", curd.ApiList[model.Serial]())
+
+	app.POST("/create", curd.ApiCreate[model.Serial](curd.GenerateRandomKey(8), func(value interface{}) error {
+		return connect.LoadSerial(value.(*model.Serial))
+	}))
+
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Serial]())
+
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Serial](nil, func(value interface{}) error {
+		m := value.(*model.Serial)
+		c := connect.GetSerial(m.Id)
+		err := c.Close()
+		if err != nil {
+			return err
+		}
+		return connect.LoadSerial(m)
+	},
+		"name", "desc", "heartbeat", "period", "interval", "retry", "options", "disabled"))
+
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Serial](nil, func(value interface{}) error {
+		id := value.(string)
+		c := connect.GetSerial(id)
+		return c.Close()
+	}))
+
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Serial](true, nil, func(value interface{}) error {
+		id := value.(string)
+		c := connect.GetSerial(id)
+		return c.Close()
+	}))
+
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[model.Serial](false, nil, func(value interface{}) error {
+		id := value.(string)
+		var m model.Serial
+		has, err := db.Engine.ID(id).Get(&m)
+		if err != nil {
+			return err
+		}
+		if !has {
+			return fmt.Errorf("找不到 %s", id)
+		}
+		return connect.LoadSerial(&m)
+	}))
 
 }

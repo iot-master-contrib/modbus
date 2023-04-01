@@ -33,7 +33,6 @@ type Poller struct {
 }
 
 func (p *Poller) execute() {
-
 	for _, device := range p.devices {
 		values := make(map[string]interface{})
 		product := Products.Load(device.ProductId)
@@ -46,8 +45,8 @@ func (p *Poller) execute() {
 			mapper.Parse(read, values)
 		}
 
-		//TODO mqtt
-		topic := fmt.Sprintf("up/property/%s/%s/values", product.Id, device.Id)
+		//mqtt上传数据，暂定使用Object方式，简单
+		topic := fmt.Sprintf("up/property/%s/%s", product.Id, device.Id)
 		payload, _ := json.Marshal(values)
 		err := mqtt.Publish(topic, payload, false, 0)
 		if err != nil {

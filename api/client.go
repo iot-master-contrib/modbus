@@ -1,8 +1,11 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
+	"github.com/zgwit/iot-master/v3/pkg/db"
+	"modbus/connect"
 	"modbus/model"
 )
 
@@ -113,13 +116,47 @@ func clientRouter(app *gin.RouterGroup) {
 	app.POST("/search", curd.ApiSearch[model.Client]())
 
 	app.GET("/list", curd.ApiList[model.Client]())
-	app.POST("/create", curd.ApiCreate[model.Client](curd.GenerateRandomKey(8), nil))
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Client]())
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Client](nil, nil,
-		"name", "desc", "heartbeat", "period", "interval", "disabled", "retry", "net", "addr", "port"))
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Client](nil, nil))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Client](true, nil, nil))
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[model.Client](false, nil, nil))
+	app.POST("/create", curd.ApiCreate[model.Client](curd.GenerateRandomKey(8), func(value interface{}) error {
+		return connect.LoadClient(value.(*model.Client))
+	}))
+
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Client]())
+
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Client](nil, func(value interface{}) error {
+		m := value.(*model.Client)
+		c := connect.GetClient(m.Id)
+		err := c.Close()
+		if err != nil {
+			return err
+		}
+		return connect.LoadClient(m)
+	},
+		"name", "desc", "heartbeat", "period", "interval", "disabled", "retry", "net", "addr", "port"))
+
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Client](nil, func(value interface{}) error {
+		id := value.(string)
+		c := connect.GetClient(id)
+		return c.Close()
+	}))
+
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Client](true, nil, func(value interface{}) error {
+		id := value.(string)
+		c := connect.GetClient(id)
+		return c.Close()
+	}))
+
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[model.Client](false, nil, func(value interface{}) error {
+		id := value.(string)
+		var m model.Client
+		has, err := db.Engine.ID(id).Get(&m)
+		if err != nil {
+			return err
+		}
+		if !has {
+			return fmt.Errorf("找不到 %s", id)
+		}
+		return connect.LoadClient(&m)
+	}))
 
 }
