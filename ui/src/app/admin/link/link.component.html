@@ -4,9 +4,6 @@
       <nz-page-header-extra>
         <nz-space>
           <app-search-box *nzSpaceItem placeholder="输入连接端id" (onSearch)="search($event)"></app-search-box>
-          <button *nzSpaceItem nz-button nzType="primary" (click)="add()">
-            <span nz-icon nzType="plus"></span>
-            新增</button>
         </nz-space>
       </nz-page-header-extra>
     </nz-page-header>
@@ -17,10 +14,10 @@
     <nz-table #basicTable [nzData]="datum">
       <thead>
         <tr>
-          <th>id</th>
+          <th>ID</th>
+          <th>服务器ID</th>
           <th>名称</th>
-          <th>地址</th>
-          <th>端口</th>
+          <th>远程地址</th>
           <th>创建时间</th>
           <th>操作</th>
         </tr>
@@ -28,9 +25,9 @@
       <tbody>
         <tr *ngFor="let data of basicTable.data;let i=index">
           <td>{{data.id}}</td>
+          <td>{{data.server_id}}</td>
           <td>{{data.name}}</td>
-          <td>{{data.address}}</td>
-          <td>{{data.port}}</td>
+          <td>{{data.remote}}</td>
           <td>{{data.created}}</td>
           <td nzRight>
             <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id )" (nzOnCancel)="cancel()"

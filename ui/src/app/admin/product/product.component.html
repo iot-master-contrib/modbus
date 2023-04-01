@@ -14,10 +14,9 @@
     <nz-table #basicTable [nzData]="datum">
       <thead>
         <tr>
-          <th>产品id</th>
-          <th>产品名称</th>
+          <th>ID</th>
+          <th>名称</th>
           <th>描述</th>
-          <th>映射</th>
           <th>创建时间</th>
           <th>操作</th>
         </tr>
@@ -27,7 +26,6 @@
           <td>{{data.id}}</td>
           <td>{{data.name}}</td>
           <td>{{data.desc}}</td>
-          <td>{{data.mappers}}</td>
           <td>{{data.created}}</td>
           <td nzRight>
             <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id )" (nzOnCancel)="cancel()"

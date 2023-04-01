@@ -20,13 +20,21 @@
             </ng-template> -->
         </nz-form-control>
       </nz-form-item>
+
       <nz-form-item>
-        <nz-form-label [nzSpan]="5" nzFor="address">地址</nz-form-label>
+        <nz-form-label [nzSpan]="5" nzFor="net">网络</nz-form-label>
         <nz-form-control [nzSpan]="16">
-          <input nz-input name="address" formControlName="address">
-          <!-- <ng-template #addressErrorTpl let-control>
-              <ng-container *ngIf="control.hasError('required')">请输入地址!</ng-container>
-            </ng-template> -->
+          <nz-select formControlName="net">
+            <nz-option nzLabel="TCP" nzValue="tcp"></nz-option>
+            <nz-option nzLabel="UDP" nzValue="udp"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="addr">地址</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <input nz-input name="addr" formControlName="addr">
         </nz-form-control>
       </nz-form-item>
 

@@ -16,8 +16,9 @@
     <nz-table #basicTable [nzData]="datum">
       <thead>
         <tr>
-          <th>id</th>
+          <th>ID</th>
           <th>名称</th>
+          <th>网络</th>
           <th>地址</th>
           <th>端口</th>
           <th>创建时间</th>
@@ -27,8 +28,8 @@
       <tbody>
         <tr *ngFor="let data of basicTable.data; let i = index">
           <td>{{data.id}}</td>
-          <td>{{data.name}}</td>
-          <td>{{data.address}}</td>
+          <td>{{data.net}}</td>
+          <td>{{data.addr}}</td>
           <td>{{data.port}}</td>
           <td>{{data.created}}</td>
           <td nzRight>
