@@ -44,6 +44,10 @@ import { LinkFmComponent } from './admin/form/link-fm/link-fm.component';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { ProductFmComponent } from './admin/form/product-fm/product-fm.component';
 import {NzInputModule} from "ng-zorro-antd/input";
+import {NzCollapseModule} from "ng-zorro-antd/collapse";
+import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
+import {NzSwitchModule} from "ng-zorro-antd/switch";
+import {NzCardModule} from "ng-zorro-antd/card";
 registerLocaleData(zh);
 
 @NgModule({
@@ -90,7 +94,12 @@ registerLocaleData(zh);
     NzPageHeaderModule,
     NzSelectModule,
     BaseModule,
-    NzInputModule
+    NzInputModule,
+    NzCollapseModule,
+    CdkDropList,
+    CdkDrag,
+    NzSwitchModule,
+    NzCardModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN }
