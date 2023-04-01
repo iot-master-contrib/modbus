@@ -4,20 +4,22 @@ go 1.18
 
 require (
 	github.com/gin-gonic/gin v1.9.0
-	github.com/jacobsa/go-serial v0.0.0-20180131005756-15cf729a72d4
 	github.com/kardianos/service v1.2.2
 	github.com/pkg/errors v0.9.1
 	github.com/swaggo/gin-swagger v1.5.3
 	github.com/swaggo/swag v1.8.11
 	github.com/zgwit/iot-master/v3 v3.0.1
 	github.com/zgwit/swagger-files v1.0.0
+	go.bug.st/serial v1.5.0
 	gopkg.in/yaml.v3 v3.0.1
+	xorm.io/xorm v1.3.2
 )
 
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/bytedance/sonic v1.8.5 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
+	github.com/creack/goselect v0.1.2 // indirect
 	github.com/eclipse/paho.mqtt.golang v1.4.2 // indirect
 	github.com/gin-contrib/cors v1.4.0 // indirect
 	github.com/gin-contrib/gzip v0.0.6 // indirect
@@ -61,5 +63,4 @@ require (
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 	xorm.io/builder v0.3.12 // indirect
-	xorm.io/xorm v1.3.2 // indirect
 )

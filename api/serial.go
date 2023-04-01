@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
 	"github.com/zgwit/iot-master/v3/pkg/db"
+	"go.bug.st/serial"
 	"modbus/connect"
 	"modbus/model"
 )
@@ -109,6 +110,15 @@ func noopSerialEnable() {}
 // @Router /serial/{id}/disable [get]
 func noopSerialDisable() {}
 
+// @Summary 串口列表
+// @Schemes
+// @Description 串口列表
+// @Tags serial
+// @Produce json
+// @Success 200 {object} ReplyData[string] 返回串口列表
+// @Router /serial/ports [get]
+func noopSerialPorts() {}
+
 func serialRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[model.Serial]())
@@ -158,5 +168,14 @@ func serialRouter(app *gin.RouterGroup) {
 		}
 		return connect.LoadSerial(&m)
 	}))
+
+	app.GET("ports", func(ctx *gin.Context) {
+		list, err := serial.GetPortsList()
+		if err != nil {
+			curd.Error(ctx, err)
+			return
+		}
+		curd.OK(ctx, list)
+	})
 
 }
