@@ -81,6 +81,7 @@ export class ProductFmComponent implements OnInit {
   }
 
   handleOk() {
+    this.validateForm.updateValueAndValidity()
     if (this.validateForm.valid) {
       let id = this.validateForm.value.id;
       let url = id ? `product/${id}` : `product/create`;
@@ -111,7 +112,7 @@ export class ProductFmComponent implements OnInit {
   }
 
   addMapper() {
-    this.validateForm.get('mappers').controls.unshift(
+    this.validateForm.get('mappers').push(
       this.fb.group({
         code: [3, []],
         addr: [0, []],
@@ -139,11 +140,11 @@ export class ProductFmComponent implements OnInit {
     this.msg.success("复制成功");
   }
   pointDel(mapper:any, i: number) {
-    mapper.get('points').controls.splice(i, 1)
+    mapper.get('points').removeAt(i)
   }
 
   mapperDel(i: number) {
-    this.validateForm.get("mappers").splice(i, 1)
+    this.validateForm.get("mappers").removeAt(i)
   }
 
   pointAdd(mapper: any) {
