@@ -26,8 +26,8 @@ export class LinkFmComponent implements OnInit {
     this.validateForm = this.fb.group({
       id: [''],
       name: [''],
-      address: [''],
-      port: [0],
+      period: [60],
+      interval: [2],
     });
   }
   ngOnInit(): void {}

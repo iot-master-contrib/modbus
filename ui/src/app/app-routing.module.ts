@@ -5,7 +5,6 @@ import { AdminComponent } from './admin/admin.component';
 import { SerialComponent } from './admin/serial/serial.component';
 import { ServerComponent } from './admin/server/server.component';
 import { ClientComponent } from './admin/client/client.component';
-import { MapperComponent } from './admin/mapper/mapper.component';
 import { DeviceComponent } from './admin/device/device.component';
 import { ProductComponent } from './admin/product/product.component';
 const pages: Routes = [
@@ -22,7 +21,6 @@ const routes: Routes = [
       { path: 'server', component: ServerComponent },
       { path: 'serial', component: SerialComponent },
       { path: 'client', component: ClientComponent },
-      { path: 'mapper', component: MapperComponent },
       { path: 'device', component: DeviceComponent },
       { path: 'link', component: LinkComponent },
       { path: 'product', component: ProductComponent },

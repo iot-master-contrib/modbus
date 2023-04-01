@@ -15,18 +15,13 @@ export class ServerFmComponent implements OnInit {
       id: [''],
       name: [''],
       desc: [''],
-      port: [0],
-      deviceId: ['']
+      port: [60000],
+      devices: [''],
+      period: [60],
+      interval: [2],
     });
   }
   ngOnInit(): void {
-    this.rs.get("device/list").subscribe(res => {
-      const { data } = res;
-      this.deviceList = data || [];
-      if (data.length) {
-        this.validateForm.patchValue({ deviceId: data[0].id });
-      }
-    })
   }
   show(data: any) {
     this.validateForm.patchValue(data)

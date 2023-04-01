@@ -12,19 +12,21 @@ export class SerialFmComponent implements OnInit {
   constructor(private fb: UntypedFormBuilder,  private msg: NzMessageService,private rs: RequestService) {
     this.validateForm = this.fb.group({
       id: ['' ],
-      name: ['' ], 
-      port: ['' ]
+      name: ['' ],
+      port: ['' ],
+      period: [60],
+      interval: [2],
     });
   }
   ngOnInit(): void {
-  
- } 
- show(data:any) { 
-  this.validateForm.patchValue(data) 
-  }  
- @Input() text!: string;  
+
+ }
+ show(data:any) {
+  this.validateForm.patchValue(data)
+  }
+ @Input() text!: string;
   @Input() isVisible!: boolean;
-  @Input() title!: string; 
+  @Input() title!: string;
   @Output() back = new EventEmitter()
   handleCancel() {
     this.isVisible = false;
@@ -56,7 +58,7 @@ export class SerialFmComponent implements OnInit {
     for (const key in this.validateForm.controls) {
       if (this.validateForm.controls.hasOwnProperty(key)) {
         this.validateForm.controls[key].markAsPristine();
-        this.validateForm.controls[key].updateValueAndValidity(); 
+        this.validateForm.controls[key].updateValueAndValidity();
       }
     }
   }

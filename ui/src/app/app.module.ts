@@ -22,7 +22,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { SerialComponent } from './admin/serial/serial.component';
 import { ServerComponent } from './admin/server/server.component';
 import { ClientComponent } from './admin/client/client.component';
-import { MapperComponent } from './admin/mapper/mapper.component';
 import { DeviceComponent } from './admin/device/device.component';
 import { ProductComponent } from './admin/product/product.component';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
@@ -32,7 +31,6 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { LinkComponent } from './admin/link/link.component';
 import { ClientFmComponent } from './admin/form/client-fm/client-fm.component';
-import { MapperFmComponent } from './admin/form/mapper-fm/mapper-fm.component';
 import { DeviceFmComponent } from './admin/form/device-fm/device-fm.component';
 import { SerialFmComponent } from './admin/form/serial-fm/serial-fm.component';
 import { ServerFmComponent } from './admin/form/server-fm/server-fm.component';
@@ -57,11 +55,9 @@ registerLocaleData(zh);
     SerialComponent,
     ServerComponent,
     ClientComponent,
-    MapperComponent,
     DeviceComponent,
     LinkComponent,
     ClientFmComponent,
-    MapperFmComponent,
     DeviceFmComponent,
     SerialFmComponent,
     ServerFmComponent,

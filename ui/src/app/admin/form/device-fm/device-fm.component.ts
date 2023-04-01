@@ -26,9 +26,9 @@ export class DeviceFmComponent implements OnInit {
       id: [''],
       name: [''],
       desc: [''],
-      period: [''],
-      interval: [''],
-      link: ['']
+      tunnel_id: [''],
+      product_id: [''],
+      slave: [1],
     });
   }
   ngOnInit(): void { }

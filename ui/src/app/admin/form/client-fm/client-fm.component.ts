@@ -13,19 +13,21 @@ export class ClientFmComponent implements OnInit {
     this.validateForm = this.fb.group({
       id: ['' ],
       name: ['' ],
-      address: ['' ],
-      port: [0 ], 
+      addr: ['' ],
+      port: [0 ],
+      period: [60],
+      interval: [2],
     });
   }
   ngOnInit(): void {
 
   }
-  show(data:any) { 
-  this.validateForm.patchValue(data) 
-  }   
-  @Input() text!: string;  //update add 
+  show(data:any) {
+  this.validateForm.patchValue(data)
+  }
+  @Input() text!: string;  //update add
   @Input() isVisible = false;
-  @Input() title!: string; 
+  @Input() title!: string;
   @Output() back = new EventEmitter() //modal close
   handleCancel() {
     this.isVisible = false;
@@ -34,14 +36,14 @@ export class ClientFmComponent implements OnInit {
   }
   handleOk() {
 
-    if (this.validateForm.valid) { 
+    if (this.validateForm.valid) {
       let id=this.validateForm.value.id
       let url =  id ? `client/${ id}` : `client/create`
-      this.rs.post(url, this.validateForm.value).subscribe(res => { 
+      this.rs.post(url, this.validateForm.value).subscribe(res => {
       this.msg.success("保存成功")
       this.isVisible=false
       this.back.emit(1)
-    }) 
+    })
       return;
     }
     else {
