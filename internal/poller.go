@@ -6,30 +6,42 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/lib"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
-	"io"
+	"modbus/connect"
 	"modbus/model"
 )
 
-func CreatePoller(typ string, link io.ReadWriteCloser, opts string) (*Poller, error) {
+func CreatePoller(typ string, link connect.Tunnel, opts string) (*Poller, error) {
 	p := &Poller{}
 	switch typ {
-	case "modbus-rtu":
+	case "rtu":
 		p.modbus = NewRTU(link, opts)
-	case "modbus-tcp":
+	case "tcp":
 		p.modbus = NewTCP(link, opts)
 	case "parallel-tcp":
 		p.modbus = NewParallelTCP(link, opts)
 	default:
-		return nil, fmt.Errorf("未知类型 %s", typ)
+		return nil, fmt.Errorf("不支持的协议类型 %s", typ)
 	}
 	return p, nil
 }
 
 var Products lib.Map[model.Product]
 
+var Pollers lib.Map[Poller]
+
 type Poller struct {
 	devices []model.Device
 	modbus  Modbus
+	running bool
+}
+
+func (p *Poller) Start() {
+	p.running = true
+	go p.execute()
+}
+
+func (p *Poller) Stop() {
+	p.running = false
 }
 
 func (p *Poller) execute() {
@@ -51,6 +63,11 @@ func (p *Poller) execute() {
 		err := mqtt.Publish(topic, payload, false, 0)
 		if err != nil {
 			log.Error(err)
+		}
+
+		//退出标识
+		if !p.running {
+			break
 		}
 	}
 }
