@@ -127,20 +127,19 @@ func serialRouter(app *gin.RouterGroup) {
 
 	app.GET("/list", curd.ApiList[model.Serial]())
 
-	app.POST("/create", curd.ApiCreate[model.Serial](curd.GenerateRandomKey(8), func(value interface{}) error {
-		return connect.LoadSerial(value.(*model.Serial))
+	app.POST("/create", curd.ApiCreate[model.Serial](curd.GenerateRandomId[model.Serial](8), func(value *model.Serial) error {
+		return connect.LoadSerial(value)
 	}))
 
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Serial]())
 
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Serial](nil, func(value interface{}) error {
-		m := value.(*model.Serial)
-		c := connect.GetSerial(m.Id)
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Serial](nil, func(value *model.Serial) error {
+		c := connect.GetSerial(value.Id)
 		err := c.Close()
 		if err != nil {
 			return err
 		}
-		return connect.LoadSerial(m)
+		return connect.LoadSerial(value)
 	},
 		"name", "desc", "heartbeat", "period", "interval", "port", "retry", "options", "disabled"))
 

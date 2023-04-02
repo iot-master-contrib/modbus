@@ -89,7 +89,7 @@ func productRouter(app *gin.RouterGroup) {
 	app.POST("/count", curd.ApiCount[model.Product]())
 	app.POST("/search", curd.ApiSearch[model.Product]())
 	app.GET("/list", curd.ApiList[model.Product]())
-	app.POST("/create", curd.ApiCreate[model.Product](curd.GenerateRandomKey(8), nil))
+	app.POST("/create", curd.ApiCreate[model.Product](curd.GenerateRandomId[model.Product](8), nil))
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Product]())
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Product](nil, nil,
 		"id", "name", "desc", "mappers", "disabled"))

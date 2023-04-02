@@ -117,19 +117,18 @@ func serverRouter(app *gin.RouterGroup) {
 
 	app.GET("/list", curd.ApiList[model.Server]())
 
-	app.POST("/create", curd.ApiCreate[model.Server](curd.GenerateRandomKey(8), func(value interface{}) error {
-		return connect.LoadServer(value.(*model.Server))
+	app.POST("/create", curd.ApiCreate[model.Server](curd.GenerateRandomId[model.Server](8), func(value *model.Server) error {
+		return connect.LoadServer(value)
 	}))
 
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Server]())
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Server](nil, func(value interface{}) error {
-		m := value.(*model.Server)
-		c := connect.GetServer(m.Id)
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Server](nil, func(value *model.Server) error {
+		c := connect.GetServer(value.Id)
 		err := c.Close()
 		if err != nil {
 			return err
 		}
-		return connect.LoadServer(m)
+		return connect.LoadServer(value)
 	},
 		"name", "desc", "heartbeat", "period", "interval", "retry", "options", "disabled", "port", "standalone"))
 

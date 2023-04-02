@@ -39,17 +39,6 @@ func noopLinkSearch() {}
 // @Router /link/list [get]
 func noopLinkList() {}
 
-// @Summary 创建连接
-// @Schemes
-// @Description 创建连接
-// @Tags link
-// @Param search body model.Link true "连接信息"
-// @Accept json
-// @Produce json
-// @Success 200 {object} ReplyData[model.Link] 返回连接信息
-// @Router /link/create [post]
-func noopLinkCreate() {}
-
 // @Summary 修改连接
 // @Schemes
 // @Description 修改连接
@@ -111,7 +100,6 @@ func linkRouter(app *gin.RouterGroup) {
 	app.POST("/count", curd.ApiCount[model.Link]())
 	app.POST("/search", curd.ApiSearch[model.Link]())
 	app.GET("/list", curd.ApiList[model.Link]())
-	app.POST("/create", curd.ApiCreate[model.Link](curd.GenerateRandomKey(8), nil))
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Link]())
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Link](nil, nil,
 		"name", "desc", "heartbeat", "period", "interval", "disabled"))
