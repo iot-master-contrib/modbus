@@ -46,6 +46,7 @@ import {NzCollapseModule} from "ng-zorro-antd/collapse";
 import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 import {NzSwitchModule} from "ng-zorro-antd/switch";
 import {NzCardModule} from "ng-zorro-antd/card";
+import {NzAutocompleteModule} from "ng-zorro-antd/auto-complete";
 registerLocaleData(zh);
 
 @NgModule({
@@ -95,7 +96,8 @@ registerLocaleData(zh);
     CdkDropList,
     CdkDrag,
     NzSwitchModule,
-    NzCardModule
+    NzCardModule,
+    NzAutocompleteModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN }

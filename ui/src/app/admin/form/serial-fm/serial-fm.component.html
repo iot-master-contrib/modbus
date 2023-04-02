@@ -11,7 +11,8 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="5" nzFor="port"  >端口</nz-form-label>
           <nz-form-control [nzSpan]="16"   >
-            <input nz-input name="port" formControlName="port">
+            <input nz-input name="port" formControlName="port" [nzAutocomplete]="autoPorts">
+            <nz-autocomplete [nzDataSource]="ports" #autoPorts></nz-autocomplete>
           </nz-form-control>
         </nz-form-item>
 
