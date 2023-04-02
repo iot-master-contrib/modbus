@@ -19,17 +19,21 @@
       <thead>
         <tr>
           <th>ID</th>
+          <th>产品ID</th>
           <th>名称</th>
           <th>描述</th>
+          <th>从站号</th>
           <th>创建时间</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of basicTable.data;let i=index">
+  <tr *ngFor="let data of basicTable.data;let i=index" (dblclick)="open(data.id)">
           <td>{{data.id}}</td>
+		  <td>{{data.product_id}}</td>
           <td>{{data.name}}</td>
           <td>{{data.desc}}</td>
+          <td>{{data.slave}}</td>
           <td>{{data.created}}</td>
           <td nzRight>
             <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id )" (nzOnCancel)="cancel()"

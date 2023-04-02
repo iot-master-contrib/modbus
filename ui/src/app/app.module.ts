@@ -47,6 +47,13 @@ import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 import {NzSwitchModule} from "ng-zorro-antd/switch";
 import {NzCardModule} from "ng-zorro-antd/card";
 import {NzAutocompleteModule} from "ng-zorro-antd/auto-complete";
+import { TunnelDeviceComponent } from './admin/tunnel-device/tunnel-device.component';
+import { ClientDetailComponent } from './admin/client-detail/client-detail.component';
+import { ServerDetailComponent } from './admin/server-detail/server-detail.component';
+import { LinkDetailComponent } from './admin/link-detail/link-detail.component';
+import { SerialDetailComponent } from './admin/serial-detail/serial-detail.component';
+import { ServerLinkComponent } from './admin/server-link/server-link.component';
+import {NzTabsModule} from "ng-zorro-antd/tabs";
 registerLocaleData(zh);
 
 @NgModule({
@@ -65,6 +72,12 @@ registerLocaleData(zh);
     LinkFmComponent,
     ProductComponent,
     ProductFmComponent,
+    TunnelDeviceComponent,
+    ClientDetailComponent,
+    ServerDetailComponent,
+    LinkDetailComponent,
+    SerialDetailComponent,
+    ServerLinkComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,7 +110,8 @@ registerLocaleData(zh);
     CdkDrag,
     NzSwitchModule,
     NzCardModule,
-    NzAutocompleteModule
+    NzAutocompleteModule,
+    NzTabsModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN }

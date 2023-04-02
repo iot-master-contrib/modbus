@@ -69,4 +69,8 @@ export class ClientComponent {
     this.load();
   }
   cancel() { this.msg.info('取消删除'); }
+
+  open(id: string) {
+    this.router.navigateByUrl("/admin/client/"+id)
+  }
 }

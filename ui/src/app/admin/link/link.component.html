@@ -23,7 +23,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of basicTable.data;let i=index">
+        <tr *ngFor="let data of basicTable.data;let i=index" (dblclick)="open(data.id)">
           <td>{{data.id}}</td>
           <td>{{data.server_id}}</td>
           <td>{{data.name}}</td>

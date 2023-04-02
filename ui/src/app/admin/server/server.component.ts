@@ -1,7 +1,8 @@
-import { RequestService } from './../../request.service';
-import { Component, ViewChild } from '@angular/core';
-import { Router } from "@angular/router";
-import { NzMessageService } from "ng-zorro-antd/message";
+import {RequestService} from './../../request.service';
+import {Component, ViewChild} from '@angular/core';
+import {Router} from "@angular/router";
+import {NzMessageService} from "ng-zorro-antd/message";
+
 @Component({
   selector: 'app-server',
   templateUrl: './server.component.html',
@@ -9,12 +10,13 @@ import { NzMessageService } from "ng-zorro-antd/message";
 })
 export class ServerComponent {
   constructor(private router: Router,
-    private rs: RequestService,
-    private msg: NzMessageService
+              private rs: RequestService,
+              private msg: NzMessageService
   ) {
     this.load();
 
   }
+
   @ViewChild('child') child: any
   isVisible = false
   loading = true
@@ -25,10 +27,12 @@ export class ServerComponent {
   query: any = {}
   title!: string
   text!: string
+
   clientFm(num: number) {
     if (num) this.load()
     this.isVisible = false
   }
+
   load() {
     this.loading = true
     this.rs.post("server/search", this.query).subscribe(res => {
@@ -38,6 +42,7 @@ export class ServerComponent {
       this.loading = false;
     })
   }
+
   delete(index: number, id: number) {
     this.datum.splice(index, 1);
     this.rs.get(`server/${id}/delete`).subscribe(res => {
@@ -46,18 +51,21 @@ export class ServerComponent {
       this.load()
     })
   }
+
   add() {
     this.child.reset()
     this.title = "服务器添加"
     this.text = "提交"
     this.isVisible = true
   }
+
   edit(id: number, data: any) {
     this.title = "服务器修改"
     this.text = "修改"
     this.isVisible = true
     this.child.show(data)
   }
+
   search(text: any) {
     if (text)
       this.query.filter = {
@@ -66,5 +74,12 @@ export class ServerComponent {
     else this.query = {}
     this.load();
   }
-  cancel() { this.msg.info('取消删除'); }
+
+  cancel() {
+    this.msg.info('取消删除');
+  }
+
+  open(id: string) {
+    this.router.navigateByUrl("/admin/server/" + id)
+  }
 }
