@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+type Poller interface {
+	Poll()
+}
+
 // Tunnel 通道
 type Tunnel interface {
 	io.ReadWriteCloser
@@ -16,10 +20,27 @@ type Tunnel interface {
 	Running() bool
 
 	Online() bool
+
+	Attach(p Poller)
+}
+
+func (l *tunnelBase) Attach(p Poller) {
+	l.poller = p
+
+	//开启线程，在回调中完成一次询问
+	go func() {
+		for {
+			if !l.running {
+				break
+			}
+			p.Poll()
+		}
+	}()
 }
 
 type tunnelBase struct {
-	link io.ReadWriteCloser
+	link   io.ReadWriteCloser
+	poller Poller
 
 	lock sync.Mutex
 

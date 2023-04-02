@@ -32,19 +32,10 @@ var Pollers lib.Map[Poller]
 type Poller struct {
 	devices []model.Device
 	modbus  Modbus
-	running bool
 }
 
-func (p *Poller) Start() {
-	p.running = true
-	go p.execute()
-}
-
-func (p *Poller) Stop() {
-	p.running = false
-}
-
-func (p *Poller) execute() {
+func (p *Poller) Poll() {
+	//TODO 将迭代器提升到p中，单次调用只查询一个设备
 	for _, device := range p.devices {
 		values := make(map[string]interface{})
 		product := Products.Load(device.ProductId)
@@ -63,11 +54,6 @@ func (p *Poller) execute() {
 		err := mqtt.Publish(topic, payload, false, 0)
 		if err != nil {
 			log.Error(err)
-		}
-
-		//退出标识
-		if !p.running {
-			break
 		}
 	}
 }

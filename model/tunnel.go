@@ -9,6 +9,9 @@ type Tunnel struct {
 
 	Heartbeat string `json:"heartbeat,omitempty"` //心跳包
 
+	Protocol    string `json:"protocol,omitempty"`     //协议 rtu tcp parallel-tcp
+	ProtocolOps string `json:"protocol_ops,omitempty"` //协议参数
+	
 	Period   uint `json:"period,omitempty"`   //采集周期
 	Interval uint `json:"interval,omitempty"` //采集间隔
 
