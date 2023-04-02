@@ -2,6 +2,7 @@ package connect
 
 import (
 	"errors"
+	"fmt"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"modbus/model"
 	"net"
@@ -27,7 +28,8 @@ func (client *Client) Open() error {
 	}
 
 	//发起连接
-	conn, err := net.Dial(client.model.Net, client.model.Addr)
+	addr := fmt.Sprintf("%s:%d", client.model.Addr, client.model.Port)
+	conn, err := net.Dial(client.model.Net, addr)
 	if err != nil {
 		client.Retry()
 		return err

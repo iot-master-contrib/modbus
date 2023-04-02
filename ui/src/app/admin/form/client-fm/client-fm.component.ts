@@ -13,8 +13,9 @@ export class ClientFmComponent implements OnInit {
     this.validateForm = this.fb.group({
       id: ['' ],
       name: ['' ],
+      net: ['tcp' ],
       addr: ['' ],
-      port: [0 ],
+      port: [1 ],
       period: [60],
       interval: [2],
     });

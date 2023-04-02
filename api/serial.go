@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
 	"github.com/zgwit/iot-master/v3/pkg/db"
+	"github.com/zgwit/iot-master/v3/pkg/log"
 	"go.bug.st/serial"
 	"modbus/connect"
 	"modbus/model"
@@ -137,7 +138,7 @@ func serialRouter(app *gin.RouterGroup) {
 		c := connect.GetSerial(value.Id)
 		err := c.Close()
 		if err != nil {
-			return err
+			log.Error(err)
 		}
 		return connect.LoadSerial(value)
 	},

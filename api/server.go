@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
 	"github.com/zgwit/iot-master/v3/pkg/db"
+	"github.com/zgwit/iot-master/v3/pkg/log"
 	"modbus/connect"
 	"modbus/model"
 )
@@ -126,7 +127,7 @@ func serverRouter(app *gin.RouterGroup) {
 		c := connect.GetServer(value.Id)
 		err := c.Close()
 		if err != nil {
-			return err
+			log.Error(err)
 		}
 		return connect.LoadServer(value)
 	},
