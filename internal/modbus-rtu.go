@@ -80,9 +80,9 @@ func (m *RTU) execute(cmd []byte) ([]byte, error) {
 	}
 }
 
-func (m *RTU) Read(station uint8, code uint8, addr uint16, size uint16) ([]byte, error) {
+func (m *RTU) Read(slave uint8, code uint8, addr uint16, size uint16) ([]byte, error) {
 	b := make([]byte, 8)
-	b[0] = station
+	b[0] = slave
 	b[1] = code
 	bin.WriteUint16(b[2:], addr)
 	bin.WriteUint16(b[4:], size)
@@ -91,7 +91,7 @@ func (m *RTU) Read(station uint8, code uint8, addr uint16, size uint16) ([]byte,
 	return m.execute(b)
 }
 
-func (m *RTU) Write(station uint8, code uint8, addr uint16, buf []byte) error {
+func (m *RTU) Write(slave uint8, code uint8, addr uint16, buf []byte) error {
 	length := len(buf)
 	//如果是线圈，需要Shrink
 	switch code {
@@ -131,7 +131,7 @@ func (m *RTU) Write(station uint8, code uint8, addr uint16, buf []byte) error {
 
 	l := 6 + len(buf)
 	b := make([]byte, l)
-	b[0] = station
+	b[0] = slave
 	b[1] = code
 	bin.WriteUint16(b[2:], addr)
 	copy(b[4:], buf)

@@ -144,12 +144,12 @@ func (m *ParallelTCP) handlePack(buf []byte) {
 	}
 }
 
-func (m *ParallelTCP) Read(station uint8, code uint8, addr uint16, size uint16) ([]byte, error) {
+func (m *ParallelTCP) Read(slave uint8, code uint8, addr uint16, size uint16) ([]byte, error) {
 	b := make([]byte, 12)
 	//bin.WriteUint16(b, id)
 	bin.WriteUint16(b[2:], 0) //协议版本
 	bin.WriteUint16(b[4:], 6) //剩余长度
-	b[6] = station
+	b[6] = slave
 	b[7] = code
 	bin.WriteUint16(b[8:], addr)
 	bin.WriteUint16(b[10:], uint16(size))
@@ -157,7 +157,7 @@ func (m *ParallelTCP) Read(station uint8, code uint8, addr uint16, size uint16) 
 	return m.execute(b, true)
 }
 
-func (m *ParallelTCP) Write(station uint8, code uint8, addr uint16, buf []byte) error {
+func (m *ParallelTCP) Write(slave uint8, code uint8, addr uint16, buf []byte) error {
 	length := len(buf)
 	//如果是线圈，需要Shrink
 	switch code {
@@ -200,7 +200,7 @@ func (m *ParallelTCP) Write(station uint8, code uint8, addr uint16, buf []byte) 
 	//bin.WriteUint16(b, id)
 	bin.WriteUint16(b[2:], 0) //协议版本
 	bin.WriteUint16(b[4:], 6) //剩余长度
-	b[6] = station
+	b[6] = slave
 	b[7] = code
 	bin.WriteUint16(b[8:], addr)
 	copy(b[10:], buf)
