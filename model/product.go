@@ -32,45 +32,46 @@ type Point struct {
 func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 	l := uint16(len(buf))
 	for _, p := range m.Points {
-		if p.Offset > l {
+		offset := p.Offset * 2
+		if offset > l {
 			continue
 		}
 		switch p.Type {
 		case "word":
 			if p.BigEndian {
-				ret[p.Name] = bin.ParseUint16(buf[p.Offset:])
+				ret[p.Name] = bin.ParseUint16(buf[offset:])
 			} else {
-				ret[p.Name] = bin.ParseUint16LittleEndian(buf[p.Offset:])
+				ret[p.Name] = bin.ParseUint16LittleEndian(buf[offset:])
 			}
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(uint16)) * p.Rate
 			}
 		case "qword":
 			if p.BigEndian {
-				ret[p.Name] = bin.ParseUint32(buf[p.Offset:])
+				ret[p.Name] = bin.ParseUint32(buf[offset:])
 			} else {
-				ret[p.Name] = bin.ParseUint32LittleEndian(buf[p.Offset:])
+				ret[p.Name] = bin.ParseUint32LittleEndian(buf[offset:])
 			}
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(uint16)) * p.Rate
 			}
 		case "float":
 			if p.BigEndian {
-				ret[p.Name] = bin.ParseFloat32(buf[p.Offset:])
+				ret[p.Name] = bin.ParseFloat32(buf[offset:])
 			} else {
-				ret[p.Name] = bin.ParseFloat32LittleEndian(buf[p.Offset:])
+				ret[p.Name] = bin.ParseFloat32LittleEndian(buf[offset:])
 			}
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(float32)) * p.Rate
 			}
 		case "double":
 			if p.BigEndian {
-				ret[p.Name] = bin.ParseFloat64(buf[p.Offset:])
+				ret[p.Name] = bin.ParseFloat64(buf[offset:])
 			} else {
-				ret[p.Name] = bin.ParseFloat64LittleEndian(buf[p.Offset:])
+				ret[p.Name] = bin.ParseFloat64LittleEndian(buf[offset:])
 			}
 			if p.Rate != 0 && p.Rate != 1 {
-				ret[p.Name] = float64(ret[p.Name].(float64)) * p.Rate
+				ret[p.Name] = ret[p.Name].(float64) * p.Rate
 			}
 
 		}
