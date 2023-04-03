@@ -28,6 +28,17 @@
         </nz-form-control>
       </nz-form-item>
 
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="protocol">协议</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <nz-select formControlName="protocol">
+            <nz-option nzLabel="Modbus RTU" nzValue="rtu"></nz-option>
+            <nz-option nzLabel="Modbus TCP" nzValue="tcp"></nz-option>
+            <nz-option nzLabel="Parallel TCP" nzValue="parallel-tcp"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
     </form>
   </ng-container>
 </nz-modal>

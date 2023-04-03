@@ -46,16 +46,16 @@ export class AdminComponent {
     open: false,
     children: [
       {
+        title: 'TCP客户端',
+        path: '/admin/client'
+      },
+      {
         title: 'TCP服务器',
         path: '/admin/server'
       },
       {
         title: 'TCP连接',
         path: '/admin/link'
-      },
-      {
-        title: 'TCP客户端',
-        path: '/admin/client'
       },
       {
         title: '串口连接',

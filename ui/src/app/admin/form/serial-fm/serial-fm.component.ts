@@ -26,6 +26,7 @@ export class SerialFmComponent implements OnInit {
       port: [''],
       period: [60],
       interval: [2],
+      protocol: ['rtu']
     });
   }
 

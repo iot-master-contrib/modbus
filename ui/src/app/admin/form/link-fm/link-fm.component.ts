@@ -28,6 +28,7 @@ export class LinkFmComponent implements OnInit {
       name: [''],
       period: [60],
       interval: [2],
+      protocol: ['rtu']
     });
   }
   ngOnInit(): void {}

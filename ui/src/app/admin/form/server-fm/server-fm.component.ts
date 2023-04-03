@@ -19,6 +19,7 @@ export class ServerFmComponent implements OnInit {
       devices: [''],
       period: [60],
       interval: [2],
+      protocol: ['rtu']
     });
   }
   ngOnInit(): void {

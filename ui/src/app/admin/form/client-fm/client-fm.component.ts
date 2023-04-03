@@ -18,6 +18,7 @@ export class ClientFmComponent implements OnInit {
       port: [1 ],
       period: [60],
       interval: [2],
+      protocol: ['rtu']
     });
   }
   ngOnInit(): void {
