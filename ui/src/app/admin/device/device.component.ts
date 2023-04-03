@@ -70,6 +70,6 @@ export class DeviceComponent {
   cancel() { this.msg.info('取消删除'); }
 
   open(id: string) {
-    this.router.navigateByUrl("/admin/device/" + id)
+    //this.router.navigateByUrl("/admin/device/" + id)
   }
 }
