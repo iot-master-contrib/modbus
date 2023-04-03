@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/zgwit/iot-master/v3/pkg/db"
+	"github.com/zgwit/iot-master/v3/pkg/log"
+	"modbus/define"
 	"modbus/model"
 	"net"
 )
@@ -65,6 +67,14 @@ func (s *Server) Open() error {
 				}, c)
 				s.children[k] = lnk
 
+				//启动轮询
+				err = lnk.start(lnk.model.Id, lnk.model.Protocol, lnk.model.ProtocolOps)
+				if err != nil {
+					log.Error(err)
+					continue
+					//return
+				}
+
 				//以ServerID保存
 				links.Store(s.model.Id, lnk)
 				continue
@@ -106,6 +116,13 @@ func (s *Server) Open() error {
 			lnk := newLink(&link, c)
 			s.children[sn] = lnk
 
+			//启动轮询
+			err = lnk.start(link.Id, link.Protocol, link.ProtocolOps)
+			if err != nil {
+				log.Error(err)
+				continue
+			}
+
 			links.Store(link.Id, lnk)
 		}
 
@@ -127,7 +144,7 @@ func (s *Server) Close() (err error) {
 }
 
 // GetTunnel 获取连接
-func (s *Server) GetTunnel(id string) Tunnel {
+func (s *Server) GetTunnel(id string) define.Tunnel {
 	return s.children[id]
 }
 

@@ -1,46 +1,49 @@
 package connect
 
 import (
-	"github.com/pkg/errors"
+	"errors"
 	"io"
+	"modbus/define"
 	"sync"
 	"time"
 )
 
-type Poller interface {
-	Poll()
-}
+func (l *tunnelBase) start(id, protocol, opts string) (err error) {
+	l.poller, err = define.CreatePoller(l, protocol, opts)
+	if err != nil {
+		return
+	}
 
-// Tunnel 通道
-type Tunnel interface {
-	io.ReadWriteCloser
-
-	Open() error
-
-	Running() bool
-
-	Online() bool
-
-	Attach(p Poller)
-}
-
-func (l *tunnelBase) Attach(p Poller) {
-	l.poller = p
+	//加载设备
+	err = l.poller.Load(id)
+	if err != nil {
+		return
+	}
 
 	//开启线程，在回调中完成一次询问
 	go func() {
+		l.running = true
+
 		for {
 			if !l.running {
 				break
 			}
-			p.Poll()
+
+			//轮询
+			if !l.poller.Poll() {
+				break
+			}
 		}
+
+		l.running = false
 	}()
+
+	return
 }
 
 type tunnelBase struct {
 	link   io.ReadWriteCloser
-	poller Poller
+	poller define.Poller
 
 	lock sync.Mutex
 
@@ -68,7 +71,7 @@ func (l *tunnelBase) Close() error {
 		l.retryTimer.Stop()
 	}
 	if !l.running {
-		return errors.New("model closed")
+		return errors.New("tunnel closed")
 	}
 
 	l.onClose()
@@ -93,11 +96,20 @@ func (l *tunnelBase) Write(data []byte) (int, error) {
 	return l.link.Write(data)
 }
 
-// Write 写
+// Read 读
 func (l *tunnelBase) Read(data []byte) (int, error) {
 	if !l.running {
 		return 0, errors.New("model closed")
 	}
+
+	//if port, ok := l.link.(serial.Port); ok {
+	//	_ = port.SetReadTimeout(time.Second)
+	//}
+	//
+	//if conn, ok := l.link.(net.Conn); ok {
+	//	_ = conn.SetReadDeadline(time.Now().Add(time.Second))
+	//}
+
 	if l.pipe != nil {
 		//TODO 先read，然后透传
 		return 0, nil //透传模式下，直接抛弃

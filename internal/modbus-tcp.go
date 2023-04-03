@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/zgwit/iot-master/v3/pkg/bin"
 	"io"
+	"time"
 )
 
 // TCP Modbus-TCP协议
@@ -15,7 +16,7 @@ type TCP struct {
 
 func NewTCP(link io.ReadWriter, opts string) *TCP {
 	tcp := &TCP{
-		link: Messenger{Conn: link},
+		link: Messenger{Timeout: time.Second, Conn: link},
 		buf:  make([]byte, 260),
 	}
 	return tcp

@@ -14,6 +14,7 @@ import (
 	"modbus/config"
 	"modbus/connect"
 	_ "modbus/docs"
+	"modbus/internal"
 	"modbus/model"
 	"net/http"
 	"os"
@@ -147,6 +148,12 @@ func originMain() {
 		log.Fatal(err)
 	}
 	defer mqtt.Close()
+
+	//内部加载
+	err = internal.LoadProducts()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	//连接
 	err = connect.Load()

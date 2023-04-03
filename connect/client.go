@@ -37,7 +37,8 @@ func (client *Client) Open() error {
 	client.retry = 0
 	client.link = conn
 
-	return nil
+	//启动轮询
+	return client.start(client.model.Id, client.model.Protocol, client.model.ProtocolOps)
 }
 
 func (client *Client) Retry() {

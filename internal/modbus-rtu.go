@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/zgwit/iot-master/v3/pkg/bin"
 	"io"
+	"time"
 )
 
 // RTU Modbus-RTU协议
@@ -16,7 +17,7 @@ type RTU struct {
 func NewRTU(link io.ReadWriter, opts string) *RTU {
 	//TODO parse opts(yaml)
 	rtu := &RTU{
-		link: Messenger{Conn: link},
+		link: Messenger{Timeout: time.Second, Conn: link},
 		//slave: opts["slave"].(uint8),
 		buf: make([]byte, 256),
 	}

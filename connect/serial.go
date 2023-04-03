@@ -39,6 +39,13 @@ func (s *Serial) Open() error {
 		s.Retry()
 		return err
 	}
+
+	//读超时
+	err = port.SetReadTimeout(time.Second * 5)
+	if err != nil {
+		return err
+	}
+
 	s.running = true
 	s.online = true
 	s.link = port
@@ -47,7 +54,8 @@ func (s *Serial) Open() error {
 	//清空重连计数
 	s.retry = 0
 
-	return nil
+	//启动轮询
+	return s.start(s.model.Id, s.model.Protocol, s.model.ProtocolOps)
 }
 
 func (s *Serial) Retry() {

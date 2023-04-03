@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
+	"modbus/internal"
 	"modbus/model"
 )
 
@@ -87,15 +88,24 @@ func noopProductDelete() {}
 func productRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[model.Product]())
-	app.POST("/search", curd.ApiSearch[model.Product]())
-	app.GET("/list", curd.ApiList[model.Product]())
-	app.POST("/create", curd.ApiCreate[model.Product](curd.GenerateRandomId[model.Product](8), nil))
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Product]())
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Product](nil, nil,
-		"id", "name", "desc", "mappers", "disabled"))
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Product](nil, nil))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Product](true, nil, nil))
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[model.Product](false, nil, nil))
+	app.POST("/search", curd.ApiSearch[model.Product]())
+	
+	app.GET("/list", curd.ApiList[model.Product]())
+
+	app.POST("/create", curd.ApiCreate[model.Product](curd.GenerateRandomId[model.Product](8), func(m *model.Product) error {
+		return internal.LoadProduct(m)
+	}))
+
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Product]())
+
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Product](nil, func(m *model.Product) error {
+		return internal.LoadProduct(m)
+	}, "id", "name", "desc", "mappers"))
+
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Product](nil, func(id interface{}) error {
+		//internal.DeleteProduct(id)
+		return nil
+	}))
 
 }

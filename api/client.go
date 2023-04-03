@@ -132,7 +132,7 @@ func clientRouter(app *gin.RouterGroup) {
 		}
 		return connect.LoadClient(value)
 	},
-		"name", "desc", "heartbeat", "period", "interval", "disabled", "retry", "net", "addr", "port"))
+		"name", "desc", "heartbeat", "period", "interval", "protocol", "protocol_ops", "disabled", "retry", "net", "addr", "port"))
 
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Client](nil, func(value interface{}) error {
 		id := value.(string)
