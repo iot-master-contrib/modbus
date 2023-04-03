@@ -38,7 +38,7 @@ func (client *Client) Open() error {
 	client.link = conn
 
 	//启动轮询
-	return client.start(client.model.Id, client.model.Protocol, client.model.ProtocolOps)
+	return client.start(&client.model.Tunnel)
 }
 
 func (client *Client) Retry() {

@@ -68,7 +68,7 @@ func (s *Server) Open() error {
 				s.children[k] = lnk
 
 				//启动轮询
-				err = lnk.start(lnk.model.Id, lnk.model.Protocol, lnk.model.ProtocolOps)
+				err = lnk.start(&lnk.model.Tunnel)
 				if err != nil {
 					log.Error(err)
 					continue
@@ -117,7 +117,7 @@ func (s *Server) Open() error {
 			s.children[sn] = lnk
 
 			//启动轮询
-			err = lnk.start(link.Id, link.Protocol, link.ProtocolOps)
+			err = lnk.start(&link.Tunnel)
 			if err != nil {
 				log.Error(err)
 				continue

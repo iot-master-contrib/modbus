@@ -4,42 +4,10 @@ import (
 	"errors"
 	"io"
 	"modbus/define"
+	"modbus/model"
 	"sync"
 	"time"
 )
-
-func (l *tunnelBase) start(id, protocol, opts string) (err error) {
-	l.poller, err = define.CreatePoller(l, protocol, opts)
-	if err != nil {
-		return
-	}
-
-	//加载设备
-	err = l.poller.Load(id)
-	if err != nil {
-		return
-	}
-
-	//开启线程，在回调中完成一次询问
-	go func() {
-		l.running = true
-
-		for {
-			if !l.running {
-				break
-			}
-
-			//轮询
-			if !l.poller.Poll() {
-				break
-			}
-		}
-
-		l.running = false
-	}()
-
-	return
-}
 
 type tunnelBase struct {
 	link   io.ReadWriteCloser
@@ -102,19 +70,53 @@ func (l *tunnelBase) Read(data []byte) (int, error) {
 		return 0, errors.New("model closed")
 	}
 
-	//if port, ok := l.link.(serial.Port); ok {
-	//	_ = port.SetReadTimeout(time.Second)
-	//}
-	//
-	//if conn, ok := l.link.(net.Conn); ok {
-	//	_ = conn.SetReadDeadline(time.Now().Add(time.Second))
-	//}
-
 	if l.pipe != nil {
 		//TODO 先read，然后透传
 		return 0, nil //透传模式下，直接抛弃
 	}
 	return l.link.Read(data)
+}
+
+func (l *tunnelBase) start(model *model.Tunnel) (err error) {
+	l.poller, err = define.CreatePoller(l, model.Protocol, model.ProtocolOps)
+	if err != nil {
+		return
+	}
+
+	//加载设备
+	err = l.poller.Load(model.Id)
+	if err != nil {
+		return
+	}
+
+	//开启线程，在回调中完成一次询问
+	go func() {
+		l.running = true
+
+		for {
+			if !l.running {
+				break
+			}
+
+			start := time.Now().Unix()
+
+			//轮询
+			if !l.poller.Poll() {
+				break
+			}
+
+			//等待时间
+			elapsed := time.Now().Unix() - start
+			if elapsed < int64(model.Period) {
+				time.Sleep(time.Duration(int64(model.Period)-elapsed) * time.Second)
+			}
+
+		}
+
+		l.running = false
+	}()
+
+	return
 }
 
 func (l *tunnelBase) Pipe(pipe io.ReadWriteCloser) {

@@ -55,7 +55,7 @@ func (s *Serial) Open() error {
 	s.retry = 0
 
 	//启动轮询
-	return s.start(s.model.Id, s.model.Protocol, s.model.ProtocolOps)
+	return s.start(&s.model.Tunnel)
 }
 
 func (s *Serial) Retry() {
