@@ -1,64 +1,78 @@
-<nz-modal [nzVisible]="isVisible" [nzTitle]="title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
-          [nzOkText]="text" nzWidth="80%">
-  <ng-container *nzModalContent>
-    <form nz-form [formGroup]="validateForm">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="5" nzFor="name">ID</nz-form-label>
-        <nz-form-control [nzSpan]="16">
-          <input nz-input name="id" formControlName="id">
-        </nz-form-control>
-      </nz-form-item>
+<ng-template #extra>
+  <button nz-button (click)="handleCancel()" style="margin-right: 10px">
+    取消
+  </button>
+  <button nz-button nzType="primary" (click)="submit()">
+    <i nz-icon nzType="save" nzTheme="outline"></i>
+    保存
+  </button>
+</ng-template>
 
-      <nz-form-item>
-        <nz-form-label [nzSpan]="5" nzFor="name">名称</nz-form-label>
-        <nz-form-control [nzSpan]="16">
-          <input nz-input name="name" formControlName="name">
-        </nz-form-control>
-      </nz-form-item>
+<nz-card [nzTitle]="id ? '编辑产品' : '创建产品'" [nzExtra]="extra">
+  <form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzFor="name">ID</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+        <input nz-input name="id" formControlName="id" />
+      </nz-form-control>
+    </nz-form-item>
 
-      <nz-form-item>
-        <nz-form-label [nzSpan]="5" nzFor="desc">描述</nz-form-label>
-        <nz-form-control [nzSpan]="16">
-          <input nz-input name="desc" formControlName="desc">
-        </nz-form-control>
-      </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzFor="name">名称</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+        <input nz-input name="name" formControlName="name" />
+      </nz-form-control>
+    </nz-form-item> 
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzFor="desc">描述</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+        <input nz-input name="desc" formControlName="desc" />
+      </nz-form-control>
+    </nz-form-item>
 
-      <button nz-button (click)="addMapper()">添加映射表</button>
-      <div formGroupName="mappers">
+    <button nz-button (click)="addMapper()">添加映射表</button>
+    <div formGroupName="mappers">
+      <nz-card
+        *ngFor="
+          let mapper of validateForm.get('mappers').controls;
+          let i = index
+        "
+        [formGroupName]="i"
+      >
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="code">功能码</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <nz-select formControlName="code">
+              <nz-option nzLabel="03" [nzValue]="3"></nz-option>
+              <nz-option nzLabel="04" [nzValue]="4"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
 
-        <nz-card *ngFor="let mapper of validateForm.get('mappers').controls; let i=index;" [formGroupName]="i">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="addr">地址</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <nz-input-number formControlName="addr"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
 
-          <nz-form-item>
-            <nz-form-label [nzSpan]="5" nzFor="code">功能码</nz-form-label>
-            <nz-form-control [nzSpan]="16">
-              <nz-select formControlName="code">
-                <nz-option nzLabel="03" [nzValue]="3"></nz-option>
-                <nz-option nzLabel="04" [nzValue]="4"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="size">长度</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <nz-input-number formControlName="size"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
 
-          <nz-form-item>
-            <nz-form-label [nzSpan]="5" nzFor="addr">地址</nz-form-label>
-            <nz-form-control [nzSpan]="16">
-              <nz-input-number formControlName="addr"></nz-input-number>
-            </nz-form-control>
-          </nz-form-item>
+        <button nz-button (click)="mapperDel(i)">删除映射</button>
+        <button nz-button (click)="pointAdd(mapper)">添加数据点</button>
 
-          <nz-form-item>
-            <nz-form-label [nzSpan]="5" nzFor="size">长度</nz-form-label>
-            <nz-form-control [nzSpan]="16">
-              <nz-input-number formControlName="size"></nz-input-number>
-            </nz-form-control>
-          </nz-form-item>
-
-
-          <button nz-button (click)="mapperDel(i)">删除映射</button>
-          <button nz-button (click)="pointAdd(mapper)">添加数据点</button>
-
-          <nz-table [nzData]="mapper.get('points').controls" nzSize="small"
-                    [nzFrontPagination]="false" [nzShowPagination]="false">
-            <thead>
+        <nz-table
+          [nzData]="mapper.get('points').controls"
+          nzSize="small"
+          [nzFrontPagination]="false"
+          [nzShowPagination]="false"
+        >
+          <thead>
             <tr>
               <th>名称</th>
               <th>类型</th>
@@ -67,18 +81,29 @@
               <th>倍率</th>
               <th></th>
             </tr>
-            </thead>
-            <tbody cdkDropList (cdkDropListDropped)="drop(mapper, $event)" formGroupName="points">
-            <tr *ngFor="let item of mapper.get('points').controls; let j=index;" [formGroupName]="j" cdkDrag>
+          </thead>
+          <tbody
+            cdkDropList
+            (cdkDropListDropped)="drop(mapper, $event)"
+            formGroupName="points"
+          >
+            <tr
+              *ngFor="let item of mapper.get('points').controls; let j = index"
+              [formGroupName]="j"
+              cdkDrag
+            >
               <td>
-                <input nz-input formControlName="name"/>
+                <input nz-input formControlName="name" />
               </td>
               <td>
                 <nz-select formControlName="type">
                   <nz-option nzValue="word" nzLabel="字"></nz-option>
                   <nz-option nzValue="qword" nzLabel="双字"></nz-option>
                   <nz-option nzValue="float" nzLabel="浮点数"></nz-option>
-                  <nz-option nzValue="double" nzLabel="双精度浮点数"></nz-option>
+                  <nz-option
+                    nzValue="double"
+                    nzLabel="双精度浮点数"
+                  ></nz-option>
                 </nz-select>
               </td>
               <td>
@@ -91,16 +116,25 @@
                 <nz-input-number formControlName="rate"></nz-input-number>
               </td>
               <td class="td-oper">
-                <span nz-icon nzType="copy" nzTheme="outline" title="复制当前行" (click)="pointCopy(mapper,j)"></span>
-                <span nz-icon nzType="delete" nzTheme="outline" title="删除" (click)="pointDel(mapper,j)"></span>
+                <span
+                  nz-icon
+                  nzType="copy"
+                  nzTheme="outline"
+                  title="复制当前行"
+                  (click)="pointCopy(mapper, j)"
+                ></span>
+                <span
+                  nz-icon
+                  nzType="delete"
+                  nzTheme="outline"
+                  title="删除"
+                  (click)="pointDel(mapper, j)"
+                ></span>
               </td>
             </tr>
-            </tbody>
-          </nz-table>
-
-        </nz-card>
-      </div>
-
-    </form>
-  </ng-container>
-</nz-modal>
+          </tbody>
+        </nz-table>
+      </nz-card>
+    </div>
+  </form>
+</nz-card>

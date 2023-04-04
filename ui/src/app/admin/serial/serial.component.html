@@ -3,7 +3,11 @@
     <nz-page-header class="site-page-header" nzBackIcon nzTitle="串口连接">
       <nz-page-header-extra>
         <nz-space>
-          <app-search-box *nzSpaceItem placeholder="串口id" (onSearch)="search($event)"></app-search-box>
+          <app-search-box
+            *nzSpaceItem
+            placeholder="串口id"
+            (onSearch)="search($event)"
+          ></app-search-box>
           <button *nzSpaceItem nz-button nzType="primary" (click)="add()">
             <i nz-icon nzType="plus"></i>
             新增
@@ -12,7 +16,6 @@
       </nz-page-header-extra>
     </nz-page-header>
   </nz-header>
-
 
   <nz-content>
     <nz-table #basicTable [nzData]="datum">
@@ -26,27 +29,32 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of basicTable.data;let i=index" (dblclick)="open(data.id)">
-          <td>{{data.id}}</td>
-          <td>{{data.port}}</td>
-          <td>{{data.name}}</td>
-          <td>{{data.created}}</td>
+        <tr
+          *ngFor="let data of basicTable.data; let i = index"
+          (dblclick)="open(data.id)"
+        >
+          <td>{{ data.id }}</td>
+          <td>{{ data.port }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.created }}</td>
           <td nzRight>
-            <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id )" (nzOnCancel)="cancel()"
-              nzPopconfirmPlacement="topLeft">
+            <a
+              nz-popconfirm
+              nzPopconfirmTitle="确定删除?"
+              (nzOnConfirm)="delete(i, data.id)"
+              (nzOnCancel)="cancel()"
+              nzPopconfirmPlacement="topLeft"
+            >
               <i nz-icon nzType="delete"></i>
             </a>
 
             <nz-divider nzType="vertical"></nz-divider>
-            <a (click)="edit(data.id,data)">
+            <a (click)="edit(data.id, data)">
               <i nz-icon nzType="edit"></i>
             </a>
           </td>
         </tr>
-        <app-serial-fm #child [isVisible]="isVisible" [title]="title" [text]="text" (back)=clientFm($event)>
-        </app-serial-fm>
       </tbody>
     </nz-table>
   </nz-content>
-
 </nz-layout>

@@ -4,56 +4,57 @@ import {
   UntypedFormBuilder,
   UntypedFormControl,
   FormGroup,
-  UntypedFormGroup,
   ValidationErrors,
   Validators,
   FormsModule,
 } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-device-fm',
   templateUrl: './device-fm.component.html',
   styleUrls: ['./device-fm.component.scss'],
 })
 export class DeviceFmComponent implements OnInit {
-  validateForm: UntypedFormGroup;
+  validateForm!: FormGroup;
+  id: any = 0;
   constructor(
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
-    private rs: RequestService
-  ) {
+    private rs: RequestService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+  ngOnInit(): void {
+    if (this.route.snapshot.paramMap.has('id')) {
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.rs.get(`device/${this.id}`).subscribe((res) => {
+        this.patchValue(res.data);
+      });
+    }
+     this.patchValue();
+  }
+  patchValue(mess?: any) {
+    mess = mess || {};
     this.validateForm = this.fb.group({
-      id: [''],
-      name: [''],
-      desc: [''],
-      tunnel_id: [''],
-      product_id: [''],
-      slave: [1],
+      id: [mess.id || ''],
+      name: [mess.name || ''],
+      desc: [mess.desc || ''],
+      tunnel_id: [mess.tunnel_id || ''],
+      product_id: [mess.product_id || ''],
+      slave: [mess.slave || 1],
     });
   }
-  ngOnInit(): void { }
-  show(data: any) {
-    this.validateForm.patchValue(data);
-  }
-  @Input() text!: string;
-  @Input() isVisible!: boolean;
-  @Input() title!: string;
-  @Output() back = new EventEmitter();
   handleCancel() {
-    this.isVisible = false;
-    this.back.emit(0);
-    this.reset();
+    this.router.navigateByUrl(`/admin/device`);
   }
-  handleOk() {
+  submit() {
     if (this.validateForm.valid) {
       let id = this.validateForm.value.id;
-      // if(!id)
-      //  this.validateForm.patchValue({created: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')})
       let url = id ? `device/${id}` : `device/create`;
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
-        this.isVisible = false;
-        this.back.emit(1);
+        this.router.navigateByUrl(`/admin/device`);
       });
       return;
     } else {

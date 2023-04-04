@@ -1,72 +1,75 @@
-import {RequestService} from './../../../request.service';
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import { RequestService } from './../../../request.service';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
-  UntypedFormControl,
   FormGroup,
-  UntypedFormGroup,
   ValidationErrors,
   Validators,
-  FormsModule
+  FormsModule,
 } from '@angular/forms';
-import {NzMessageService} from "ng-zorro-antd/message";
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-serial-fm',
   templateUrl: './serial-fm.component.html',
-  styleUrls: ['./serial-fm.component.scss']
+  styleUrls: ['./serial-fm.component.scss'],
 })
 export class SerialFmComponent implements OnInit {
-  validateForm: UntypedFormGroup;
+  validateForm!: FormGroup;
+  id: any = 0;
+  ports: any = [];
+  constructor(
+    private fb: UntypedFormBuilder,
+    private msg: NzMessageService,
+    private rs: RequestService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  constructor(private fb: UntypedFormBuilder, private msg: NzMessageService, private rs: RequestService) {
+  ngOnInit(): void {
+    this.rs.get('serial/ports').subscribe((res) => {
+      this.ports = res.data;
+    });
+
+    if (this.route.snapshot.paramMap.has('id')) {
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.rs.get(`serial/${this.id}`).subscribe((res) => {
+        this.patchValue(res.data);
+      });
+    }
+    this.patchValue();
+  }
+  patchValue(mess?: any) {
+    mess = mess || {};
     this.validateForm = this.fb.group({
-      id: [''],
-      name: [''],
-      port: [''],
-      period: [60],
-      interval: [2],
-      protocol: ['rtu']
+      id: [mess.id || ''],
+      name: [mess.name || ''],
+      port: [mess.port || ''],
+      period: [mess.period || 60],
+      interval: [mess.interval || 2],
+      protocol: [mess.protocol || 'rtu'],
     });
   }
 
-  ngOnInit(): void {
-    this.rs.get("serial/ports").subscribe(res=>{
-      this.ports = res.data;
-    })
-  }
-
-  show(data: any) {
-    this.validateForm.patchValue(data)
-  }
-
-  @Input() text!: string;
-  @Input() isVisible!: boolean;
-  @Input() title!: string;
-  @Output() back = new EventEmitter()
-  ports: any = [];
-
   handleCancel() {
-    this.isVisible = false;
-    this.back.emit(0);
-    this.reset();
+    this.router.navigateByUrl(`/admin/serial`);
   }
 
-  handleOk() {
+  submit() {
     if (this.validateForm.valid) {
       let id = this.validateForm.value.id;
       let url = id ? `serial/${id}` : `serial/create`;
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
-        this.isVisible = false;
-        this.back.emit(1);
+        this.router.navigateByUrl(`/admin/serial`);
       });
       return;
     } else {
-      Object.values(this.validateForm.controls).forEach(control => {
+      Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();
-          control.updateValueAndValidity({onlySelf: true});
+          control.updateValueAndValidity({ onlySelf: true });
         }
       });
     }

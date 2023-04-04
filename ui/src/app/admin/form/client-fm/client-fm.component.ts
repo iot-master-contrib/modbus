@@ -1,69 +1,75 @@
 import { RequestService } from './../../../request.service';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, FormGroup, UntypedFormGroup, ValidationErrors, Validators, FormsModule } from '@angular/forms';
- import {NzMessageService} from "ng-zorro-antd/message";
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  FormGroup,
+  UntypedFormGroup,
+  ValidationErrors,
+  Validators,
+  FormsModule,
+} from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-client-fm',
   templateUrl: './client-fm.component.html',
-  styleUrls: ['./client-fm.component.scss']
+  styleUrls: ['./client-fm.component.scss'],
 })
 export class ClientFmComponent implements OnInit {
-  validateForm: UntypedFormGroup;
-  constructor(private fb: UntypedFormBuilder,  private msg: NzMessageService,private rs: RequestService) {
+  validateForm!: FormGroup;
+  id: any = 0;
+  constructor(
+    private fb: UntypedFormBuilder,
+    private msg: NzMessageService,
+    private rs: RequestService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+  ngOnInit(): void {
+    if (this.route.snapshot.paramMap.has('id')) {
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.rs.get(`client/${this.id}`).subscribe((res) => {
+        this.patchValue(res.data);
+      });
+    }
+
+    this.patchValue();
+  }
+
+  patchValue(mess?: any) {
+    mess = mess || {};
     this.validateForm = this.fb.group({
-      id: ['' ],
-      name: ['' ],
-      net: ['tcp' ],
-      addr: ['' ],
-      port: [1 ],
-      period: [60],
-      interval: [2],
-      protocol: ['rtu']
+      id: [mess.id || ''],
+      name: [mess.name || ''],
+      net: [mess.net || 'tcp'],
+      addr: [mess.addr || ''],
+      port: [mess.port || 1],
+      period: [mess.period || 60],
+      interval: [mess.interval || 2],
+      protocol: [mess.interval || 'rtu'],
     });
   }
-  ngOnInit(): void {
 
-  }
-  show(data:any) {
-  this.validateForm.patchValue(data)
-  }
-  @Input() text!: string;  //update add
-  @Input() isVisible = false;
-  @Input() title!: string;
-  @Output() back = new EventEmitter() //modal close
   handleCancel() {
-    this.isVisible = false;
-    this.back.emit(0)
-    this.reset();
+    this.router.navigateByUrl(`/admin/client`);
   }
-  handleOk() {
-
+  submit() {
     if (this.validateForm.valid) {
-      let id=this.validateForm.value.id
-      let url =  id ? `client/${ id}` : `client/create`
-      this.rs.post(url, this.validateForm.value).subscribe(res => {
-      this.msg.success("保存成功")
-      this.isVisible=false
-      this.back.emit(1)
-    })
+      let id = this.validateForm.value.id;
+      let url = id ? `client/${id}` : `client/create`;
+      this.rs.post(url, this.validateForm.value).subscribe((res) => {
+        this.msg.success('保存成功');
+        this.router.navigateByUrl(`/admin/client`);
+      });
       return;
-    }
-    else {
-      Object.values(this.validateForm.controls).forEach(control => {
+    } else {
+      Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
         }
       });
-    }
-  }
-  reset() {
-    this.validateForm.reset();
-    for (const key in this.validateForm.controls) {
-      if (this.validateForm.controls.hasOwnProperty(key)) {
-        this.validateForm.controls[key].markAsPristine();
-        this.validateForm.controls[key].updateValueAndValidity();
-      }
     }
   }
 }

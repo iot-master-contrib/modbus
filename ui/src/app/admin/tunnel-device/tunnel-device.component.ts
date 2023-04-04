@@ -1,81 +1,73 @@
-import {Component, Input, ViewChild} from '@angular/core';
-import {RequestService} from "../../request.service";
-import {Router} from "@angular/router";
-import {NzMessageService} from "ng-zorro-antd/message";
+import { Component, Input, ViewChild } from '@angular/core';
+import { RequestService } from '../../request.service';
+import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-tunnel-device',
   templateUrl: './tunnel-device.component.html',
-  styleUrls: ['./tunnel-device.component.scss']
+  styleUrls: ['./tunnel-device.component.scss'],
 })
 export class TunnelDeviceComponent {
-  _tunnel = ""
+  _tunnel = '';
 
   @Input()
   set tunnel(id: any) {
-    this._tunnel = id
-    this.query.filter = {tunnel_id: this._tunnel}
-    this.load()
+    this._tunnel = id;
+    this.query.filter = { tunnel_id: this._tunnel };
+    this.load();
   }
 
-  constructor(private router: Router,
-              private rs: RequestService,
-              private msg: NzMessageService
+  constructor(
+    private router: Router,
+    private rs: RequestService,
+    private msg: NzMessageService
   ) {
     //this.load();
-
   }
 
-  @ViewChild('child') child: any
-  isVisible!: boolean
-  addVisible = false
-  loading = true
-  datum: any[] = []
+  
+  isVisible!: boolean;
+  addVisible = false;
+  loading = true;
+  datum: any[] = [];
   total = 1;
   pageSize = 20;
   pageIndex = 1;
-  query: any = {}
-
-  title!: string
-  text!: string
-
+  query: any = {};
+ 
   clientFm(num: number) {
-    if (num) this.load()
-    this.isVisible = false
+    if (num) this.load();
+    this.isVisible = false;
   }
 
   load() {
-    this.loading = true
-    this.rs.post("device/search", this.query).subscribe(res => {
-      this.datum = res.data;
-      this.total = res.total;
-    }).add(() => {
-      this.loading = false;
-    })
+    this.loading = true;
+    this.rs
+      .post('device/search', this.query)
+      .subscribe((res) => {
+        this.datum = res.data;
+        this.total = res.total;
+      })
+      .add(() => {
+        this.loading = false;
+      });
   }
 
   delete(index: number, id: number) {
     this.datum.splice(index, 1);
-    this.rs.get(`device/${id}/delete`).subscribe(res => {
-      this.msg.success("删除成功")
+    this.rs.get(`device/${id}/delete`).subscribe((res) => {
+      this.msg.success('删除成功');
       this.isVisible = false;
-      this.load()
-    })
+      this.load();
+    });
   }
 
   add() {
-    this.child.reset()
-    this.title = "设备添加"
-    this.text = "提交"
-    this.isVisible = true
-    this.child.show({tunnel_id: this._tunnel})
+    
   }
 
-  edit(id: number, data: any) {
-    this.title = "设备修改"
-    this.text = "修改"
-    this.isVisible = true
-    this.child.show(data)
+  edit(id: number, data: any) { 
   }
 
   search(text: any) {
@@ -84,7 +76,7 @@ export class TunnelDeviceComponent {
         tunnel_id: this._tunnel,
         id: text,
       };
-    else this.query.filter = {tunnel_id: this._tunnel}
+    else this.query.filter = { tunnel_id: this._tunnel };
     this.load();
   }
 
@@ -93,6 +85,6 @@ export class TunnelDeviceComponent {
   }
 
   open(id: string) {
-    this.router.navigateByUrl("/admin/device/" + id)
+    this.router.navigateByUrl('/admin/device/' + id);
   }
 }

@@ -1,5 +1,5 @@
-import {RequestService} from '../../../request.service';
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import { RequestService } from '../../../request.service';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormControl,
@@ -7,11 +7,13 @@ import {
   UntypedFormGroup,
   ValidationErrors,
   Validators,
-  FormsModule, FormBuilder,
+  FormsModule,
+  FormBuilder,
 } from '@angular/forms';
-import {NzMessageService} from 'ng-zorro-antd/message';
-import {DatePipe} from '@angular/common';
-import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { DatePipe } from '@angular/common';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-fm',
@@ -21,81 +23,79 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 })
 export class ProductFmComponent implements OnInit {
   validateForm!: any;
-
+  id: any = 0;
   constructor(
     private readonly datePipe: DatePipe,
     private fb: FormBuilder,
     private msg: NzMessageService,
-    private rs: RequestService
+    private rs: RequestService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
-    this.build()
-  }
-
-
+    this.build();
+  } 
   build(obj?: any) {
-    obj = obj || {}
+    obj = obj || {};
     this.validateForm = this.fb.group({
       id: [obj.id || '', []],
       name: [obj.name || '', [Validators.required]],
       desc: [obj.desc || '', []],
       mappers: this.fb.array(
-        obj.mappers ? obj.mappers.map((prop: any) =>
-          this.fb.group({
-            code: [prop.code || 3, []],
-            addr: [prop.addr || 0, []],
-            size: [prop.size || 0, []],
-            points: this.fb.array(
-              prop.points ? prop.points.map((p: any) =>
-                this.fb.group({
-                  name: [p.name || '', []],
-                  type: [p.type || 'word', []],
-                  offset: [p.offset || 0, []],
-                  be: [p.be || true, []],
-                  rate: [p.rate || 1, []],
-                })
-              ) : []
-            ),
-          })
-        ) : []
+        obj.mappers
+          ? obj.mappers.map((prop: any) =>
+              this.fb.group({
+                code: [prop.code || 3, []],
+                addr: [prop.addr || 0, []],
+                size: [prop.size || 0, []],
+                points: this.fb.array(
+                  prop.points
+                    ? prop.points.map((p: any) =>
+                        this.fb.group({
+                          name: [p.name || '', []],
+                          type: [p.type || 'word', []],
+                          offset: [p.offset || 0, []],
+                          be: [p.be || true, []],
+                          rate: [p.rate || 1, []],
+                        })
+                      )
+                    : []
+                ),
+              })
+            )
+          : []
       ),
-    })
+    });
   }
 
   ngOnInit(): void {
+    if (this.route.snapshot.paramMap.has('id')) {
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.rs.get(`product/${this.id}`).subscribe((res) => {
+        this.build(res.data);
+      });
+    }
+    this.build();
   }
-
-  show(data: any) {
-    this.build(data)
-    //this.validateForm.patchValue(data);
-  }
-
-  @Input() text!: string;
-  @Input() isVisible!: boolean;
-  @Input() title!: string;
-  @Output() back = new EventEmitter();
 
   handleCancel() {
-    this.isVisible = false;
-    this.back.emit(0);
-    this.reset();
+    this.router.navigateByUrl(`/admin/product`);
   }
 
-  handleOk() {
-    this.validateForm.updateValueAndValidity()
+  submit() {
+    this.validateForm.updateValueAndValidity();
     if (this.validateForm.valid) {
       let id = this.validateForm.value.id;
       let url = id ? `product/${id}` : `product/create`;
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
-        this.isVisible = false;
-        this.back.emit(1);
+        this.router.navigateByUrl(`/admin/product`);
       });
       return;
     } else {
       Object.values(this.validateForm.controls).forEach((control: any) => {
         if (control.invalid) {
           control.markAsDirty();
-          control.updateValueAndValidity({onlySelf: true});
+          control.updateValueAndValidity({ onlySelf: true });
         }
       });
     }
@@ -124,36 +124,42 @@ export class ProductFmComponent implements OnInit {
             offset: [0, []],
             be: [true, []],
             rate: [1, []],
-          })]
-        ),
+          }),
+        ]),
       })
-    )
+    );
   }
 
-  drop(mapper:any, event: CdkDragDrop<string[]>): void {
-    moveItemInArray(mapper.get('points').controls, event.previousIndex, event.currentIndex);
+  drop(mapper: any, event: CdkDragDrop<string[]>): void {
+    moveItemInArray(
+      mapper.get('points').controls,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 
-  pointCopy(mapper:any, index: number) {
+  pointCopy(mapper: any, index: number) {
     const item = mapper.get('points').controls[index];
     mapper.get('points').controls.splice(index, 0, item);
-    this.msg.success("复制成功");
+    this.msg.success('复制成功');
   }
-  pointDel(mapper:any, i: number) {
-    mapper.get('points').removeAt(i)
+  pointDel(mapper: any, i: number) {
+    mapper.get('points').removeAt(i);
   }
 
   mapperDel(i: number) {
-    this.validateForm.get("mappers").removeAt(i)
+    this.validateForm.get('mappers').removeAt(i);
   }
 
   pointAdd(mapper: any) {
-    mapper.get('points').push(this.fb.group({
-      name: ['', []],
-      type: ['word', []],
-      offset: [0, []],
-      be: [true, []],
-      rate: [1, []],
-    }))
+    mapper.get('points').push(
+      this.fb.group({
+        name: ['', []],
+        type: ['word', []],
+        offset: [0, []],
+        be: [true, []],
+        rate: [1, []],
+      })
+    );
   }
 }

@@ -10,6 +10,7 @@ import {
   FormsModule,
 } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-link-fm',
@@ -17,42 +18,45 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./link-fm.component.scss'],
 })
 export class LinkFmComponent implements OnInit {
-  validateForm: UntypedFormGroup;
+  validateForm!: FormGroup;
+  id: any = 0;
   constructor(
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
-    private rs: RequestService
-  ) {
+    private rs: RequestService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+  ngOnInit(): void {
+    if (this.route.snapshot.paramMap.has('id')) {
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.rs.get(`link/${this.id}`).subscribe((res) => {
+        this.patchValue(res.data);
+      });
+    }
+    this.patchValue();
+  } 
+  handleCancel() {
+    this.router.navigateByUrl(`/admin/link`);
+  }
+
+  patchValue(mess?: any) {
+    mess = mess || {};
     this.validateForm = this.fb.group({
-      id: [''],
-      name: [''],
-      period: [60],
-      interval: [2],
-      protocol: ['rtu']
+      id: [mess.id || ''],
+      name: [mess.name || ''],
+      period: [mess.period || 60],
+      interval: [mess.interval || 2],
+      protocol: [mess.protocol || 'rtu'],
     });
   }
-  ngOnInit(): void {}
-  show(data: any) {
-    this.validateForm.patchValue(data);
-  }
-  @Input() data: any; //加载数据
-  @Input() text!: string; //update add
-  @Input() isVisible = false;
-  @Input() title!: string;
-  @Output() back = new EventEmitter(); //modal close
-  handleCancel() {
-    this.isVisible = false;
-    this.back.emit(0);
-    this.reset();
-  }
-  handleOk() {
+  submit() {
     if (this.validateForm.valid) {
       let id = this.validateForm.value.id;
-        let url = id ? `link/${id}` : `link/create`;
-        this.rs.post(url, this.validateForm.value).subscribe((res) => {
+      let url = id ? `link/${id}` : `link/create`;
+      this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
-        this.isVisible = false;
-        this.back.emit(1);
+        this.router.navigateByUrl(`/admin/link`);
       });
       return;
     } else {

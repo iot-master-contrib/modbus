@@ -1,79 +1,65 @@
-import {Component, Input, ViewChild} from '@angular/core';
-import {RequestService} from "../../request.service";
-import {Router} from "@angular/router";
-import {NzMessageService} from "ng-zorro-antd/message";
+import { Component, Input, ViewChild } from '@angular/core';
+import { RequestService } from '../../request.service';
+import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-server-link',
   templateUrl: './server-link.component.html',
-  styleUrls: ['./server-link.component.scss']
+  styleUrls: ['./server-link.component.scss'],
 })
 export class ServerLinkComponent {
-  _server = ""
+  _server = '';
 
   @Input()
   set server(id: any) {
-    this._server = id
-    this.query = {server_id: this._server}
-    this.load()
+    this._server = id;
+    this.query = { server_id: this._server };
+    this.load();
   }
 
-  constructor(private router: Router,
-              private rs: RequestService,
-              private msg: NzMessageService
+  constructor(
+    private router: Router,
+    private rs: RequestService,
+    private msg: NzMessageService
   ) {
     //this.load();
-
   }
 
-  @ViewChild('child') child: any
-  isVisible!: boolean
-  loading = true
-  datum: any[] = []
+  loading = true;
+  datum: any[] = [];
   total = 1;
   pageSize = 20;
   pageIndex = 1;
-  query: any = {}
-
-  title!: string
-  text!: string
-
-  clientFm(num: number) {
-    if (num) this.load()
-    this.isVisible = false
-  }
+  query: any = {};
 
   load() {
-    this.loading = true
-    this.rs.post("link/search", this.query).subscribe(res => {
-      this.datum = res.data;
-      this.total = res.total;
-    }).add(() => {
-      this.loading = false;
-    })
+    this.loading = true;
+    this.rs
+      .post('link/search', this.query)
+      .subscribe((res) => {
+        this.datum = res.data;
+        this.total = res.total;
+      })
+      .add(() => {
+        this.loading = false;
+      });
   }
 
   delete(index: number, id: number) {
     this.datum.splice(index, 1);
-    this.rs.get(`link/${id}/delete`).subscribe(res => {
-      this.msg.success("删除成功")
-      this.isVisible = false;
-      this.load()
-    })
+    this.rs.get(`link/${id}/delete`).subscribe((res) => {
+      this.msg.success('删除成功');
+      this.load();
+    });
   }
 
   add() {
-    this.child.reset()
-    this.title = "连接端添加"
-    this.text = "提交"
-    this.isVisible = true
+    this.router.navigateByUrl(`/admin/create/link`);
   }
-
   edit(id: number, data: any) {
-    this.title = "连接端修改"
-    this.text = "修改"
-    this.isVisible = true
-    this.child.show(data)
+    const path = `/admin/link/edit/${id}`;
+    this.router.navigateByUrl(path);
   }
 
   search(text: any) {
@@ -82,7 +68,7 @@ export class ServerLinkComponent {
         server_id: this._server,
         id: text,
       };
-    else this.query = {server_id: this._server}
+    else this.query = { server_id: this._server };
     this.load();
   }
 
@@ -91,6 +77,6 @@ export class ServerLinkComponent {
   }
 
   open(id: string) {
-    this.router.navigateByUrl("/admin/link/" + id)
+    this.router.navigateByUrl('/admin/link/' + id);
   }
 }
