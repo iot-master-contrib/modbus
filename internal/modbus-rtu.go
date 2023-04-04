@@ -32,12 +32,11 @@ func (m *RTU) execute(cmd []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	crc := bin.ParseUint16LittleEndian(m.buf[l-2:])
-
-	if crc != CRC16(m.buf[:l-2]) {
-		//检验错误
-		return nil, errors.New("校验错误")
-	}
+	//crc := bin.ParseUint16LittleEndian(m.buf[l-2:])
+	//if crc != CRC16(m.buf[:l-2]) {
+	//	//检验错误
+	//	return nil, errors.New("校验错误")
+	//}
 
 	//slave := buf[0]
 	fc := m.buf[1]
@@ -58,8 +57,11 @@ func (m *RTU) execute(cmd []byte) ([]byte, error) {
 		}
 
 		if l < length {
-			//长度不够
-			return nil, errors.New("长度不足")
+			//长度不够，继续读
+			_, err = m.link.ReadAtLeast(m.buf[l:], length-l)
+			if err != nil {
+				return nil, err
+			}
 		}
 		b := m.buf[3 : l-2]
 		//数组解压
@@ -68,8 +70,14 @@ func (m *RTU) execute(cmd []byte) ([]byte, error) {
 	case 3, 4, 23:
 		length += 1 + count
 		if l < length {
-			//长度不够
-			return nil, errors.New("长度不足")
+			//长度不够，继续读
+			_, err = m.link.ReadAtLeast(m.buf[l:], length-l)
+			if err != nil {
+				return nil, err
+			}
+			//if n+l < length {
+			//	return nil, errors.New("长度不足")
+			//}
 		}
 		b := m.buf[3 : l-2]
 		return bin.Dup(b), nil

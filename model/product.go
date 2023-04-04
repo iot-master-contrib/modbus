@@ -33,7 +33,7 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 	l := uint16(len(buf))
 	for _, p := range m.Points {
 		offset := p.Offset * 2
-		if offset > l {
+		if offset >= l {
 			continue
 		}
 		switch p.Type {
