@@ -62,6 +62,7 @@ func (m *RTU) execute(cmd []byte) ([]byte, error) {
 			if err != nil {
 				return nil, err
 			}
+			l = len(m.buf)
 		}
 		b := m.buf[3 : l-2]
 		//数组解压
@@ -75,6 +76,7 @@ func (m *RTU) execute(cmd []byte) ([]byte, error) {
 			if err != nil {
 				return nil, err
 			}
+			l = len(m.buf)
 			//if n+l < length {
 			//	return nil, errors.New("长度不足")
 			//}
