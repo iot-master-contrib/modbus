@@ -54,6 +54,8 @@ import { LinkDetailComponent } from './admin/link-detail/link-detail.component';
 import { SerialDetailComponent } from './admin/serial-detail/serial-detail.component';
 import { ServerLinkComponent } from './admin/server-link/server-link.component';
 import {NzTabsModule} from "ng-zorro-antd/tabs";
+import { ServerEditDevicesComponent } from './admin/server-edit-devices/server-edit-devices.component';
+import { TunnelEditRetryComponent } from './admin/tunnel-edit-retry/tunnel-edit-retry.component';
 registerLocaleData(zh);
 
 @NgModule({
@@ -78,6 +80,8 @@ registerLocaleData(zh);
     LinkDetailComponent,
     SerialDetailComponent,
     ServerLinkComponent,
+    ServerEditDevicesComponent,
+    TunnelEditRetryComponent,
   ],
   imports: [
     BrowserModule,
