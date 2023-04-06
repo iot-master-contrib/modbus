@@ -50,8 +50,7 @@ export class DeviceFmComponent implements OnInit {
   }
   submit() {
     if (this.validateForm.valid) {
-      let id = this.validateForm.value.id;
-      let url = id ? `device/${id}` : `device/create`;
+      let url = this.id ? `device/${this.id}` : `device/create`;
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
         this.router.navigateByUrl(`/admin/device`);

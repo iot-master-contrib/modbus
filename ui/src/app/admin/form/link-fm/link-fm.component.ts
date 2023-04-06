@@ -35,7 +35,7 @@ export class LinkFmComponent implements OnInit {
       });
     }
     this.patchValue();
-  } 
+  }
   handleCancel() {
     this.router.navigateByUrl(`/admin/link`);
   }
@@ -52,8 +52,7 @@ export class LinkFmComponent implements OnInit {
   }
   submit() {
     if (this.validateForm.valid) {
-      let id = this.validateForm.value.id;
-      let url = id ? `link/${id}` : `link/create`;
+      let url = this.id ? `link/${this.id}` : `link/create`;
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
         this.router.navigateByUrl(`/admin/link`);

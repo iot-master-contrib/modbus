@@ -33,7 +33,7 @@ export class ProductFmComponent implements OnInit {
     private router: Router
   ) {
     this.build();
-  } 
+  }
   build(obj?: any) {
     obj = obj || {};
     this.validateForm = this.fb.group({
@@ -84,8 +84,7 @@ export class ProductFmComponent implements OnInit {
   submit() {
     this.validateForm.updateValueAndValidity();
     if (this.validateForm.valid) {
-      let id = this.validateForm.value.id;
-      let url = id ? `product/${id}` : `product/create`;
+      let url = this.id ? `product/${this.id}` : `product/create`;
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
         this.router.navigateByUrl(`/admin/product`);

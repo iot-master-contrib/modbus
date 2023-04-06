@@ -58,8 +58,7 @@ export class SerialFmComponent implements OnInit {
 
   submit() {
     if (this.validateForm.valid) {
-      let id = this.validateForm.value.id;
-      let url = id ? `serial/${id}` : `serial/create`;
+      let url = this.id ? `serial/${this.id}` : `serial/create`;
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
         this.router.navigateByUrl(`/admin/serial`);

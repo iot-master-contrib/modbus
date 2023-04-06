@@ -47,7 +47,7 @@ export class ClientFmComponent implements OnInit {
       port: [mess.port || 1],
       period: [mess.period || 60],
       interval: [mess.interval || 2],
-      protocol: [mess.interval || 'rtu'],
+      protocol: [mess.protocol || 'rtu'],
     });
   }
 
@@ -56,8 +56,7 @@ export class ClientFmComponent implements OnInit {
   }
   submit() {
     if (this.validateForm.valid) {
-      let id = this.validateForm.value.id;
-      let url = id ? `client/${id}` : `client/create`;
+      let url = this.id ? `client/${this.id}` : `client/create`;
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
         this.router.navigateByUrl(`/admin/client`);

@@ -60,7 +60,7 @@ export class ServerFmComponent implements OnInit {
       });
       const sendData = Object.assign({}, this.validateForm.value);
       const { id, deviceId } = sendData;
-      let url = id ? `server/${id}` : `server/create`;
+      let url = this.id ? `server/${this.id}` : `server/create`;
       for (let index = 0; index < this.deviceList.length; index++) {
         const element: {
           id: string;
