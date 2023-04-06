@@ -56,6 +56,7 @@ func (p *poller) Poll() bool {
 
 		//统计加1
 		cnt++
+		cnt2 := 0
 
 		for _, mapper := range product.Mappers {
 			r, e := p.modbus.Read(device.Slave, mapper.Code, mapper.Addr, mapper.Size)
@@ -69,14 +70,17 @@ func (p *poller) Poll() bool {
 				continue
 			}
 			mapper.Parse(r, values)
+			cnt2++
 		}
 
-		//mqtt上传数据，暂定使用Object方式，简单
-		topic := fmt.Sprintf("up/property/%s/%s", product.Id, device.Id)
-		payload, _ := json.Marshal(values)
-		err := mqtt.Publish(topic, payload, false, 0)
-		if err != nil {
-			log.Error(err)
+		if cnt2 > 0 {
+			//mqtt上传数据，暂定使用Object方式，简单
+			topic := fmt.Sprintf("up/property/%s/%s", product.Id, device.Id)
+			payload, _ := json.Marshal(values)
+			err := mqtt.Publish(topic, payload, false, 0)
+			if err != nil {
+				log.Error(err)
+			}
 		}
 	}
 
