@@ -1,9 +1,10 @@
-import { RequestService } from '../../../request.service';
+import { RequestService } from '../../request.service';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormControl,
   FormGroup,
+  UntypedFormGroup,
   ValidationErrors,
   Validators,
   FormsModule,
@@ -11,11 +12,11 @@ import {
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
-  selector: 'app-device-fm',
-  templateUrl: './device-fm.component.html',
-  styleUrls: ['./device-fm.component.scss'],
+  selector: 'app-client-edit',
+  templateUrl: './client-edit.component.html',
+  styleUrls: ['./client-edit.component.scss'],
 })
-export class DeviceFmComponent implements OnInit {
+export class ClientEditComponent implements OnInit {
   validateForm!: FormGroup;
   id: any = 0;
   constructor(
@@ -28,32 +29,37 @@ export class DeviceFmComponent implements OnInit {
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.has('id')) {
       this.id = this.route.snapshot.paramMap.get('id');
-      this.rs.get(`device/${this.id}`).subscribe((res) => {
+      this.rs.get(`client/${this.id}`).subscribe((res) => {
         this.patchValue(res.data);
       });
     }
-     this.patchValue();
+
+    this.patchValue();
   }
+
   patchValue(mess?: any) {
     mess = mess || {};
     this.validateForm = this.fb.group({
       id: [mess.id || ''],
       name: [mess.name || ''],
-      desc: [mess.desc || ''],
-      tunnel_id: [mess.tunnel_id || ''],
-      product_id: [mess.product_id || ''],
-      slave: [mess.slave || 1],
+      net: [mess.net || 'tcp'],
+      addr: [mess.addr || ''],
+      port: [mess.port || 1],
+      period: [mess.period || 60],
+      interval: [mess.interval || 2],
+      protocol: [mess.protocol || 'rtu'],
     });
   }
+
   handleCancel() {
-    this.router.navigateByUrl(`/admin/device`);
+    this.router.navigateByUrl(`/admin/client`);
   }
   submit() {
     if (this.validateForm.valid) {
-      let url = this.id ? `device/${this.id}` : `device/create`;
+      let url = this.id ? `client/${this.id}` : `client/create`;
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
-        this.router.navigateByUrl(`/admin/device`);
+        this.router.navigateByUrl(`/admin/client`);
       });
       return;
     } else {
@@ -63,15 +69,6 @@ export class DeviceFmComponent implements OnInit {
           control.updateValueAndValidity({ onlySelf: true });
         }
       });
-    }
-  }
-  reset() {
-    this.validateForm.reset();
-    for (const key in this.validateForm.controls) {
-      if (this.validateForm.controls.hasOwnProperty(key)) {
-        this.validateForm.controls[key].markAsPristine();
-        this.validateForm.controls[key].updateValueAndValidity();
-      }
     }
   }
 }

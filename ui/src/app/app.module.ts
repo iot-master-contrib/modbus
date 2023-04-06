@@ -30,17 +30,17 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { LinkComponent } from './admin/link/link.component';
-import { ClientFmComponent } from './admin/form/client-fm/client-fm.component';
-import { DeviceFmComponent } from './admin/form/device-fm/device-fm.component';
-import { SerialFmComponent } from './admin/form/serial-fm/serial-fm.component';
-import { ServerFmComponent } from './admin/form/server-fm/server-fm.component';
+import { ClientEditComponent } from './admin/client-edit/client-edit.component';
+import { DeviceEditComponent } from './admin/device-edit/device-edit.component';
+import { SerialEditComponent } from './admin/serial-edit/serial-edit.component';
+import { ServerEditComponent } from './admin/server-edit/server-edit.component';
 import { BaseModule } from './admin/base/base.module';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { LinkFmComponent } from './admin/form/link-fm/link-fm.component';
+import { LinkEditComponent } from './admin/link-edit/link-edit.component';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { ProductFmComponent } from './admin/form/product-fm/product-fm.component';
+import { ProductEditComponent } from './admin/product-edit/product-edit.component';
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzCollapseModule} from "ng-zorro-antd/collapse";
 import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
@@ -65,13 +65,13 @@ registerLocaleData(zh);
     ClientComponent,
     DeviceComponent,
     LinkComponent,
-    ClientFmComponent,
-    DeviceFmComponent,
-    SerialFmComponent,
-    ServerFmComponent,
-    LinkFmComponent,
+    ClientEditComponent,
+    DeviceEditComponent,
+    SerialEditComponent,
+    ServerEditComponent,
+    LinkEditComponent,
     ProductComponent,
-    ProductFmComponent,
+    ProductEditComponent,
     TunnelDeviceComponent,
     ClientDetailComponent,
     ServerDetailComponent,

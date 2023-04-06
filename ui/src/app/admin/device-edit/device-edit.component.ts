@@ -1,23 +1,21 @@
-import { RequestService } from './../../../request.service';
+import { RequestService } from '../../request.service';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormControl,
   FormGroup,
-  UntypedFormGroup,
   ValidationErrors,
   Validators,
   FormsModule,
 } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute, Router } from '@angular/router';
-
 @Component({
-  selector: 'app-link-fm',
-  templateUrl: './link-fm.component.html',
-  styleUrls: ['./link-fm.component.scss'],
+  selector: 'app-device-edit',
+  templateUrl: './device-edit.component.html',
+  styleUrls: ['./device-edit.component.scss'],
 })
-export class LinkFmComponent implements OnInit {
+export class DeviceEditComponent implements OnInit {
   validateForm!: FormGroup;
   id: any = 0;
   constructor(
@@ -30,32 +28,32 @@ export class LinkFmComponent implements OnInit {
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.has('id')) {
       this.id = this.route.snapshot.paramMap.get('id');
-      this.rs.get(`link/${this.id}`).subscribe((res) => {
+      this.rs.get(`device/${this.id}`).subscribe((res) => {
         this.patchValue(res.data);
       });
     }
-    this.patchValue();
+     this.patchValue();
   }
-  handleCancel() {
-    this.router.navigateByUrl(`/admin/link`);
-  }
-
   patchValue(mess?: any) {
     mess = mess || {};
     this.validateForm = this.fb.group({
       id: [mess.id || ''],
       name: [mess.name || ''],
-      period: [mess.period || 60],
-      interval: [mess.interval || 2],
-      protocol: [mess.protocol || 'rtu'],
+      desc: [mess.desc || ''],
+      tunnel_id: [mess.tunnel_id || ''],
+      product_id: [mess.product_id || ''],
+      slave: [mess.slave || 1],
     });
+  }
+  handleCancel() {
+    this.router.navigateByUrl(`/admin/device`);
   }
   submit() {
     if (this.validateForm.valid) {
-      let url = this.id ? `link/${this.id}` : `link/create`;
+      let url = this.id ? `device/${this.id}` : `device/create`;
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
-        this.router.navigateByUrl(`/admin/link`);
+        this.router.navigateByUrl(`/admin/device`);
       });
       return;
     } else {

@@ -1,4 +1,4 @@
-import { RequestService } from './../../../request.service';
+import { RequestService } from '../../request.service';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
@@ -11,15 +11,15 @@ import {
 } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
-  selector: 'app-server-fm',
-  templateUrl: './server-fm.component.html',
-  styleUrls: ['./server-fm.component.scss'],
+  selector: 'app-link-edit',
+  templateUrl: './link-edit.component.html',
+  styleUrls: ['./link-edit.component.scss'],
 })
-export class ServerFmComponent implements OnInit {
+export class LinkEditComponent implements OnInit {
   validateForm!: FormGroup;
   id: any = 0;
-  deviceList = [];
   constructor(
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
@@ -30,58 +30,32 @@ export class ServerFmComponent implements OnInit {
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.has('id')) {
       this.id = this.route.snapshot.paramMap.get('id');
-      this.rs.get(`server/${this.id}`).subscribe((res) => {
+      this.rs.get(`link/${this.id}`).subscribe((res) => {
         this.patchValue(res.data);
       });
     }
     this.patchValue();
   }
+  handleCancel() {
+    this.router.navigateByUrl(`/admin/link`);
+  }
+
   patchValue(mess?: any) {
     mess = mess || {};
     this.validateForm = this.fb.group({
       id: [mess.id || ''],
       name: [mess.name || ''],
-      desc: [mess.desc || ''],
-      port: [mess.port || 60000],
-      devices: [mess.devices || ''],
       period: [mess.period || 60],
       interval: [mess.interval || 2],
       protocol: [mess.protocol || 'rtu'],
-      deviceId: [mess.deviceId || ''],
     });
-  }
-  handleCancel() {
-    this.router.navigateByUrl(`/admin/server`);
   }
   submit() {
     if (this.validateForm.valid) {
-      this.validateForm.patchValue({
-        port: Number(this.validateForm.value.port),
-      });
-      const sendData = Object.assign({}, this.validateForm.value);
-      const { id, deviceId } = sendData;
-      let url = this.id ? `server/${this.id}` : `server/create`;
-      for (let index = 0; index < this.deviceList.length; index++) {
-        const element: {
-          id: string;
-          name: string;
-          product_id: string;
-          slave: number;
-        } = this.deviceList[index];
-        if (element.id === deviceId) {
-          sendData.defaults = [
-            {
-              name: element.name,
-              product_id: element.product_id,
-              slave: element.slave,
-            },
-          ];
-          break;
-        }
-      }
-      this.rs.post(url, sendData).subscribe((res) => {
+      let url = this.id ? `link/${this.id}` : `link/create`;
+      this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
-        this.router.navigateByUrl(`/admin/server`);
+        this.router.navigateByUrl(`/admin/link`);
       });
       return;
     } else {

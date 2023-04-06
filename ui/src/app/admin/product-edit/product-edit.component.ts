@@ -1,4 +1,4 @@
-import { RequestService } from '../../../request.service';
+import { RequestService } from '../../request.service';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
@@ -16,12 +16,12 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-product-fm',
-  templateUrl: './product-fm.component.html',
-  styleUrls: ['./product-fm.component.scss'],
+  selector: 'app-product-edit',
+  templateUrl: './product-edit.component.html',
+  styleUrls: ['./product-edit.component.scss'],
   providers: [DatePipe],
 })
-export class ProductFmComponent implements OnInit {
+export class ProductEditComponent implements OnInit {
   validateForm!: any;
   id: any = 0;
   constructor(
