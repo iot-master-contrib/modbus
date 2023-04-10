@@ -1,0 +1,25 @@
+<nz-space>
+    <button nz-button nzType="primary" (click)="add()">
+        <i nz-icon nzType="plus"></i>
+        新增
+    </button>
+</nz-space>
+<nz-table [nzData]="aliases.controls" [formGroup]="group" [nzShowPagination]="false">
+    <thead>
+        <tr>
+            <th *ngFor="let item of constListData">{{item.title}}</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody formGroupName="properties">
+        <tr *ngFor="let item of aliases.controls; let i=index;" [formGroupName]="i">
+            <td *ngFor="let item of constListData">
+                <nz-input-number *ngIf="item['type']==='number'" [formControlName]="item['keyName']"></nz-input-number>
+                <input *ngIf="!item['type']" nz-input [formControlName]="item['keyName']" />
+            </td>
+            <td class="td-oper">
+                <span nz-icon nzType="delete" nzTheme="outline" title="删除" (click)="propertyDel(i)"></span>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

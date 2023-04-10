@@ -1,5 +1,5 @@
 import { RequestService } from '../../request.service';
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, ViewChild, EventEmitter, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormControl,
@@ -20,13 +20,26 @@ export class ServerEditComponent implements OnInit {
   validateForm!: FormGroup;
   id: any = 0;
   deviceList = [];
+  listData = [{
+    title: '从站号',
+    keyName: 'slave',
+    type: 'number'
+  }, {
+    title: '名称',
+    keyName: 'name'
+  }, {
+    title: '产品号',
+    keyName: 'product_id'
+  }]
+  defaultEquip: any = [];
+  @ViewChild('editTableChild') editTableChild: any;
   constructor(
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
     private rs: RequestService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.has('id')) {
       this.id = this.route.snapshot.paramMap.get('id');
@@ -34,7 +47,14 @@ export class ServerEditComponent implements OnInit {
         this.patchValue(res.data);
       });
     }
+    this.getDeviceList();
     this.patchValue();
+  }
+  getDeviceList() {
+    this.rs.get(`device/list`).subscribe((res) => {
+      const { data } = res || {};
+      this.deviceList = data || [];
+    });
   }
   patchValue(mess?: any) {
     mess = mess || {};
@@ -43,12 +63,12 @@ export class ServerEditComponent implements OnInit {
       name: [mess.name || ''],
       desc: [mess.desc || ''],
       port: [mess.port || 60000],
-      devices: [mess.devices || ''],
       period: [mess.period || 60],
       interval: [mess.interval || 2],
       protocol: [mess.protocol || 'rtu'],
-      deviceId: [mess.deviceId || ''],
+      defaults: [mess.defaults || []],
     });
+    this.defaultEquip = mess.defaults || [];
   }
   handleCancel() {
     this.router.navigateByUrl(`/admin/server`);
@@ -58,27 +78,11 @@ export class ServerEditComponent implements OnInit {
       this.validateForm.patchValue({
         port: Number(this.validateForm.value.port),
       });
-      const sendData = Object.assign({}, this.validateForm.value);
-      const { id, deviceId } = sendData;
+      const editTableData = this.editTableChild.group.get('properties').controls.map((item: { value: any; }) => item.value);
+      const sendData = Object.assign({}, this.validateForm.value, {
+        defaults: editTableData
+      });
       let url = this.id ? `server/${this.id}` : `server/create`;
-      for (let index = 0; index < this.deviceList.length; index++) {
-        const element: {
-          id: string;
-          name: string;
-          product_id: string;
-          slave: number;
-        } = this.deviceList[index];
-        if (element.id === deviceId) {
-          sendData.defaults = [
-            {
-              name: element.name,
-              product_id: element.product_id,
-              slave: element.slave,
-            },
-          ];
-          break;
-        }
-      }
       this.rs.post(url, sendData).subscribe((res) => {
         this.msg.success('保存成功');
         this.router.navigateByUrl(`/admin/server`);
