@@ -92,3 +92,18 @@ func (p *poller) Poll() bool {
 
 	return true
 }
+
+func (p *poller) Close() error {
+
+	for _, device := range p.devices {
+		//mqtt上传数据，暂定使用Object方式，简单
+		topic := fmt.Sprintf("up/event/%s/%s", device.ProductId, device.Id)
+		//payload, _ := json.Marshal(values)
+		err := mqtt.Publish(topic, nil, false, 0)
+		if err != nil {
+			log.Error(err)
+		}
+	}
+
+	return nil
+}

@@ -8,6 +8,7 @@ import (
 type Poller interface {
 	Load(tunnel string) error
 	Poll() bool
+	Close() error
 }
 
 type Factory func(link io.ReadWriteCloser, opts string) (Poller, error)
