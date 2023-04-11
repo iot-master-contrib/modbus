@@ -1,1 +1,28 @@
-<p>tunnel-edit-retry works!</p>
+<nz-card nzType="inner" style="margin-top: 16px" nzTitle="重连配置" [nzExtra]="extraTemplate">
+  <form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzFor="enable">启用</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+        <nz-switch
+          formControlName="enable"
+          nzCheckedChildren="开"
+          nzUnCheckedChildren="关"
+        ></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzFor="timeout">超时间隔</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+        <nz-input-number-group nzAddOnAfter="s">
+          <nz-input-number
+            formControlName="timeout"
+            [nzStep]="1"
+          ></nz-input-number>
+        </nz-input-number-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>
+<ng-template #extraTemplate>
+    <a (click)="setting()">设置</a>
+  </ng-template>

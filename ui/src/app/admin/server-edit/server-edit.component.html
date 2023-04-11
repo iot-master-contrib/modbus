@@ -26,8 +26,14 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="port">端口</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-input-number style="width: auto" formControlName="port" name="port" [nzMin]="1" [nzMax]="65535"
-          [nzStep]="1"></nz-input-number>
+        <nz-input-number
+          style="width: auto"
+          formControlName="port"
+          name="port"
+          [nzMin]="1"
+          [nzMax]="65535"
+          [nzStep]="1"
+        ></nz-input-number>
       </nz-form-control>
     </nz-form-item>
 
@@ -58,8 +64,13 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="defaults">默认设备</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <app-edit-table #editTableChild [data]="defaultEquip" [listData]="listData"></app-edit-table>
+        <app-edit-table
+          #editTableChild
+          [data]="defaultEquip"
+          [listData]="listData"
+        ></app-edit-table>
       </nz-form-control>
     </nz-form-item>
   </form>
+  <app-tunnel-edit-retry url="serial/${{ id }}" *ngIf="id"> </app-tunnel-edit-retry>
 </nz-card>

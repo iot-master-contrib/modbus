@@ -28,7 +28,7 @@
         />
         <nz-autocomplete [nzDataSource]="ports" #autoPorts></nz-autocomplete>
       </nz-form-control>
-    </nz-form-item> 
+    </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="period">采集周期</nz-form-label>
       <nz-form-control [nzSpan]="16">
@@ -54,4 +54,5 @@
       </nz-form-control>
     </nz-form-item>
   </form>
+  <app-tunnel-edit-retry url="serial/${{ id }}" *ngIf="id"> </app-tunnel-edit-retry>
 </nz-card>
