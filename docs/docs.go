@@ -2657,10 +2657,6 @@ const docTemplate = `{
                     "description": "ID",
                     "type": "string"
                 },
-                "interval": {
-                    "description": "采集间隔",
-                    "type": "integer"
-                },
                 "name": {
                     "description": "名称",
                     "type": "string"
@@ -2669,7 +2665,11 @@ const docTemplate = `{
                     "description": "类型 tcp udp",
                     "type": "string"
                 },
-                "period": {
+                "poller_interval": {
+                    "description": "采集间隔",
+                    "type": "integer"
+                },
+                "poller_period": {
                     "description": "采集周期",
                     "type": "integer"
                 },
@@ -2677,11 +2677,11 @@ const docTemplate = `{
                     "description": "端口号",
                     "type": "integer"
                 },
-                "protocol": {
+                "protocol_name": {
                     "description": "协议 rtu tcp parallel-tcp",
                     "type": "string"
                 },
-                "protocol_ops": {
+                "protocol_options": {
                     "description": "协议参数",
                     "type": "string"
                 },
@@ -2768,23 +2768,23 @@ const docTemplate = `{
                     "description": "ID",
                     "type": "string"
                 },
-                "interval": {
-                    "description": "采集间隔",
-                    "type": "integer"
-                },
                 "name": {
                     "description": "名称",
                     "type": "string"
                 },
-                "period": {
+                "poller_interval": {
+                    "description": "采集间隔",
+                    "type": "integer"
+                },
+                "poller_period": {
                     "description": "采集周期",
                     "type": "integer"
                 },
-                "protocol": {
+                "protocol_name": {
                     "description": "协议 rtu tcp parallel-tcp",
                     "type": "string"
                 },
-                "protocol_ops": {
+                "protocol_options": {
                     "description": "协议参数",
                     "type": "string"
                 },
@@ -2904,10 +2904,6 @@ const docTemplate = `{
                     "description": "ID",
                     "type": "string"
                 },
-                "interval": {
-                    "description": "采集间隔",
-                    "type": "integer"
-                },
                 "name": {
                     "description": "名称",
                     "type": "string"
@@ -2916,7 +2912,11 @@ const docTemplate = `{
                     "description": "0 1 2 NONE ODD EVEN",
                     "type": "integer"
                 },
-                "period": {
+                "poller_interval": {
+                    "description": "采集间隔",
+                    "type": "integer"
+                },
+                "poller_period": {
                     "description": "采集周期",
                     "type": "integer"
                 },
@@ -2924,11 +2924,11 @@ const docTemplate = `{
                     "description": "port, e.g. COM1 \"/dev/ttySerial1\".",
                     "type": "string"
                 },
-                "protocol": {
+                "protocol_name": {
                     "description": "协议 rtu tcp parallel-tcp",
                     "type": "string"
                 },
-                "protocol_ops": {
+                "protocol_options": {
                     "description": "协议参数",
                     "type": "string"
                 },
@@ -2974,15 +2974,15 @@ const docTemplate = `{
                     "description": "ID",
                     "type": "string"
                 },
-                "interval": {
-                    "description": "采集间隔",
-                    "type": "integer"
-                },
                 "name": {
                     "description": "名称",
                     "type": "string"
                 },
-                "period": {
+                "poller_interval": {
+                    "description": "采集间隔",
+                    "type": "integer"
+                },
+                "poller_period": {
                     "description": "采集周期",
                     "type": "integer"
                 },
@@ -2990,11 +2990,11 @@ const docTemplate = `{
                     "description": "监听端口",
                     "type": "integer"
                 },
-                "protocol": {
+                "protocol_name": {
                     "description": "协议 rtu tcp parallel-tcp",
                     "type": "string"
                 },
-                "protocol_ops": {
+                "protocol_options": {
                     "description": "协议参数",
                     "type": "string"
                 },
