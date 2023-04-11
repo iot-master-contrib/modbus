@@ -76,6 +76,54 @@
                 }
             }
         },
+        "/client/export": {
+            "get": {
+                "description": "导出客户端",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导出客户端",
+                "responses": {}
+            }
+        },
+        "/client/import": {
+            "post": {
+                "description": "导入客户端",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导入客户端",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "压缩包",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
         "/client/list": {
             "get": {
                 "description": "查询客户端",
@@ -600,6 +648,54 @@
                 }
             }
         },
+        "/device/export": {
+            "get": {
+                "description": "导出设备",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导出设备",
+                "responses": {}
+            }
+        },
+        "/device/import": {
+            "post": {
+                "description": "导入设备",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导入设备",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "压缩包",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
         "/device/list": {
             "get": {
                 "description": "查询设备",
@@ -870,35 +966,49 @@
                 }
             }
         },
-        "/link/create": {
-            "post": {
-                "description": "创建连接",
+        "/link/export": {
+            "get": {
+                "description": "导出连接",
                 "consumes": [
                     "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导出连接",
+                "responses": {}
+            }
+        },
+        "/link/import": {
+            "post": {
+                "description": "导入连接",
+                "consumes": [
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "link"
+                    "product"
                 ],
-                "summary": "创建连接",
+                "summary": "导入连接",
                 "parameters": [
                     {
-                        "description": "连接信息",
-                        "name": "search",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Link"
-                        }
+                        "type": "file",
+                        "description": "压缩包",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                            "$ref": "#/definitions/api.ReplyData-int64"
                         }
                     }
                 }
@@ -1208,6 +1318,54 @@
                 }
             }
         },
+        "/product/export": {
+            "get": {
+                "description": "导出产品",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导出产品",
+                "responses": {}
+            }
+        },
+        "/product/import": {
+            "post": {
+                "description": "导入产品",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导入产品",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "压缩包",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
         "/product/list": {
             "get": {
                 "description": "查询产品",
@@ -1448,6 +1606,54 @@
                 }
             }
         },
+        "/serial/export": {
+            "get": {
+                "description": "导出串口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导出串口",
+                "responses": {}
+            }
+        },
+        "/serial/import": {
+            "post": {
+                "description": "导入串口",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导入串口",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "压缩包",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
         "/serial/list": {
             "get": {
                 "description": "查询串口",
@@ -1478,6 +1684,26 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/api.ReplyList-model_Serial"
+                        }
+                    }
+                }
+            }
+        },
+        "/serial/ports": {
+            "get": {
+                "description": "串口列表",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "serial"
+                ],
+                "summary": "串口列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-string"
                         }
                     }
                 }
@@ -1747,6 +1973,54 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/api.ReplyData-model_Server"
+                        }
+                    }
+                }
+            }
+        },
+        "/server/export": {
+            "get": {
+                "description": "导出服务端",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导出服务端",
+                "responses": {}
+            }
+        },
+        "/server/import": {
+            "post": {
+                "description": "导入服务端",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "导入服务端",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "压缩包",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
                         }
                     }
                 }
@@ -2149,6 +2423,17 @@
                 }
             }
         },
+        "api.ReplyData-string": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "string"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
         "api.ReplyList-model_Client": {
             "type": "object",
             "properties": {
@@ -2385,6 +2670,14 @@
                     "description": "端口号",
                     "type": "integer"
                 },
+                "protocol": {
+                    "description": "协议 rtu tcp parallel-tcp",
+                    "type": "string"
+                },
+                "protocol_ops": {
+                    "description": "协议参数",
+                    "type": "string"
+                },
                 "retry": {
                     "$ref": "#/definitions/model.Retry"
                 }
@@ -2475,6 +2768,14 @@
                     "description": "采集周期",
                     "type": "integer"
                 },
+                "protocol": {
+                    "description": "协议 rtu tcp parallel-tcp",
+                    "type": "string"
+                },
+                "protocol_ops": {
+                    "description": "协议参数",
+                    "type": "string"
+                },
                 "remote": {
                     "description": "远程地址",
                     "type": "string"
@@ -2488,6 +2789,10 @@
         "model.Mapper": {
             "type": "object",
             "properties": {
+                "addr": {
+                    "description": "地址",
+                    "type": "integer"
+                },
                 "code": {
                     "description": "指令",
                     "type": "integer"
@@ -2611,6 +2916,18 @@
                     "description": "采集周期",
                     "type": "integer"
                 },
+                "port": {
+                    "description": "port, e.g. COM1 \"/dev/ttySerial1\".",
+                    "type": "string"
+                },
+                "protocol": {
+                    "description": "协议 rtu tcp parallel-tcp",
+                    "type": "string"
+                },
+                "protocol_ops": {
+                    "description": "协议参数",
+                    "type": "string"
+                },
                 "retry": {
                     "$ref": "#/definitions/model.Retry"
                 }
@@ -2627,22 +2944,9 @@
                     "description": "5 6 7 8",
                     "type": "integer"
                 },
-                "inter_character_timeout": {
-                    "type": "integer"
-                },
-                "minimum_read_size": {
-                    "type": "integer"
-                },
                 "parity_mode": {
                     "description": "0 1 2 NONE ODD EVEN",
                     "type": "integer"
-                },
-                "port_name": {
-                    "description": "port, e.g. COM1 \"/dev/ttySerial1\".",
-                    "type": "string"
-                },
-                "rs485_enable": {
-                    "type": "boolean"
                 },
                 "stop_bits": {
                     "description": "1 2",
@@ -2657,15 +2961,15 @@
                     "description": "创建时间",
                     "type": "string"
                 },
-                "defaults": {
+                "desc": {
+                    "description": "说明",
+                    "type": "string"
+                },
+                "devices": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/model.DefaultDevice"
                     }
-                },
-                "desc": {
-                    "description": "说明",
-                    "type": "string"
                 },
                 "disabled": {
                     "type": "boolean"
@@ -2693,6 +2997,14 @@
                 "port": {
                     "description": "监听端口",
                     "type": "integer"
+                },
+                "protocol": {
+                    "description": "协议 rtu tcp parallel-tcp",
+                    "type": "string"
+                },
+                "protocol_ops": {
+                    "description": "协议参数",
+                    "type": "string"
                 },
                 "standalone": {
                     "description": "单例模式（不支持注册）",

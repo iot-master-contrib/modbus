@@ -110,6 +110,26 @@ func noopServerEnable() {}
 // @Router /server/{id}/disable [get]
 func noopServerDisable() {}
 
+// @Summary 导出服务端
+// @Schemes
+// @Description 导出服务端
+// @Tags product
+// @Accept json
+// @Produce octet-stream
+// @Router /server/export [get]
+func noopServerExport() {}
+
+// @Summary 导入服务端
+// @Schemes
+// @Description 导入服务端
+// @Tags product
+// @Param file formData file true "压缩包"
+// @Accept mpfd
+// @Produce json
+// @Success 200 {object} ReplyData[int64] 返回服务端数量
+// @Router /server/import [post]
+func noopServerImport() {}
+
 func serverRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[model.Server]())
@@ -131,7 +151,7 @@ func serverRouter(app *gin.RouterGroup) {
 		}
 		return connect.LoadServer(value)
 	},
-		"name", "desc", "heartbeat", "period", "interval", "protocol", "protocol_ops", "retry", "options", "disabled", "port", "standalone", "devices"))
+		"name", "desc", "heartbeat", "period", "interval", "protocol", "protocol_ops", "retry", "options", "disabled", "port", "standalone", "servers"))
 
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Server](nil, func(value interface{}) error {
 		id := value.(string)
@@ -157,5 +177,8 @@ func serverRouter(app *gin.RouterGroup) {
 		}
 		return connect.LoadServer(&m)
 	}))
+
+	app.GET("/export", curd.ApiExport[model.Server]("server"))
+	app.POST("/import", curd.ApiImport[model.Server]())
 
 }

@@ -111,6 +111,26 @@ func noopSerialEnable() {}
 // @Router /serial/{id}/disable [get]
 func noopSerialDisable() {}
 
+// @Summary 导出串口
+// @Schemes
+// @Description 导出串口
+// @Tags product
+// @Accept json
+// @Produce octet-stream
+// @Router /serial/export [get]
+func noopSerialExport() {}
+
+// @Summary 导入串口
+// @Schemes
+// @Description 导入串口
+// @Tags product
+// @Param file formData file true "压缩包"
+// @Accept mpfd
+// @Produce json
+// @Success 200 {object} ReplyData[int64] 返回串口数量
+// @Router /serial/import [post]
+func noopSerialImport() {}
+
 // @Summary 串口列表
 // @Schemes
 // @Description 串口列表
@@ -168,6 +188,9 @@ func serialRouter(app *gin.RouterGroup) {
 		}
 		return connect.LoadSerial(&m)
 	}))
+
+	app.GET("/export", curd.ApiExport[model.Serial]("serial"))
+	app.POST("/import", curd.ApiImport[model.Serial]())
 
 	app.GET("ports", func(ctx *gin.Context) {
 		list, err := serial.GetPortsList()

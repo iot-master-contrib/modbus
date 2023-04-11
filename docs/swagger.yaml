@@ -102,6 +102,13 @@ definitions:
       error:
         type: string
     type: object
+  api.ReplyData-string:
+    properties:
+      data:
+        type: string
+      error:
+        type: string
+    type: object
   api.ReplyList-model_Client:
     properties:
       data:
@@ -259,6 +266,12 @@ definitions:
       port:
         description: 端口号
         type: integer
+      protocol:
+        description: 协议 rtu tcp parallel-tcp
+        type: string
+      protocol_ops:
+        description: 协议参数
+        type: string
       retry:
         $ref: '#/definitions/model.Retry'
     type: object
@@ -323,6 +336,12 @@ definitions:
       period:
         description: 采集周期
         type: integer
+      protocol:
+        description: 协议 rtu tcp parallel-tcp
+        type: string
+      protocol_ops:
+        description: 协议参数
+        type: string
       remote:
         description: 远程地址
         type: string
@@ -332,6 +351,9 @@ definitions:
     type: object
   model.Mapper:
     properties:
+      addr:
+        description: 地址
+        type: integer
       code:
         description: 指令
         type: integer
@@ -419,6 +441,15 @@ definitions:
       period:
         description: 采集周期
         type: integer
+      port:
+        description: port, e.g. COM1 "/dev/ttySerial1".
+        type: string
+      protocol:
+        description: 协议 rtu tcp parallel-tcp
+        type: string
+      protocol_ops:
+        description: 协议参数
+        type: string
       retry:
         $ref: '#/definitions/model.Retry'
     type: object
@@ -430,18 +461,9 @@ definitions:
       data_bits:
         description: 5 6 7 8
         type: integer
-      inter_character_timeout:
-        type: integer
-      minimum_read_size:
-        type: integer
       parity_mode:
         description: 0 1 2 NONE ODD EVEN
         type: integer
-      port_name:
-        description: port, e.g. COM1 "/dev/ttySerial1".
-        type: string
-      rs485_enable:
-        type: boolean
       stop_bits:
         description: 1 2
         type: integer
@@ -451,13 +473,13 @@ definitions:
       created:
         description: 创建时间
         type: string
-      defaults:
-        items:
-          $ref: '#/definitions/model.DefaultDevice'
-        type: array
       desc:
         description: 说明
         type: string
+      devices:
+        items:
+          $ref: '#/definitions/model.DefaultDevice'
+        type: array
       disabled:
         type: boolean
       heartbeat:
@@ -478,6 +500,12 @@ definitions:
       port:
         description: 监听端口
         type: integer
+      protocol:
+        description: 协议 rtu tcp parallel-tcp
+        type: string
+      protocol_ops:
+        description: 协议参数
+        type: string
       standalone:
         description: 单例模式（不支持注册）
         type: boolean
@@ -642,6 +670,38 @@ paths:
       summary: 创建客户端
       tags:
       - client
+  /client/export:
+    get:
+      consumes:
+      - application/json
+      description: 导出客户端
+      produces:
+      - application/octet-stream
+      responses: {}
+      summary: 导出客户端
+      tags:
+      - product
+  /client/import:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 导入客户端
+      parameters:
+      - description: 压缩包
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 导入客户端
+      tags:
+      - product
   /client/list:
     get:
       consumes:
@@ -984,6 +1044,38 @@ paths:
       summary: 创建设备
       tags:
       - device
+  /device/export:
+    get:
+      consumes:
+      - application/json
+      description: 导出设备
+      produces:
+      - application/octet-stream
+      responses: {}
+      summary: 导出设备
+      tags:
+      - product
+  /device/import:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 导入设备
+      parameters:
+      - description: 压缩包
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 导入设备
+      tags:
+      - product
   /device/list:
     get:
       consumes:
@@ -1160,28 +1252,38 @@ paths:
       summary: 查询连接数量
       tags:
       - link
-  /link/create:
-    post:
+  /link/export:
+    get:
       consumes:
       - application/json
-      description: 创建连接
+      description: 导出连接
+      produces:
+      - application/octet-stream
+      responses: {}
+      summary: 导出连接
+      tags:
+      - product
+  /link/import:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 导入连接
       parameters:
-      - description: 连接信息
-        in: body
-        name: search
+      - description: 压缩包
+        in: formData
+        name: file
         required: true
-        schema:
-          $ref: '#/definitions/model.Link'
+        type: file
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Link'
-      summary: 创建连接
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 导入连接
       tags:
-      - link
+      - product
   /link/list:
     get:
       consumes:
@@ -1336,6 +1438,38 @@ paths:
           schema:
             $ref: '#/definitions/api.ReplyData-model_Product'
       summary: 创建产品
+      tags:
+      - product
+  /product/export:
+    get:
+      consumes:
+      - application/json
+      description: 导出产品
+      produces:
+      - application/octet-stream
+      responses: {}
+      summary: 导出产品
+      tags:
+      - product
+  /product/import:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 导入产品
+      parameters:
+      - description: 压缩包
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 导入产品
       tags:
       - product
   /product/list:
@@ -1536,6 +1670,38 @@ paths:
       summary: 创建串口
       tags:
       - serial
+  /serial/export:
+    get:
+      consumes:
+      - application/json
+      description: 导出串口
+      produces:
+      - application/octet-stream
+      responses: {}
+      summary: 导出串口
+      tags:
+      - product
+  /serial/import:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 导入串口
+      parameters:
+      - description: 压缩包
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 导入串口
+      tags:
+      - product
   /serial/list:
     get:
       consumes:
@@ -1556,6 +1722,19 @@ paths:
           schema:
             $ref: '#/definitions/api.ReplyList-model_Serial'
       summary: 查询串口
+      tags:
+      - serial
+  /serial/ports:
+    get:
+      description: 串口列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-string'
+      summary: 串口列表
       tags:
       - serial
   /serial/search:
@@ -1734,6 +1913,38 @@ paths:
       summary: 创建服务器
       tags:
       - server
+  /server/export:
+    get:
+      consumes:
+      - application/json
+      description: 导出服务端
+      produces:
+      - application/octet-stream
+      responses: {}
+      summary: 导出服务端
+      tags:
+      - product
+  /server/import:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 导入服务端
+      parameters:
+      - description: 压缩包
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 导入服务端
+      tags:
+      - product
   /server/list:
     get:
       consumes:

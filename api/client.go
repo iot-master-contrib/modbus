@@ -110,6 +110,26 @@ func noopClientEnable() {}
 // @Router /client/{id}/disable [get]
 func noopClientDisable() {}
 
+// @Summary 导出客户端
+// @Schemes
+// @Description 导出客户端
+// @Tags product
+// @Accept json
+// @Produce octet-stream
+// @Router /client/export [get]
+func noopClientExport() {}
+
+// @Summary 导入客户端
+// @Schemes
+// @Description 导入客户端
+// @Tags product
+// @Param file formData file true "压缩包"
+// @Accept mpfd
+// @Produce json
+// @Success 200 {object} ReplyData[int64] 返回客户端数量
+// @Router /client/import [post]
+func noopClientImport() {}
+
 func clientRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[model.Client]())
@@ -158,5 +178,8 @@ func clientRouter(app *gin.RouterGroup) {
 		}
 		return connect.LoadClient(&m)
 	}))
+
+	app.GET("/export", curd.ApiExport[model.Client]("client"))
+	app.POST("/import", curd.ApiImport[model.Client]())
 
 }

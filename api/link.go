@@ -95,6 +95,25 @@ func noopLinkEnable() {}
 // @Router /link/{id}/disable [get]
 func noopLinkDisable() {}
 
+// @Summary 导出连接
+// @Schemes
+// @Description 导出连接
+// @Tags product
+// @Accept json
+// @Produce octet-stream
+// @Router /link/export [get]
+func noopLinkExport() {}
+
+// @Summary 导入连接
+// @Schemes
+// @Description 导入连接
+// @Tags product
+// @Param file formData file true "压缩包"
+// @Accept mpfd
+// @Produce json
+// @Success 200 {object} ReplyData[int64] 返回连接数量
+// @Router /link/import [post]
+func noopLinkImport() {}
 func linkRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[model.Link]())
@@ -107,5 +126,8 @@ func linkRouter(app *gin.RouterGroup) {
 
 	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Link](true, nil, nil))
 	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[model.Link](false, nil, nil))
+
+	app.GET("/export", curd.ApiExport[model.Link]("link"))
+	app.POST("/import", curd.ApiImport[model.Link]())
 
 }
