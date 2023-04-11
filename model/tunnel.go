@@ -11,7 +11,7 @@ type Tunnel struct {
 
 	Protocol    string `json:"protocol,omitempty"`     //协议 rtu tcp parallel-tcp
 	ProtocolOps string `json:"protocol_ops,omitempty"` //协议参数
-	
+
 	Period   uint `json:"period,omitempty"`   //采集周期
 	Interval uint `json:"interval,omitempty"` //采集间隔
 
@@ -20,8 +20,6 @@ type Tunnel struct {
 }
 
 type Retry struct {
-	Enable  bool `json:"enable,omitempty"`
-	Minimum uint `json:"minimum,omitempty"`
-	Maximum uint `json:"maximum,omitempty"`
-	Timeout uint `json:"timeout,omitempty"`
+	Timeout uint `json:"timeout,omitempty"` //重试时间
+	Maximum uint `json:"maximum,omitempty"` //最大次数
 }

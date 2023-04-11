@@ -44,7 +44,7 @@ func (client *Client) Open() error {
 func (client *Client) Retry() {
 	//重连
 	retry := &client.model.Retry
-	if retry.Enable && (retry.Maximum == 0 || client.retry < retry.Maximum) {
+	if retry.Maximum == 0 || client.retry < retry.Maximum {
 		client.retry++
 		client.retryTimer = time.AfterFunc(time.Second*time.Duration(retry.Timeout), func() {
 			client.retryTimer = nil
