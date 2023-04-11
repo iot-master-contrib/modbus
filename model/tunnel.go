@@ -20,6 +20,6 @@ type Tunnel struct {
 }
 
 type Retry struct {
-	Timeout uint `json:"timeout,omitempty"` //重试时间
-	Maximum uint `json:"maximum,omitempty"` //最大次数
+	RetryTimeout uint `json:"retry_timeout,omitempty"` //重试时间
+	RetryMaximum uint `json:"retry_maximum,omitempty"` //最大次数
 }

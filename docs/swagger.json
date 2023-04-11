@@ -2678,8 +2678,13 @@
                     "description": "协议参数",
                     "type": "string"
                 },
-                "retry": {
-                    "$ref": "#/definitions/model.Retry"
+                "retry_maximum": {
+                    "description": "最大次数",
+                    "type": "integer"
+                },
+                "retry_timeout": {
+                    "description": "重试时间",
+                    "type": "integer"
                 }
             }
         },
@@ -2862,29 +2867,20 @@
                 }
             }
         },
-        "model.Retry": {
-            "type": "object",
-            "properties": {
-                "enable": {
-                    "type": "boolean"
-                },
-                "maximum": {
-                    "type": "integer"
-                },
-                "minimum": {
-                    "type": "integer"
-                },
-                "timeout": {
-                    "type": "integer"
-                }
-            }
-        },
         "model.Serial": {
             "type": "object",
             "properties": {
+                "baud_rate": {
+                    "description": "9600 115200",
+                    "type": "integer"
+                },
                 "created": {
                     "description": "创建时间",
                     "type": "string"
+                },
+                "data_bits": {
+                    "description": "5 6 7 8",
+                    "type": "integer"
                 },
                 "desc": {
                     "description": "说明",
@@ -2909,14 +2905,15 @@
                     "description": "名称",
                     "type": "string"
                 },
-                "options": {
-                    "$ref": "#/definitions/model.SerialOptions"
+                "parity_mode": {
+                    "description": "0 1 2 NONE ODD EVEN",
+                    "type": "integer"
                 },
                 "period": {
                     "description": "采集周期",
                     "type": "integer"
                 },
-                "port": {
+                "port_name": {
                     "description": "port, e.g. COM1 \"/dev/ttySerial1\".",
                     "type": "string"
                 },
@@ -2928,24 +2925,12 @@
                     "description": "协议参数",
                     "type": "string"
                 },
-                "retry": {
-                    "$ref": "#/definitions/model.Retry"
-                }
-            }
-        },
-        "model.SerialOptions": {
-            "type": "object",
-            "properties": {
-                "baud_rate": {
-                    "description": "9600 115200",
+                "retry_maximum": {
+                    "description": "最大次数",
                     "type": "integer"
                 },
-                "data_bits": {
-                    "description": "5 6 7 8",
-                    "type": "integer"
-                },
-                "parity_mode": {
-                    "description": "0 1 2 NONE ODD EVEN",
+                "retry_timeout": {
+                    "description": "重试时间",
                     "type": "integer"
                 },
                 "stop_bits": {

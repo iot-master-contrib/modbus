@@ -27,13 +27,13 @@ func (s *Serial) Open() error {
 	}
 
 	opts := serial.Mode{
-		BaudRate: int(s.model.Options.BaudRate),
-		DataBits: int(s.model.Options.DataBits),
-		StopBits: serial.StopBits(s.model.Options.StopBits),
-		Parity:   serial.Parity(s.model.Options.ParityMode),
+		BaudRate: int(s.model.BaudRate),
+		DataBits: int(s.model.DataBits),
+		StopBits: serial.StopBits(s.model.StopBits),
+		Parity:   serial.Parity(s.model.ParityMode),
 	}
 
-	port, err := serial.Open(s.model.Port, &opts)
+	port, err := serial.Open(s.model.PortName, &opts)
 	if err != nil {
 		//TODO 串口重试
 		s.Retry()
@@ -60,9 +60,9 @@ func (s *Serial) Open() error {
 
 func (s *Serial) Retry() {
 	retry := &s.model.Retry
-	if retry.Maximum == 0 || s.retry < retry.Maximum {
+	if retry.RetryMaximum == 0 || s.retry < retry.RetryMaximum {
 		s.retry++
-		s.retryTimer = time.AfterFunc(time.Second*time.Duration(retry.Timeout), func() {
+		s.retryTimer = time.AfterFunc(time.Second*time.Duration(retry.RetryTimeout), func() {
 			s.retryTimer = nil
 			err := s.Open()
 			if err != nil {

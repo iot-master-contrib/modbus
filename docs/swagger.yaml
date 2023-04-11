@@ -272,8 +272,12 @@ definitions:
       protocol_ops:
         description: 协议参数
         type: string
-      retry:
-        $ref: '#/definitions/model.Retry'
+      retry_maximum:
+        description: 最大次数
+        type: integer
+      retry_timeout:
+        description: 重试时间
+        type: integer
     type: object
   model.DefaultDevice:
     properties:
@@ -403,22 +407,17 @@ definitions:
         description: 名称
         type: string
     type: object
-  model.Retry:
-    properties:
-      enable:
-        type: boolean
-      maximum:
-        type: integer
-      minimum:
-        type: integer
-      timeout:
-        type: integer
-    type: object
   model.Serial:
     properties:
+      baud_rate:
+        description: 9600 115200
+        type: integer
       created:
         description: 创建时间
         type: string
+      data_bits:
+        description: 5 6 7 8
+        type: integer
       desc:
         description: 说明
         type: string
@@ -436,12 +435,13 @@ definitions:
       name:
         description: 名称
         type: string
-      options:
-        $ref: '#/definitions/model.SerialOptions'
+      parity_mode:
+        description: 0 1 2 NONE ODD EVEN
+        type: integer
       period:
         description: 采集周期
         type: integer
-      port:
+      port_name:
         description: port, e.g. COM1 "/dev/ttySerial1".
         type: string
       protocol:
@@ -450,19 +450,11 @@ definitions:
       protocol_ops:
         description: 协议参数
         type: string
-      retry:
-        $ref: '#/definitions/model.Retry'
-    type: object
-  model.SerialOptions:
-    properties:
-      baud_rate:
-        description: 9600 115200
+      retry_maximum:
+        description: 最大次数
         type: integer
-      data_bits:
-        description: 5 6 7 8
-        type: integer
-      parity_mode:
-        description: 0 1 2 NONE ODD EVEN
+      retry_timeout:
+        description: 重试时间
         type: integer
       stop_bits:
         description: 1 2
