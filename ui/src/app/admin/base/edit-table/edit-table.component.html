@@ -4,7 +4,7 @@
         新增
     </button>
 </nz-space>
-<nz-table [nzData]="aliases.controls" [formGroup]="group" [nzShowPagination]="false">
+<nz-table *ngIf="aliases.controls&&aliases.controls.length" [formGroup]="group" nzTemplateMode>
     <thead>
         <tr>
             <th *ngFor="let item of constListData">{{item.title}}</th>

@@ -26,7 +26,7 @@ export class EditTableComponent implements OnChanges {
   };
   constructor(
     private msg: NzMessageService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) { }
   ngOnChanges(changes: SimpleChanges): void {
     let currentValue = {};
