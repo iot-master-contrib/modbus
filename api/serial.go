@@ -162,7 +162,7 @@ func serialRouter(app *gin.RouterGroup) {
 		}
 		return connect.LoadSerial(value)
 	},
-		"name", "desc", "heartbeat", "period", "interval", "protocol", "protocol_ops", "port", "retry", "options", "disabled"))
+		"id", "name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "port_name", "retry_timeout", "retry_maximum", "options", "disabled"))
 
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Serial](nil, func(value interface{}) error {
 		id := value.(string)

@@ -9,14 +9,21 @@ type Tunnel struct {
 
 	Heartbeat string `json:"heartbeat,omitempty"` //心跳包
 
-	Protocol    string `json:"protocol,omitempty"`     //协议 rtu tcp parallel-tcp
-	ProtocolOps string `json:"protocol_ops,omitempty"` //协议参数
-
-	Period   uint `json:"period,omitempty"`   //采集周期
-	Interval uint `json:"interval,omitempty"` //采集间隔
+	Protocol `xorm:"extends"`
+	Poller   `xorm:"extends"`
 
 	Disabled bool       `json:"disabled"`
 	Created  model.Time `json:"created" xorm:"created"` //创建时间
+}
+
+type Poller struct {
+	PollerPeriod   uint `json:"poller_period,omitempty"`   //采集周期
+	PollerInterval uint `json:"poller_interval,omitempty"` //采集间隔
+}
+
+type Protocol struct {
+	ProtocolName    string `json:"protocol_name,omitempty"`    //协议 rtu tcp parallel-tcp
+	ProtocolOptions string `json:"protocol_options,omitempty"` //协议参数
 }
 
 type Retry struct {

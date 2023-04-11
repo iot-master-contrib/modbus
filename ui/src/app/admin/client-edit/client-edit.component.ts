@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
   selector: 'app-client-edit',
   templateUrl: './client-edit.component.html',
@@ -45,9 +46,12 @@ export class ClientEditComponent implements OnInit {
       net: [mess.net || 'tcp'],
       addr: [mess.addr || ''],
       port: [mess.port || 1],
-      period: [mess.period || 60],
-      interval: [mess.interval || 2],
-      protocol: [mess.protocol || 'rtu'],
+      poller_period: [mess.poller_period || 60],
+      poller_interval: [mess.poller_interval || 2],
+      protocol_name: [mess.protocol || 'rtu'],
+      protocol_options: [mess.protocol || 'rtu'],
+      retry_timeout: [mess.retry_timeout || 10],
+      retry_maximum: [mess.retry_maximum || 0],
     });
   }
 

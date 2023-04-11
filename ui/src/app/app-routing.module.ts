@@ -17,6 +17,7 @@ import { LinkEditComponent } from './admin/link-edit/link-edit.component';
 import { ProductEditComponent } from './admin/product-edit/product-edit.component';
 import { SerialEditComponent } from './admin/serial-edit/serial-edit.component';
 import { ServerEditComponent } from './admin/server-edit/server-edit.component';
+
 const pages: Routes = [
   {
     path: 'setting',
@@ -24,6 +25,7 @@ const pages: Routes = [
       import('./admin/setting/setting.module').then((m) => m.SettingModule),
   },
 ];
+
 const routes: Routes = [
   {
     path: 'admin',
@@ -54,7 +56,7 @@ const routes: Routes = [
       { path: 'create/client', component: ClientEditComponent },
       { path: 'client/:id', component: ClientDetailComponent },
       ...pages,
-      { path: '**', redirectTo: 'server' },
+      { path: '**', redirectTo: 'device' },
     ],
   },
   {

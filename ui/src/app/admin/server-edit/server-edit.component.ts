@@ -63,9 +63,10 @@ export class ServerEditComponent implements OnInit {
       name: [mess.name || ''],
       desc: [mess.desc || ''],
       port: [mess.port || 60000],
-      period: [mess.period || 60],
-      interval: [mess.interval || 2],
-      protocol: [mess.protocol || 'rtu'],
+      poller_period: [mess.poller_period || 60],
+      poller_interval: [mess.poller_interval || 2],
+      protocol_name: [mess.protocol || 'rtu'],
+      protocol_options: [mess.protocol || ''],
       defaults: [mess.defaults || []],
     });
     this.defaultEquip = mess.defaults || [];

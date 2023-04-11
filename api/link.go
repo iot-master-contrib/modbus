@@ -121,7 +121,7 @@ func linkRouter(app *gin.RouterGroup) {
 	app.GET("/list", curd.ApiList[model.Link]())
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Link]())
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Link](nil, nil,
-		"name", "desc", "heartbeat", "period", "interval", "protocol", "protocol_ops", "disabled"))
+		"name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "disabled"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Link](nil, nil))
 
 	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Link](true, nil, nil))

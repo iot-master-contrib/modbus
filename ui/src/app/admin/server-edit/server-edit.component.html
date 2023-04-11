@@ -38,22 +38,23 @@
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="period">采集周期</nz-form-label>
+      <nz-form-label [nzSpan]="5" nzFor="poller_period">采集周期</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-input-number formControlName="period"></nz-input-number>
+        <nz-input-number formControlName="poller_period"></nz-input-number>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="interval">采集间隔</nz-form-label>
+      <nz-form-label [nzSpan]="5" nzFor="poller_interval">采集间隔</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-input-number formControlName="interval"></nz-input-number>
+        <nz-input-number formControlName="poller_interval"></nz-input-number>
       </nz-form-control>
     </nz-form-item>
+
     <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="protocol">协议</nz-form-label>
+      <nz-form-label [nzSpan]="5" nzFor="protocol_name">协议</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-select formControlName="protocol">
+        <nz-select formControlName="protocol_name">
           <nz-option nzLabel="Modbus RTU" nzValue="rtu"></nz-option>
           <nz-option nzLabel="Modbus TCP" nzValue="tcp"></nz-option>
           <nz-option nzLabel="Parallel TCP" nzValue="parallel-tcp"></nz-option>
@@ -72,5 +73,4 @@
       </nz-form-control>
     </nz-form-item>
   </form>
-  <app-tunnel-edit-retry url="serial/${{ id }}" *ngIf="id"> </app-tunnel-edit-retry>
 </nz-card>

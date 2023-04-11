@@ -34,6 +34,7 @@ export class LinkEditComponent implements OnInit {
         this.patchValue(res.data);
       });
     }
+
     this.patchValue();
   }
   handleCancel() {
@@ -45,9 +46,10 @@ export class LinkEditComponent implements OnInit {
     this.validateForm = this.fb.group({
       id: [mess.id || ''],
       name: [mess.name || ''],
-      period: [mess.period || 60],
-      interval: [mess.interval || 2],
-      protocol: [mess.protocol || 'rtu'],
+      poller_period: [mess.poller_period || 60],
+      poller_interval: [mess.poller_interval || 2],
+      protocol_name: [mess.protocol || 'rtu'],
+      protocol_options: [mess.protocol || 'rtu'],
     });
   }
   submit() {

@@ -7,7 +7,7 @@ type Serial struct {
 }
 
 type SerialOptions struct {
-	PortName   string `json:"port_name"`             //port, e.g. COM1 "/dev/ttySerial1".
+	PortName   string `json:"port_name,omitempty"`   //port, e.g. COM1 "/dev/ttySerial1".
 	BaudRate   uint   `json:"baud_rate,omitempty"`   //9600 115200
 	DataBits   uint   `json:"data_bits,omitempty"`   //5 6 7 8
 	StopBits   uint   `json:"stop_bits,omitempty"`   //1 2

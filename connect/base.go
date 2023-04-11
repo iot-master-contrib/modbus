@@ -78,7 +78,7 @@ func (l *tunnelBase) Read(data []byte) (int, error) {
 }
 
 func (l *tunnelBase) start(model *model.Tunnel) (err error) {
-	l.poller, err = define.CreatePoller(l, model.Protocol, model.ProtocolOps)
+	l.poller, err = define.CreatePoller(l, model.ProtocolName, model.ProtocolOptions)
 	if err != nil {
 		return
 	}
@@ -107,8 +107,8 @@ func (l *tunnelBase) start(model *model.Tunnel) (err error) {
 
 			//等待时间
 			elapsed := time.Now().Unix() - start
-			if elapsed < int64(model.Period) {
-				time.Sleep(time.Duration(int64(model.Period)-elapsed) * time.Second)
+			if elapsed < int64(model.PollerPeriod) {
+				time.Sleep(time.Duration(int64(model.PollerPeriod)-elapsed) * time.Second)
 			}
 
 		}
