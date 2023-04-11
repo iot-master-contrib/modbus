@@ -114,6 +114,7 @@ func noopLinkExport() {}
 // @Success 200 {object} ReplyData[int64] 返回连接数量
 // @Router /link/import [post]
 func noopLinkImport() {}
+
 func linkRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[model.Link]())
