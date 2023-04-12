@@ -13,17 +13,22 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { EditTableComponent } from './edit-table/edit-table.component';
+import { CommonHeaderComponent } from './common-header/common-header.component';
 @NgModule({
   declarations: [
     SearchBoxComponent,
     EditTableComponent,
+    CommonHeaderComponent,
   ],
   exports: [
     SearchBoxComponent,
-    EditTableComponent
+    EditTableComponent,
+    CommonHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +43,9 @@ import { EditTableComponent } from './edit-table/edit-table.component';
     NzSpaceModule,
     NzIconModule,
     NzInputNumberModule,
-    NzSwitchModule
+    NzSwitchModule,
+    NzPageHeaderModule,
+    NzLayoutModule
   ]
 })
 export class BaseModule { }
