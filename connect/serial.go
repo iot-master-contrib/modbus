@@ -62,7 +62,11 @@ func (s *Serial) Retry() {
 	retry := &s.model.Retry
 	if retry.RetryMaximum == 0 || s.retry < retry.RetryMaximum {
 		s.retry++
-		s.retryTimer = time.AfterFunc(time.Second*time.Duration(retry.RetryTimeout), func() {
+		timeout := retry.RetryTimeout
+		if timeout == 0 {
+			timeout = 10
+		}
+		s.retryTimer = time.AfterFunc(time.Second*time.Duration(timeout), func() {
 			s.retryTimer = nil
 			err := s.Open()
 			if err != nil {

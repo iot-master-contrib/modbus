@@ -46,7 +46,11 @@ func (client *Client) Retry() {
 	retry := &client.model.Retry
 	if retry.RetryMaximum == 0 || client.retry < retry.RetryMaximum {
 		client.retry++
-		client.retryTimer = time.AfterFunc(time.Second*time.Duration(retry.RetryTimeout), func() {
+		timeout := retry.RetryTimeout
+		if timeout == 0 {
+			timeout = 10
+		}
+		client.retryTimer = time.AfterFunc(time.Second*time.Duration(timeout), func() {
 			client.retryTimer = nil
 			err := client.Open()
 			if err != nil {
