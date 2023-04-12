@@ -17,7 +17,7 @@ type RTU struct {
 func NewRTU(link io.ReadWriter, opts string) *RTU {
 	//TODO parse opts(yaml)
 	rtu := &RTU{
-		link: Messenger{Timeout: time.Second, Conn: link},
+		link: Messenger{Timeout: 5 * time.Second, Conn: link},
 		//slave: opts["slave"].(uint8),
 		buf: make([]byte, 256),
 	}

@@ -2,6 +2,7 @@ package connect
 
 import (
 	"errors"
+	"github.com/zgwit/iot-master/v3/pkg/log"
 	"io"
 	"modbus/define"
 	"modbus/model"
@@ -91,6 +92,15 @@ func (l *tunnelBase) start(model *model.Tunnel) (err error) {
 
 	//开启线程，在回调中完成一次询问
 	go func() {
+
+		//避免异常退出，只是结束当前协程
+		defer func() {
+			l.running = false
+			if err := recover(); err != nil {
+				log.Error(err)
+			}
+		}()
+
 		l.running = true
 
 		for {
@@ -101,9 +111,10 @@ func (l *tunnelBase) start(model *model.Tunnel) (err error) {
 			start := time.Now().Unix()
 
 			//轮询
-			if !l.poller.Poll() {
-				break
-			}
+			//if !l.poller.Poll() {
+			//	break
+			//}
+			l.poller.Poll()
 
 			//等待时间
 			elapsed := time.Now().Unix() - start

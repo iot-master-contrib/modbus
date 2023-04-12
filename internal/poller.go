@@ -43,6 +43,11 @@ func (p *poller) Load(tunnel string) error {
 }
 
 func (p *poller) Poll() bool {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Error(err)
+		}
+	}()
 
 	total := 0
 
@@ -87,7 +92,7 @@ func (p *poller) Poll() bool {
 
 	//如果没有设备，就睡眠1分钟
 	if total == 0 {
-		time.Sleep(time.Minute)
+		time.Sleep(time.Second * 5)
 		//return errors.New("没有设备")
 	}
 
