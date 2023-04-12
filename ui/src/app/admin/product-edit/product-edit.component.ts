@@ -24,6 +24,43 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductEditComponent implements OnInit {
   validateForm!: any;
   id: any = 0;
+  listData = [{
+    title: '名称',
+    keyName: 'name'
+  }, {
+    title: '类型',
+    keyName: 'type',
+    type: 'select',
+    listOfOption: [{
+      label: '字',
+      value: 'word'
+    }, {
+      label: '双字',
+      value: 'qword'
+    }, {
+      label: '浮点数',
+      value: 'float'
+    }, {
+      label: '双精度浮点数',
+      value: 'double'
+    }],
+    defaultValue: 'word'
+  }, {
+    title: '偏移',
+    keyName: 'offset',
+    type: 'number',
+    defaultValue: '0'
+  }, {
+    title: '大端',
+    keyName: 'be',
+    type: 'switch',
+    defaultValue: true
+  }, {
+    title: '倍率',
+    keyName: 'rate',
+    type: 'number',
+    defaultValue: 1
+  }]
   constructor(
     private readonly datePipe: DatePipe,
     private fb: FormBuilder,
@@ -43,25 +80,25 @@ export class ProductEditComponent implements OnInit {
       mappers: this.fb.array(
         obj.mappers
           ? obj.mappers.map((prop: any) =>
-              this.fb.group({
-                code: [prop.code || 3, []],
-                addr: [prop.addr || 0, []],
-                size: [prop.size || 0, []],
-                points: this.fb.array(
-                  prop.points
-                    ? prop.points.map((p: any) =>
-                        this.fb.group({
-                          name: [p.name || '', []],
-                          type: [p.type || 'word', []],
-                          offset: [p.offset || 0, []],
-                          be: [p.be || true, []],
-                          rate: [p.rate || 1, []],
-                        })
-                      )
-                    : []
-                ),
-              })
-            )
+            this.fb.group({
+              code: [prop.code || 3, []],
+              addr: [prop.addr || 0, []],
+              size: [prop.size || 0, []],
+              points: this.fb.array(
+                prop.points
+                  ? prop.points.map((p: any) =>
+                    this.fb.group({
+                      name: [p.name || '', []],
+                      type: [p.type || 'word', []],
+                      offset: [p.offset || 0, []],
+                      be: [p.be || true, []],
+                      rate: [p.rate || 1, []],
+                    })
+                  )
+                  : []
+              ),
+            })
+          )
           : []
       ),
     });
@@ -138,8 +175,8 @@ export class ProductEditComponent implements OnInit {
   }
 
   pointCopy(mapper: any, index: number) {
-    const item = mapper.get('points').controls[index];
-    mapper.get('points').controls.splice(index, 0, item);
+    const oitem = mapper.get('points').controls[index].value;
+    mapper.get('points').insert(index, this.fb.group(oitem));
     this.msg.success('复制成功');
   }
   pointDel(mapper: any, i: number) {

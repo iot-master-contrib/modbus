@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
 import { NzMessageService } from "ng-zorro-antd/message";
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-edit-table',
@@ -15,14 +16,14 @@ export class EditTableComponent implements OnChanges {
 
   @Input() data: any = {};
   @Input()
-  set listData(data: Array<{ title: string, type?: any, keyName: string }>) {
+  set listData(dt: Array<{ title: string, type?: any, keyName: string, defaultValue?: any }>) {
     const itemObj: any = {};
-    for (let index = 0; index < data.length; index++) {
-      const { keyName } = data[index];
-      itemObj[keyName] = '';
+    for (let index = 0; index < dt.length; index++) {
+      const { keyName, defaultValue } = dt[index];
+      itemObj[keyName] = defaultValue || '';
     }
     this.itemObj = itemObj;
-    this.constListData = data;
+    this.constListData = dt;
   };
   constructor(
     private msg: NzMessageService,
@@ -39,7 +40,7 @@ export class EditTableComponent implements OnChanges {
     const itemObj = JSON.parse(JSON.stringify(this.itemObj));
     obj = obj || [];
     this.group = this.fb.group({
-      properties: this.fb.array(
+      keyName: this.fb.array(
         obj ? obj.map((prop: any) =>
           this.fb.group(Object.assign(itemObj, prop))
         ) : []
@@ -47,17 +48,20 @@ export class EditTableComponent implements OnChanges {
     })
   }
   handleCopyProperTy(index: number) {
-    const item = this.group.get('properties').controls[index];
-    this.group.get('properties').controls.splice(index, 0, item);
+    const oitem = this.group.get('keyName').controls[index].value;
+    this.aliases.insert(index, this.fb.group(oitem));
     this.msg.success("复制成功");
   }
   propertyDel(i: number) {
-    this.group.get('properties').controls.splice(i, 1)
+    this.group.get('keyName').controls.splice(i, 1)
   }
   get aliases() {
-    return this.group.get('properties') as FormArray;
+    return this.group.get('keyName') as FormArray;
   }
   add() {
     this.aliases.push(this.fb.group(Object.assign(this.itemObj)));
+  }
+  drop(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.group.get('keyName').controls, event.previousIndex, event.currentIndex);
   }
 }

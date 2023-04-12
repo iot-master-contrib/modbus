@@ -79,7 +79,7 @@ export class ServerEditComponent implements OnInit {
       this.validateForm.patchValue({
         port: Number(this.validateForm.value.port),
       });
-      const editTableData = this.editTableChild.group.get('properties').controls.map((item: { value: any; }) => item.value);
+      const editTableData = this.editTableChild.group.get('keyName').controls.map((item: { value: any; }) => item.value);
       const sendData = Object.assign({}, this.validateForm.value, {
         defaults: editTableData
       });
