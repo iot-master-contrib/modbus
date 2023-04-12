@@ -1,21 +1,7 @@
 <nz-layout>
-  <nz-header>
-    <nz-page-header class="site-page-header" nzBackIcon nzTitle="TCP服务器">
-      <nz-page-header-extra>
-        <nz-space>
-          <app-search-box
-            *nzSpaceItem
-            placeholder="服务器id"
-            (onSearch)="search($event)"
-          ></app-search-box>
-          <button *nzSpaceItem nz-button nzType="primary" (click)="add()">
-            <i nz-icon nzType="plus"></i>
-            新增
-          </button>
-        </nz-space>
-      </nz-page-header-extra>
-    </nz-page-header>
-  </nz-header>
+  <app-common-header title="服务器" [datum]="datum" [listColumns]="listColumns" [uploadObj]="uploadObj"
+    (onSearch)="search($event)" (onAdd)="add()" (onLoad)="load()">
+  </app-common-header>
   <nz-content>
     <nz-table #basicTable [nzData]="datum">
       <thead>
@@ -29,23 +15,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          *ngFor="let data of basicTable.data; let i = index"
-          (dblclick)="open(data.id)"
-        >
+        <tr *ngFor="let data of basicTable.data; let i = index" (dblclick)="open(data.id)">
           <td>{{ data.id }}</td>
           <td>{{ data.port }}</td>
           <td>{{ data.name }}</td>
           <td>{{ data.desc }}</td>
           <td>{{ data.created }}</td>
           <td nzRight>
-            <a
-              nz-popconfirm
-              nzPopconfirmTitle="确定删除?"
-              (nzOnConfirm)="delete(i, data.id)"
-              (nzOnCancel)="cancel()"
-              nzPopconfirmPlacement="topLeft"
-            >
+            <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id)" (nzOnCancel)="cancel()"
+              nzPopconfirmPlacement="topLeft">
               <i nz-icon nzType="delete"></i>
             </a>
 

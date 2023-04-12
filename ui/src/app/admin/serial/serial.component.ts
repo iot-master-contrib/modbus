@@ -23,7 +23,23 @@ export class SerialComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
-
+  listColumns = [{
+    title: 'ID',
+    keyName: 'id'
+  }, {
+    title: '端口',
+    keyName: 'port'
+  }, {
+    title: '名称',
+    keyName: 'name'
+  },{
+    title: '创建时间',
+    keyName: 'created'
+  }];
+  uploadObj = {
+    url: 'serial/create',
+    sendKeyNameArr: ['name', 'port_name', 'poller_period', 'poller_interval', 'protocol_name', 'retry_timeout', 'retry_maximum']
+  }
   load() {
     this.loading = true;
     this.rs

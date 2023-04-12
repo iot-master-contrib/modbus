@@ -3,16 +3,11 @@
     <nz-page-header class="site-page-header" nzBackIcon nzTitle="TCP连接">
       <nz-page-header-extra>
         <nz-space>
-          <app-search-box
-            *nzSpaceItem
-            placeholder="输入连接端id"
-            (onSearch)="search($event)"
-          ></app-search-box>
+          <app-search-box *nzSpaceItem placeholder="输入连接端id" (onSearch)="search($event)"></app-search-box>
         </nz-space>
       </nz-page-header-extra>
     </nz-page-header>
   </nz-header>
-
   <nz-content>
     <nz-table #basicTable [nzData]="datum">
       <thead>
@@ -26,23 +21,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          *ngFor="let data of basicTable.data; let i = index"
-          (dblclick)="open(data.id)"
-        >
+        <tr *ngFor="let data of basicTable.data; let i = index" (dblclick)="open(data.id)">
           <td>{{ data.id }}</td>
           <td>{{ data.server_id }}</td>
           <td>{{ data.name }}</td>
           <td>{{ data.remote }}</td>
           <td>{{ data.created }}</td>
           <td nzRight>
-            <a
-              nz-popconfirm
-              nzPopconfirmTitle="确定删除?"
-              (nzOnConfirm)="delete(i, data.id)"
-              (nzOnCancel)="cancel()"
-              nzPopconfirmPlacement="topLeft"
-            >
+            <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id)" (nzOnCancel)="cancel()"
+              nzPopconfirmPlacement="topLeft">
               <i nz-icon nzType="delete"></i>
             </a>
           </td>
