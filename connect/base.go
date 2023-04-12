@@ -107,6 +107,11 @@ func (l *tunnelBase) start(model *model.Tunnel) (err error) {
 
 			//等待时间
 			elapsed := time.Now().Unix() - start
+			if model.PollerPeriod == 0 && elapsed < 1 {
+				//避免死循环
+				time.Sleep(time.Second)
+			}
+
 			if elapsed < int64(model.PollerPeriod) {
 				time.Sleep(time.Duration(int64(model.PollerPeriod)-elapsed) * time.Second)
 			}
