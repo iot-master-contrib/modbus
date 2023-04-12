@@ -3,6 +3,7 @@ package model
 import (
 	"github.com/zgwit/iot-master/v3/model"
 	"github.com/zgwit/iot-master/v3/pkg/bin"
+	"github.com/zgwit/iot-master/v3/pkg/log"
 )
 
 type Product struct {
@@ -30,6 +31,12 @@ type Point struct {
 }
 
 func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Error(err)
+		}
+	}()
+
 	l := uint16(len(buf))
 	for _, p := range m.Points {
 		offset := p.Offset * 2

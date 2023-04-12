@@ -111,10 +111,9 @@ func (l *tunnelBase) start(model *model.Tunnel) (err error) {
 			start := time.Now().Unix()
 
 			//轮询
-			//if !l.poller.Poll() {
-			//	break
-			//}
-			l.poller.Poll()
+			if !l.poller.Poll() {
+				break
+			}
 
 			//等待时间
 			elapsed := time.Now().Unix() - start

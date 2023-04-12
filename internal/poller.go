@@ -43,12 +43,6 @@ func (p *poller) Load(tunnel string) error {
 }
 
 func (p *poller) Poll() bool {
-	defer func() {
-		if err := recover(); err != nil {
-			log.Error(err)
-		}
-	}()
-
 	total := 0
 
 	//TODO 将迭代器提升到p中，单次调用只查询一个设备
