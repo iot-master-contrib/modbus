@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, RouterState} from "@angular/router";
-import {RequestService} from "../../request.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { RequestService } from "../../../request.service";
 
 @Component({
   selector: 'app-client-detail',
@@ -17,7 +17,6 @@ export class ClientDetailComponent implements OnInit {
   ngOnInit(): void {
     // @ts-ignore
     this.id = this.route.snapshot.paramMap.get("id")
-
     this.load()
   }
 
