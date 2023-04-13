@@ -1,22 +1,22 @@
-import { ClientEditComponent } from './admin/client-edit/client-edit.component';
-import { LinkComponent } from './admin/link/link.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
-import { ServerComponent } from './admin/server/server.component';
-import { ClientComponent } from './admin/client/client.component';
 import { DeviceComponent } from './admin/device/device.component';
 import { ProductComponent } from './admin/product/product.component';
-import { ServerDetailComponent } from './admin/server-detail/server-detail.component';
-import { LinkDetailComponent } from './admin/link-detail/link-detail.component';
-import { ClientDetailComponent } from './admin/client-detail/client-detail.component';
+import { ClientComponent } from './admin/client/client.component';
+import { ClientEditComponent } from './admin/client/client-edit/client-edit.component';
+import { ClientDetailComponent } from './admin/client/client-detail/client-detail.component';
 import { SerialComponent } from './admin/serial/serial.component';
 import { SerialDetailComponent } from './admin/serial/serial-detail/serial-detail.component';
 import { SerialEditComponent } from './admin/serial/serial-edit/serial-edit.component';
+import { LinkComponent } from './admin/link/link.component';
+import { LinkEditComponent } from './admin/link/link-edit/link-edit.component';
+import { LinkDetailComponent } from './admin/link/link-detail/link-detail.component';
+import { ServerComponent } from './admin/server/server.component';
+import { ServerEditComponent } from './admin/server/server-edit/server-edit.component';
+import { ServerDetailComponent } from './admin/server/server-detail/server-detail.component';
 import { DeviceEditComponent } from './admin/device-edit/device-edit.component';
-import { LinkEditComponent } from './admin/link-edit/link-edit.component';
 import { ProductEditComponent } from './admin/product-edit/product-edit.component';
-import { ServerEditComponent } from './admin/server-edit/server-edit.component';
 
 const pages: Routes = [
   {

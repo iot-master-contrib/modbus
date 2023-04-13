@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { RequestService } from '../../request.service';
+import { RequestService } from '../../../request.service';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
