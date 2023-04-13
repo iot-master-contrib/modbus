@@ -27,12 +27,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="port_name">端口</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <input
-          nz-input
-          name="port"
-          formControlName="port_name"
-          [nzAutocomplete]="autoPorts"
-        />
+        <input nz-input name="port" formControlName="port_name" [nzAutocomplete]="autoPorts" />
         <nz-autocomplete [nzDataSource]="ports" #autoPorts></nz-autocomplete>
       </nz-form-control>
     </nz-form-item>
@@ -74,6 +69,38 @@
       <nz-form-label [nzSpan]="5" nzFor="retry_maximum">重连最大次数</nz-form-label>
       <nz-form-control [nzSpan]="16">
         <nz-input-number formControlName="retry_maximum"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzFor="BaudRate">波特率</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+        <nz-input-number formControlName="BaudRate"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzFor="ParityMode">奇偶校验</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+        <nz-radio-group formControlName="ParityMode">
+          <label nz-radio [nzValue]="0">NONE</label>
+          <label nz-radio [nzValue]="1">ODD</label>
+          <label nz-radio [nzValue]="2">EVEN</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzFor="StopBits">停止位</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+        <nz-input-number formControlName="StopBits"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzFor="DataBits">字长</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+        <nz-input-number formControlName="DataBits"></nz-input-number>
       </nz-form-control>
     </nz-form-item>
   </form>
