@@ -2,7 +2,6 @@ import { RequestService } from '../../request.service';
 import { Component, Input, Output, ViewChild, EventEmitter, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
-  UntypedFormControl,
   FormGroup,
   UntypedFormGroup,
   ValidationErrors,
@@ -17,9 +16,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./server-edit.component.scss'],
 })
 export class ServerEditComponent implements OnInit {
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
   id: any = 0;
   deviceList = [];
+  mode = 'new';
   listData = [{
     title: '从站号',
     keyName: 'slave',
@@ -42,13 +42,14 @@ export class ServerEditComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.has('id')) {
+      this.mode = "edit";
       this.id = this.route.snapshot.paramMap.get('id');
       this.rs.get(`server/${this.id}`).subscribe((res) => {
-        this.patchValue(res.data);
+        this.setData(res);
       });
     }
     this.getDeviceList();
-    this.patchValue();
+    this.build();
   }
   getDeviceList() {
     this.rs.get(`device/list`).subscribe((res) => {
@@ -56,10 +57,10 @@ export class ServerEditComponent implements OnInit {
       this.deviceList = data || [];
     });
   }
-  patchValue(mess?: any) {
+  build(mess?: any) {
     mess = mess || {};
     this.validateForm = this.fb.group({
-      id: [mess.id || ''],
+      id: [mess.id || '', this.mode === "edit" ? [Validators.required] : ''],
       name: [mess.name || ''],
       desc: [mess.desc || ''],
       port: [mess.port || 60000],
@@ -70,6 +71,16 @@ export class ServerEditComponent implements OnInit {
       defaults: [mess.defaults || []],
     });
     this.defaultEquip = mess.defaults || [];
+  }
+  setData(res: any) {
+    const resData = (res && res.data) || {};
+    const odata = this.validateForm.value;
+    for (const key in odata) {
+      if (resData[key]) {
+        odata[key] = resData[key];
+      }
+      this.validateForm.setValue(odata);
+    }
   }
   handleCancel() {
     this.router.navigateByUrl(`/admin/server`);
@@ -88,9 +99,8 @@ export class ServerEditComponent implements OnInit {
         this.msg.success('保存成功');
         this.router.navigateByUrl(`/admin/server`);
       });
-      return;
     } else {
-      Object.values(this.validateForm.controls).forEach((control) => {
+      Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });

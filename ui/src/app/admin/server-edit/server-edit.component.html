@@ -11,6 +11,13 @@
 <nz-card [nzTitle]="id ? '编辑服务器' : '创建服务器'" [nzExtra]="extra">
   <form nz-form [formGroup]="validateForm">
     <nz-form-item>
+      <nz-form-label [nzSpan]="5" [nzRequired]="mode==='edit'" nzFor="id">ID</nz-form-label>
+      <nz-form-control [nzSpan]="16" nzErrorTip="id不可为空!">
+        <input nz-input id="id" formControlName="id" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="name">名称</nz-form-label>
       <nz-form-control [nzSpan]="16">
         <input nz-input name="name" formControlName="name" />
@@ -26,14 +33,8 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="port">端口</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-input-number
-          style="width: auto"
-          formControlName="port"
-          name="port"
-          [nzMin]="1"
-          [nzMax]="65535"
-          [nzStep]="1"
-        ></nz-input-number>
+        <nz-input-number style="width: auto" formControlName="port" name="port" [nzMin]="1" [nzMax]="65535"
+          [nzStep]="1"></nz-input-number>
       </nz-form-control>
     </nz-form-item>
 
@@ -65,11 +66,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="defaults">默认设备</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <app-edit-table
-          #editTableChild
-          [data]="defaultEquip"
-          [listData]="listData"
-        ></app-edit-table>
+        <app-edit-table #editTableChild [data]="defaultEquip" [listData]="listData"></app-edit-table>
       </nz-form-control>
     </nz-form-item>
   </form>

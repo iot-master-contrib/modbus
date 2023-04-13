@@ -18,32 +18,44 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DeviceEditComponent implements OnInit {
   validateForm!: FormGroup;
   id: any = 0;
+  mode = "new";
   constructor(
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
     private rs: RequestService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.has('id')) {
+      this.mode = "edit";
       this.id = this.route.snapshot.paramMap.get('id');
       this.rs.get(`device/${this.id}`).subscribe((res) => {
-        this.patchValue(res.data);
+        this.setData(res);
       });
     }
-     this.patchValue();
+    this.build();
   }
-  patchValue(mess?: any) {
+  build(mess?: any) {
     mess = mess || {};
     this.validateForm = this.fb.group({
-      id: [mess.id || ''],
+      id: [mess.id || '', this.mode === "edit" ? [Validators.required] : ''],
       name: [mess.name || ''],
       desc: [mess.desc || ''],
       tunnel_id: [mess.tunnel_id || ''],
       product_id: [mess.product_id || ''],
       slave: [mess.slave || 1],
     });
+  }
+  setData(res: any) {
+    const resData = (res && res.data) || {};
+    const odata = this.validateForm.value;
+    for (const key in odata) {
+      if (resData[key]) {
+        odata[key] = resData[key];
+      }
+      this.validateForm.setValue(odata);
+    }
   }
   handleCancel() {
     this.router.navigateByUrl(`/admin/device`);

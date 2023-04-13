@@ -11,11 +11,11 @@
 <nz-card [nzTitle]="id ? '编辑设备' : '创建设备'" [nzExtra]="extra">
   <form nz-form [formGroup]="validateForm">
     <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="id" nzRequired>ID</nz-form-label>
-      <nz-form-control [nzSpan]="16">
-        <input nz-input name="id" formControlName="id" />
+      <nz-form-label [nzSpan]="5" [nzRequired]="mode==='edit'" nzFor="id">ID</nz-form-label>
+      <nz-form-control [nzSpan]="16" nzErrorTip="id不可为空!">
+        <input nz-input id="id" formControlName="id" />
       </nz-form-control>
-    </nz-form-item> 
+    </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="name">名称</nz-form-label>
       <nz-form-control [nzSpan]="16">

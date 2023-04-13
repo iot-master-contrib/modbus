@@ -61,6 +61,7 @@ export class ProductEditComponent implements OnInit {
     type: 'number',
     defaultValue: 1
   }]
+  mode = "new";
   constructor(
     private readonly datePipe: DatePipe,
     private fb: FormBuilder,
@@ -71,6 +72,18 @@ export class ProductEditComponent implements OnInit {
   ) {
     this.build();
   }
+
+  ngOnInit(): void {
+    if (this.route.snapshot.paramMap.has('id')) {
+      this.mode = "edit";
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.rs.get(`product/${this.id}`).subscribe((res) => {
+        this.build(res.data);
+      });
+    }
+    this.build();
+  }
+
   build(obj?: any) {
     obj = obj || {};
     this.validateForm = this.fb.group({
@@ -104,15 +117,6 @@ export class ProductEditComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    if (this.route.snapshot.paramMap.has('id')) {
-      this.id = this.route.snapshot.paramMap.get('id');
-      this.rs.get(`product/${this.id}`).subscribe((res) => {
-        this.build(res.data);
-      });
-    }
-    this.build();
-  }
 
   handleCancel() {
     this.router.navigateByUrl(`/admin/product`);
@@ -122,6 +126,10 @@ export class ProductEditComponent implements OnInit {
     this.validateForm.updateValueAndValidity();
     if (this.validateForm.valid) {
       let url = this.id ? `product/${this.id}` : `product/create`;
+      if (this.mode === "edit" && !this.validateForm.value.id) {
+        this.msg.warning('ID不可为空');
+        return;
+      }
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
         this.router.navigateByUrl(`/admin/product`);

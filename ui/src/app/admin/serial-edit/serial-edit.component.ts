@@ -1,5 +1,5 @@
-import {RequestService} from '../../request.service';
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import { RequestService } from '../../request.service';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
   FormGroup,
@@ -7,8 +7,8 @@ import {
   Validators,
   FormsModule,
 } from '@angular/forms';
-import {NzMessageService} from 'ng-zorro-antd/message';
-import {ActivatedRoute, Router} from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-serial-edit',
@@ -19,6 +19,7 @@ export class SerialEditComponent implements OnInit {
   validateForm!: FormGroup;
   id: any = 0;
   ports: any = [];
+  mode = "new";
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -35,19 +36,19 @@ export class SerialEditComponent implements OnInit {
     });
 
     if (this.route.snapshot.paramMap.has('id')) {
+      this.mode = "edit";
       this.id = this.route.snapshot.paramMap.get('id');
       this.rs.get(`serial/${this.id}`).subscribe((res) => {
-        this.patchValue(res.data);
+        this.setData(res);
       });
     }
-
-    this.patchValue();
+    this.build();
   }
 
-  patchValue(mess?: any) {
+  build(mess?: any) {
     mess = mess || {};
     this.validateForm = this.fb.group({
-      id: [mess.id || ''],
+      id: [mess.id || '', this.mode === "edit" ? [Validators.required] : ''],
       name: [mess.name || ''],
       port_name: [mess.port_name || ''],
       poller_period: [mess.poller_period || 60],
@@ -58,7 +59,16 @@ export class SerialEditComponent implements OnInit {
       retry_maximum: [mess.retry_maximum || 0],
     });
   }
-
+  setData(res: any) {
+    const resData = (res && res.data) || {};
+    const odata = this.validateForm.value;
+    for (const key in odata) {
+      if (resData[key]) {
+        odata[key] = resData[key];
+      }
+      this.validateForm.setValue(odata);
+    }
+  }
   handleCancel() {
     this.router.navigateByUrl(`/admin/serial`);
   }
@@ -75,7 +85,7 @@ export class SerialEditComponent implements OnInit {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();
-          control.updateValueAndValidity({onlySelf: true});
+          control.updateValueAndValidity({ onlySelf: true });
         }
       });
     }

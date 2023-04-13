@@ -20,28 +20,30 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ClientEditComponent implements OnInit {
   validateForm!: FormGroup;
   id: any = 0;
+  mode: string = 'new';
   constructor(
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
     private rs: RequestService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.has('id')) {
       this.id = this.route.snapshot.paramMap.get('id');
+      this.mode = 'edit';
       this.rs.get(`client/${this.id}`).subscribe((res) => {
-        this.patchValue(res.data);
+        this.setData(res);
       });
     }
 
-    this.patchValue();
+    this.build();
   }
 
-  patchValue(mess?: any) {
+  build(mess?: any) {
     mess = mess || {};
     this.validateForm = this.fb.group({
-      id: [mess.id || ''],
+      id: [mess.id || '', this.mode === "edit" ? [Validators.required] : ''],
       name: [mess.name || ''],
       net: [mess.net || 'tcp'],
       addr: [mess.addr || ''],
@@ -55,6 +57,16 @@ export class ClientEditComponent implements OnInit {
     });
   }
 
+  setData(res: any) {
+    const resData = (res && res.data) || {};
+    const odata = this.validateForm.value;
+    for (const key in odata) {
+      if (resData[key]) {
+        odata[key] = resData[key];
+      }
+      this.validateForm.setValue(odata);
+    }
+  }
   handleCancel() {
     this.router.navigateByUrl(`/admin/client`);
   }
@@ -65,7 +77,6 @@ export class ClientEditComponent implements OnInit {
         this.msg.success('保存成功');
         this.router.navigateByUrl(`/admin/client`);
       });
-      return;
     } else {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
