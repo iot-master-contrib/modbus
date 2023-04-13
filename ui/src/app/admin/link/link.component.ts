@@ -64,4 +64,12 @@ export class LinkComponent {
   open(id: string) {
     this.router.navigateByUrl('/admin/link/' + id);
   }
+  handleToggleStatus(index: number, data: { disabled: boolean, id: number }) {
+    const { disabled, id } = data;
+    const url = disabled ? `link/${id}/enable` : `link/${id}/disable`;
+    this.rs.get(url).subscribe((res) => {
+      this.msg.success(`${disabled ? '启用' : '禁用'}成功!`);
+      this.load();
+    });
+  }
 }

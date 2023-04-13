@@ -10,6 +10,7 @@
           <th>端口</th>
           <th>名称</th>
           <th>描述</th>
+          <th>状态</th>
           <th>创建时间</th>
           <th>操作</th>
         </tr>
@@ -20,16 +21,25 @@
           <td>{{ data.port }}</td>
           <td>{{ data.name }}</td>
           <td>{{ data.desc }}</td>
+          <td>
+            <nz-tag [nzColor]="data.disabled?'error':'success'">
+              <span>{{ data.disabled?'禁用':'启用' }}</span>
+            </nz-tag>
+          </td>
           <td>{{ data.created }}</td>
           <td nzRight>
             <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id)" (nzOnCancel)="cancel()"
               nzPopconfirmPlacement="topLeft">
               <i nz-icon nzType="delete"></i>
             </a>
-
             <nz-divider nzType="vertical"></nz-divider>
             <a (click)="edit(data.id, data)">
               <i nz-icon nzType="edit"></i>
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-popconfirm [nzPopconfirmTitle]="'确定'+(data.disabled?'启用':'禁用')+'?'"
+              (nzOnConfirm)="handleToggleStatus(i, data)" nzPopconfirmPlacement="topLeft">
+              {{ data.disabled?'启用':'禁用' }}
             </a>
           </td>
         </tr>

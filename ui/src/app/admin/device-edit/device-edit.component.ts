@@ -44,7 +44,7 @@ export class DeviceEditComponent implements OnInit {
       desc: [mess.desc || ''],
       tunnel_id: [mess.tunnel_id || ''],
       product_id: [mess.product_id || ''],
-      slave: [mess.slave || 1],
+      slave: [mess.slave || 1]
     });
   }
   setData(res: any) {

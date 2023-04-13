@@ -33,6 +33,7 @@ import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAutocompleteModule } from "ng-zorro-antd/auto-complete";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -115,7 +116,8 @@ registerLocaleData(zh);
     NzCardModule,
     NzAutocompleteModule,
     NzTabsModule,
-    NzRadioModule
+    NzRadioModule,
+    NzTagModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN }

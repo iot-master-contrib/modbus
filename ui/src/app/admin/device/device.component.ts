@@ -16,7 +16,6 @@ export class DeviceComponent {
     this.load();
   }
 
-  isVisible = false;
   addVisible = false;
   loading = true;
   datum: any[] = [];
@@ -41,10 +40,9 @@ export class DeviceComponent {
       });
   }
   delete(index: number, id: number) {
-    this.datum.splice(index, 1);
     this.rs.get(`device/${id}/delete`).subscribe((res) => {
       this.msg.success('删除成功');
-      this.isVisible = false;
+      this.datum.splice(index, 1);
       this.load();
     });
   }
@@ -69,5 +67,13 @@ export class DeviceComponent {
 
   open(id: string) {
     //this.router.navigateByUrl("/admin/device/" + id)
+  }
+  handleToggleStatus(index: number, data: { disabled: boolean, id: number }) {
+    const { disabled, id } = data;
+    const url = disabled ? `device/${id}/enable` : `device/${id}/disable`;
+    this.rs.get(url).subscribe((res) => {
+      this.msg.success(`${disabled ? '启用' : '禁用'}成功!`);
+      this.load();
+    });
   }
 }
