@@ -24,22 +24,6 @@ export class ServerComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
-  listColumns = [{
-    title: 'ID',
-    keyName: 'id'
-  }, {
-    title: '端口',
-    keyName: 'port'
-  }, {
-    title: '名称',
-    keyName: 'name'
-  }, {
-    title: '描述',
-    keyName: 'desc'
-  }, {
-    title: '创建时间',
-    keyName: 'created'
-  }];
   uploadObj = {
     url: 'server/create',
     sendKeyNameArr: ['name', 'desc', 'port', 'poller_period', 'poller_interval', 'protocol_name']

@@ -1,5 +1,5 @@
 <nz-layout>
-  <app-common-header title="产品" [datum]="datum" [listColumns]="listColumns" [uploadObj]="uploadObj"
+  <app-common-header title="产品" [datum]="datum" downloadHref="product/export" [uploadObj]="uploadObj"
     (onSearch)="search($event)" (onAdd)="add()" (onLoad)="load()">
   </app-common-header>
   <nz-content>

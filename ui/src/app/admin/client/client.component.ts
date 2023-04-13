@@ -23,25 +23,6 @@ export class ClientComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
-  listColumns = [{
-    title: 'ID',
-    keyName: 'id'
-  }, {
-    title: '名称',
-    keyName: 'name'
-  }, {
-    title: '网络',
-    keyName: 'net'
-  }, {
-    title: '地址',
-    keyName: 'addr'
-  }, {
-    title: '端口',
-    keyName: 'port'
-  }, {
-    title: '创建时间',
-    keyName: 'created'
-  }];
   uploadObj = {
     url: 'client/create',
     sendKeyNameArr: ['name', 'net', 'addr', 'port', 'poller_period', 'poller_interval', 'protocol_name', 'retry_timeout', 'retry_maximum']

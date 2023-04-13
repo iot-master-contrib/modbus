@@ -24,25 +24,6 @@ export class DeviceComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
-  listColumns = [{
-    title: 'ID',
-    keyName: 'id'
-  }, {
-    title: '产品ID',
-    keyName: 'product_id'
-  }, {
-    title: '名称',
-    keyName: 'name'
-  }, {
-    title: '描述',
-    keyName: 'desc'
-  }, {
-    title: '从站号',
-    keyName: 'slave'
-  }, {
-    title: '创建时间',
-    keyName: 'created'
-  }];
   uploadObj = {
     url: 'device/create',
     sendKeyNameArr: ['name', 'desc', 'tunnel_id', 'tunnel_id', 'slave']
