@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, RouterState} from "@angular/router";
-import {RequestService} from "../../request.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { RequestService } from "../../../request.service";
 
 @Component({
   selector: 'app-serial-detail',
@@ -11,8 +11,7 @@ export class SerialDetailComponent implements OnInit {
   id: string = ""
   data: any = {}
 
-  constructor(private route: ActivatedRoute, private rs: RequestService) {
-  }
+  constructor(private route: ActivatedRoute, private rs: RequestService) { }
 
   ngOnInit(): void {
     // @ts-ignore
@@ -26,5 +25,4 @@ export class SerialDetailComponent implements OnInit {
       this.data = res.data;
     })
   }
-
 }
