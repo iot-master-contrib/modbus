@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterState} from "@angular/router";
-import {RequestService} from "../../request.service";
+import {RequestService} from "../../../request.service";
 
 @Component({
   selector: 'app-link-detail',

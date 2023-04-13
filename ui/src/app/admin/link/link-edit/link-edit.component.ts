@@ -1,13 +1,8 @@
-import { RequestService } from '../../request.service';
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { RequestService } from '../../../request.service';
+import { Component, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
-  UntypedFormControl,
   FormGroup,
-  UntypedFormGroup,
-  ValidationErrors,
-  Validators,
-  FormsModule,
 } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,7 +21,7 @@ export class LinkEditComponent implements OnInit {
     private rs: RequestService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.has('id')) {
       this.id = this.route.snapshot.paramMap.get('id');
