@@ -71,6 +71,8 @@ export class TunnelDeviceComponent {
   }
 
   edit(id: number, data: any) {
+    const path = `/admin/device/edit/${id}`;
+    this.router.navigateByUrl(path);
   }
 
   search(text: any) {
