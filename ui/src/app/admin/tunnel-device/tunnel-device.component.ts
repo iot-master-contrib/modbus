@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { RequestService } from '../../request.service';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
@@ -26,7 +26,7 @@ export class TunnelDeviceComponent {
     //this.load();
   }
 
-  
+
   isVisible!: boolean;
   addVisible = false;
   loading = true;
@@ -35,7 +35,7 @@ export class TunnelDeviceComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
- 
+
   clientFm(num: number) {
     if (num) this.load();
     this.isVisible = false;
@@ -64,10 +64,13 @@ export class TunnelDeviceComponent {
   }
 
   add() {
-    
+    const navigationExtras: NavigationExtras = {
+      queryParams: { 'tunnelId': this._tunnel }
+    };
+    this.router.navigate([`/admin/create/device`], navigationExtras);
   }
 
-  edit(id: number, data: any) { 
+  edit(id: number, data: any) {
   }
 
   search(text: any) {

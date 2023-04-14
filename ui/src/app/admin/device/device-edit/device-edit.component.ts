@@ -16,6 +16,7 @@ export class DeviceEditComponent implements OnInit {
   validateForm!: FormGroup;
   id: any = 0;
   mode = "new";
+  tunnel_id: string = '';
   constructor(
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
@@ -30,6 +31,10 @@ export class DeviceEditComponent implements OnInit {
       this.rs.get(`device/${this.id}`).subscribe((res) => {
         this.setData(res);
       });
+    } else {
+      this.route.queryParams.subscribe((params) => {
+        this.tunnel_id = params['tunnelId'];
+      })
     }
     this.build();
   }
@@ -39,7 +44,7 @@ export class DeviceEditComponent implements OnInit {
       id: [mess.id || '', this.mode === "edit" ? [Validators.required] : ''],
       name: [mess.name || ''],
       desc: [mess.desc || ''],
-      tunnel_id: [mess.tunnel_id || ''],
+      tunnel_id: [mess.tunnel_id || this.tunnel_id],
       product_id: [mess.product_id || ''],
       slave: [mess.slave || 1]
     });
