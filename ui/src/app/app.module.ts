@@ -57,6 +57,7 @@ import { ServerLinkComponent } from './admin/server/server-link/server-link.comp
 import { BaseModule } from './admin/base/base.module';
 import { ProductEditComponent } from './admin/product-edit/product-edit.component';
 import { TunnelDeviceComponent } from './admin/tunnel-device/tunnel-device.component';
+import { SetProductIdComponent } from './admin/product/set-product-id/set-product-id.component';
 
 
 registerLocaleData(zh);
@@ -83,6 +84,7 @@ registerLocaleData(zh);
     LinkDetailComponent,
     SerialDetailComponent,
     ServerLinkComponent,
+    SetProductIdComponent,
   ],
   imports: [
     BrowserModule,

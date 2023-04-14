@@ -40,7 +40,8 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="tunnel_id">产品ID</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <input nz-input name="product_id" formControlName="product_id" />
+        <app-set-product-id #setProductIdTag></app-set-product-id>
+        <!-- <input nz-input name="product_id" formControlName="product_id" /> -->
       </nz-form-control>
     </nz-form-item>
 

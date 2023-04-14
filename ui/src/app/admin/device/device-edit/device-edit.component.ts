@@ -1,5 +1,5 @@
 import { RequestService } from '../../../request.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   UntypedFormBuilder,
   FormGroup,
@@ -17,6 +17,7 @@ export class DeviceEditComponent implements OnInit {
   id: any = 0;
   mode = "new";
   tunnel_id: string = '';
+  @ViewChild('setProductIdTag') setProductIdTag: any;
   constructor(
     private fb: UntypedFormBuilder,
     private msg: NzMessageService,
@@ -58,6 +59,8 @@ export class DeviceEditComponent implements OnInit {
       }
       this.validateForm.setValue(odata);
     }
+    // 给子组件设值
+    this.setProductIdTag.product_id = resData['product_id'] || '';
   }
   handleCancel() {
     this.router.navigateByUrl(`/admin/device`);

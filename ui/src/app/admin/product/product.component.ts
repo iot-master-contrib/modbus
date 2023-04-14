@@ -1,7 +1,8 @@
 import { RequestService } from './../../request.service';
-import { Component, ViewChild } from '@angular/core';
+import { Component, Optional, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalRef } from "ng-zorro-antd/modal";
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -11,12 +12,12 @@ export class ProductComponent {
   constructor(
     private router: Router,
     private rs: RequestService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    @Optional() protected ref: NzModalRef,
   ) {
     this.load();
   }
 
-  isVisible = false;
   loading = true;
   datum: any[] = [];
   total = 1;
@@ -43,7 +44,6 @@ export class ProductComponent {
     this.datum.splice(index, 1);
     this.rs.get(`product/${id}/delete`).subscribe((res) => {
       this.msg.success('删除成功');
-      this.isVisible = false;
       this.load();
     });
   }
@@ -64,5 +64,8 @@ export class ProductComponent {
   }
   cancel() {
     this.msg.info('取消删除');
+  }
+  select(id: any) {
+    this.ref && this.ref.close(id)
   }
 }

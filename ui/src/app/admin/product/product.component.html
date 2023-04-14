@@ -1,5 +1,5 @@
 <nz-layout>
-  <app-common-header title="产品" [datum]="datum" downloadHref="product/export" [uploadObj]="uploadObj"
+  <app-common-header *ngIf="!ref" title="产品" [datum]="datum" downloadHref="product/export" [uploadObj]="uploadObj"
     (onSearch)="search($event)" (onAdd)="add()" (onLoad)="load()">
   </app-common-header>
   <nz-content>
@@ -19,7 +19,7 @@
           <td>{{ data.name }}</td>
           <td>{{ data.desc }}</td>
           <td>{{ data.created }}</td>
-          <td nzRight>
+          <td nzRight *ngIf="!ref">
             <a nz-popconfirm nzPopconfirmTitle="确定删除?" (nzOnConfirm)="delete(i, data.id)" (nzOnCancel)="cancel()"
               nzPopconfirmPlacement="topLeft">
               <i nz-icon nzType="delete"></i>
@@ -28,6 +28,9 @@
             <a (click)="edit(data.id, data)">
               <i nz-icon nzType="edit"></i>
             </a>
+          </td>
+          <td *ngIf="ref">
+            <a (click)="select(data.id)"> 选择 </a>
           </td>
         </tr>
       </tbody>
