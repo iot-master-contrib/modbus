@@ -73,16 +73,16 @@
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="BaudRate">波特率</nz-form-label>
+      <nz-form-label [nzSpan]="5" nzFor="baud_rate">波特率</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-input-number formControlName="BaudRate"></nz-input-number>
+        <nz-input-number formControlName="baud_rate"></nz-input-number>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="ParityMode">奇偶校验</nz-form-label>
+      <nz-form-label [nzSpan]="5" nzFor="parity_mode">奇偶校验</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-radio-group formControlName="ParityMode">
+        <nz-radio-group formControlName="parity_mode">
           <label nz-radio [nzValue]="0">NONE</label>
           <label nz-radio [nzValue]="1">ODD</label>
           <label nz-radio [nzValue]="2">EVEN</label>
@@ -91,16 +91,16 @@
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="StopBits">停止位</nz-form-label>
+      <nz-form-label [nzSpan]="5" nzFor="stop_bits">停止位</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-input-number formControlName="StopBits"></nz-input-number>
+        <nz-input-number formControlName="stop_bits"></nz-input-number>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="DataBits">字长</nz-form-label>
+      <nz-form-label [nzSpan]="5" nzFor="data_bits">字长</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-input-number formControlName="DataBits"></nz-input-number>
+        <nz-input-number formControlName="data_bits"></nz-input-number>
       </nz-form-control>
     </nz-form-item>
   </form>

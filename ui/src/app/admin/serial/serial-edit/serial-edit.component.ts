@@ -54,10 +54,10 @@ export class SerialEditComponent implements OnInit {
       protocol_options: [mess.protocol || ''],
       retry_timeout: [mess.retry_timeout || 10],
       retry_maximum: [mess.retry_maximum || 0],
-      BaudRate: [mess.BaudRate || 0],
-      ParityMode: [mess.ParityMode || 0],
-      StopBits: [mess.StopBits || 0],
-      DataBits: [mess.DataBits || 0],
+      baud_rate: [mess.baud_rate || 0],
+      parity_mode: [mess.parity_mode || 0],
+      stop_bits: [mess.stop_bits || 0],
+      data_bits: [mess.data_bits || 0],
     });
   }
   setData(res: any) {
