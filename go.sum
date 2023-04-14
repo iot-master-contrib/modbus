@@ -493,6 +493,10 @@ github.com/zgwit/iot-master/v3 v3.0.5 h1:QPHybYEb6+PThUcy7g3GnKLsa0NadRgz/TNPYNo
 github.com/zgwit/iot-master/v3 v3.0.5/go.mod h1:O+5MGI4OLPMuJKd6nTBqf9mGN+Lt5jKluqF8oeirUUM=
 github.com/zgwit/iot-master/v3 v3.0.6 h1:Wqg+Te0gI7nF7uLgHOAJedC+HOOHHC6pniwLWeXFHGM=
 github.com/zgwit/iot-master/v3 v3.0.6/go.mod h1:O+5MGI4OLPMuJKd6nTBqf9mGN+Lt5jKluqF8oeirUUM=
+github.com/zgwit/iot-master/v3 v3.0.7 h1:5Ub/4JV0bp3FA5jYOtlm7ZtxgF2OfjZuR6mVrBM/zPY=
+github.com/zgwit/iot-master/v3 v3.0.7/go.mod h1:O+5MGI4OLPMuJKd6nTBqf9mGN+Lt5jKluqF8oeirUUM=
+github.com/zgwit/iot-master/v3 v3.0.8 h1:osh/AxPfKk3HhaO3Pcc8+LuGiJC0JJRX6AtfDmCKs1Y=
+github.com/zgwit/iot-master/v3 v3.0.8/go.mod h1:O+5MGI4OLPMuJKd6nTBqf9mGN+Lt5jKluqF8oeirUUM=
 github.com/zgwit/swagger-files v1.0.0 h1:aE0iX7r3Nh/c1CTLHPqX9Oo/14Nti4xssHTNsQpylkc=
 github.com/zgwit/swagger-files v1.0.0/go.mod h1:1d6t8kgfOaE/IZW3KXMjp1K9EftV65QaQPs4LsQMabQ=
 github.com/ziutek/mymysql v1.5.4/go.mod h1:LMSpPZ6DbqWFxNCHW77HeMg9I646SAhApZ/wKdgO/C0=
