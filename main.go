@@ -179,7 +179,7 @@ func originMain() {
 	app.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	//前端静态文件
-	web.RegisterFS(app, http.FS(wwwFiles))
+	web.RegisterFS(app, http.FS(wwwFiles), "www", "index.html")
 
 	//监听HTTP
 	err = app.Run(config.Config.Web.Addr)

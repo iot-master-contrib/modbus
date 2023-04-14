@@ -31,7 +31,7 @@ var Config = Configure{
 func init() {
 	Config.Node, _ = os.Hostname()
 	Config.Web.Addr = ":8088"
-	Config.Database.URL = "root:root@tcp(git.zgwit.com:3306)/modbus?charset=utf8"
+	//Config.Database.URL = "root:root@tcp(git.zgwit.com:3306)/modbus?charset=utf8"
 	//TODO get imei sn
 }
 

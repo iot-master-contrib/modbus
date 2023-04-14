@@ -7,7 +7,7 @@ require (
 	github.com/kardianos/service v1.2.2
 	github.com/swaggo/gin-swagger v1.6.0
 	github.com/swaggo/swag v1.8.12
-	github.com/zgwit/iot-master/v3 v3.0.3
+	github.com/zgwit/iot-master/v3 v3.0.5
 	github.com/zgwit/swagger-files v1.0.0
 	go.bug.st/serial v1.5.0
 	gopkg.in/yaml.v3 v3.0.1
