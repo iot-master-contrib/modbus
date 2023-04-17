@@ -24,10 +24,6 @@ export class ServerComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
-  uploadObj = {
-    url: 'server/create',
-    sendKeyNameArr: ['name', 'desc', 'port', 'poller_period', 'poller_interval', 'protocol_name']
-  }
   load() {
     this.loading = true;
     this.rs

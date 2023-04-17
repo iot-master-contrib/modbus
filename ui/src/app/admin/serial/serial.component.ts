@@ -23,10 +23,6 @@ export class SerialComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
-  uploadObj = {
-    url: 'serial/create',
-    sendKeyNameArr: ['name', 'port_name', 'poller_period', 'poller_interval', 'protocol_name', 'retry_timeout', 'retry_maximum']
-  }
   load() {
     this.loading = true;
     this.rs

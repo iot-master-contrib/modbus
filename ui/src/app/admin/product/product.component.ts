@@ -24,10 +24,6 @@ export class ProductComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
-  uploadObj = {
-    url: 'product/create',
-    sendKeyNameArr: ['name', 'desc']
-  }
   load() {
     this.loading = true;
     this.rs

@@ -1,6 +1,6 @@
 <nz-layout>
-  <app-common-header *ngIf="!ref" title="产品" [datum]="datum" downloadHref="product/export" [uploadObj]="uploadObj"
-    (onSearch)="search($event)" (onAdd)="add()" (onLoad)="load()">
+  <app-common-header *ngIf="!ref" title="产品" moduleName="product" (onSearch)="search($event)" (onAdd)="add()"
+    (onLoad)="load()">
   </app-common-header>
   <nz-content>
     <nz-table #basicTable [nzData]="datum">

@@ -23,10 +23,6 @@ export class ClientComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
-  uploadObj = {
-    url: 'client/create',
-    sendKeyNameArr: ['name', 'net', 'addr', 'port', 'poller_period', 'poller_interval', 'protocol_name', 'retry_timeout', 'retry_maximum']
-  }
   load() {
     this.loading = true;
     this.rs

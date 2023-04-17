@@ -1,6 +1,5 @@
 <nz-layout>
-  <app-common-header title="设备" [datum]="datum" downloadHref="device/export" [uploadObj]="uploadObj"
-    (onSearch)="search($event)" (onAdd)="add()" (onLoad)="load()">
+  <app-common-header title="设备" moduleName="device" (onSearch)="search($event)" (onAdd)="add()" (onLoad)="load()">
   </app-common-header>
 
   <nz-content>

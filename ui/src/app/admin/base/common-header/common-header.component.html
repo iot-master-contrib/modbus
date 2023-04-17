@@ -4,26 +4,14 @@
             <nz-space>
                 <app-search-box *nzSpaceItem [placeholder]="title+'id'" (onSearch)="onSearch.emit($event)">
                 </app-search-box>
-                <a *nzSpaceItem download="filename" class="fileButton" [href]="'/api/'+downloadHref">
+                <a *nzSpaceItem download="filename" class="fileButton"
+                    [href]="'/api/'+(downloadHref?downloadHref:moduleName+'/export')">
                     <i nz-icon nzType="cloud-download"></i>
                     导出
                 </a>
-                <!-- <div *nzSpaceItem style="position: relative;">
-                    <button *ngIf="uploading" nz-button nzType="primary" nzLoading>
-                        <span nz-icon nzType="poweroff"></span>
-                        文件上传中
-                    </button>
-                    <label *ngIf="!uploading" for="file" style="position: absolute;">
-                        <div class="fileButton">
-                            <i nz-icon nzType="cloud-upload"></i>
-                            导入
-                        </div>
-                    </label>
-                    <input *ngIf="!uploading" type="file" id="file" accept=".csv" style="margin-top:3px;width:76px;"
-                        (change)="handleReadCsv($event)" />
-                </div> -->
-                <nz-upload *nzSpaceItem nzAction="/api/product/import"
-                    [nzHeaders]="{ authorization: 'authorization-text' }" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
+                <nz-upload *nzSpaceItem [nzAction]="'/api/'+(uploadHref?uploadHref:moduleName+'/import')"
+                    [nzHeaders]="{ authorization: 'authorization-text' }" [nzShowUploadList]="false"
+                    (nzChange)="handleChange($event)">
                     <button nz-button nzType="primary">
                         <span nz-icon nzType="cloud-upload"></span>
                         导入

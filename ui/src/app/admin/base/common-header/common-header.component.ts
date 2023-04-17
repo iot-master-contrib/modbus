@@ -1,7 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { readCsv } from "../../../../public";
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { RequestService } from '../../../request.service';
 
 @Component({
   selector: 'app-common-header',
@@ -9,21 +7,16 @@ import { RequestService } from '../../../request.service';
   styleUrls: ['./common-header.component.scss']
 })
 export class CommonHeaderComponent {
-  uploading = false;
   @Input() title = "";
   @Input() downloadHref = "";
-  @Input() datum: Array<{ [x: string]: any; name: any; desc: any; created: any; }> = [];
-  @Input() uploadObj: any = {};
+  @Input() uploadHref = "";
+  @Input() moduleName = "";
   @Output() onLoad = new EventEmitter<string>();
   @Output() onSearch = new EventEmitter<string>();
   @Output() onAdd = new EventEmitter<string>();
   constructor(
-    private msg: NzMessageService,
-    private rs: RequestService
+    private msg: NzMessageService
   ) { }
-  handleReadCsv(e: any) {
-    readCsv(e, this, this.uploadObj.url);
-  }
   load() {
     this.onLoad.emit();
   }
@@ -37,6 +30,5 @@ export class CommonHeaderComponent {
       }
     }
     console.log("🚀 ~ file: common-header.component.ts:31 ~ CommonHeaderComponent ~ handleChange ~ info:", info)
-
   }
 }

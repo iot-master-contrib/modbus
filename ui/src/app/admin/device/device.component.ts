@@ -23,10 +23,6 @@ export class DeviceComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
-  uploadObj = {
-    url: 'device/create',
-    sendKeyNameArr: ['name', 'desc', 'tunnel_id', 'tunnel_id', 'slave']
-  }
   load() {
     this.loading = true;
     this.rs
