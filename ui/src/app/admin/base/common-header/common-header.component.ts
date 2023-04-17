@@ -29,6 +29,5 @@ export class CommonHeaderComponent {
         this.msg.error(`${res.error}`);
       }
     }
-    console.log("🚀 ~ file: common-header.component.ts:31 ~ CommonHeaderComponent ~ handleChange ~ info:", info)
   }
 }
