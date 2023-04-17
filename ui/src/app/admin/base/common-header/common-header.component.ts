@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { readCsv } from "../../../../public";
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { RequestService } from '../../../request.service';
+
 @Component({
   selector: 'app-common-header',
   templateUrl: './common-header.component.html',
@@ -25,5 +26,17 @@ export class CommonHeaderComponent {
   }
   load() {
     this.onLoad.emit();
+  }
+  handleChange(info: any): void {
+    if (info.file && info.file.response) {
+      const res = info.file.response;
+      if (!res.error) {
+        this.msg.success(`上传成功`);
+      } else {
+        this.msg.error(`${res.error}`);
+      }
+    }
+    console.log("🚀 ~ file: common-header.component.ts:31 ~ CommonHeaderComponent ~ handleChange ~ info:", info)
+
   }
 }

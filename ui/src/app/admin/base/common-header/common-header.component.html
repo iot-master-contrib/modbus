@@ -8,7 +8,7 @@
                     <i nz-icon nzType="cloud-download"></i>
                     导出
                 </a>
-                <div *nzSpaceItem style="position: relative;">
+                <!-- <div *nzSpaceItem style="position: relative;">
                     <button *ngIf="uploading" nz-button nzType="primary" nzLoading>
                         <span nz-icon nzType="poweroff"></span>
                         文件上传中
@@ -21,7 +21,15 @@
                     </label>
                     <input *ngIf="!uploading" type="file" id="file" accept=".csv" style="margin-top:3px;width:76px;"
                         (change)="handleReadCsv($event)" />
-                </div>
+                </div> -->
+                <nz-upload *nzSpaceItem nzAction="/api/product/import"
+                    [nzHeaders]="{ authorization: 'authorization-text' }" (nzChange)="handleChange($event)">
+                    <button nz-button nzType="primary">
+                        <span nz-icon nzType="cloud-upload"></span>
+                        导入
+                    </button>
+                </nz-upload>
+
                 <button *nzSpaceItem nz-button nzType="primary" (click)="onAdd.emit()">
                     <i nz-icon nzType="plus"></i>新增
                 </button>

@@ -15,6 +15,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { EditTableComponent } from './edit-table/edit-table.component';
@@ -45,7 +46,8 @@ import { CommonHeaderComponent } from './common-header/common-header.component';
     NzInputNumberModule,
     NzSwitchModule,
     NzPageHeaderModule,
-    NzLayoutModule
+    NzLayoutModule,
+    NzUploadModule
   ]
 })
 export class BaseModule { }
