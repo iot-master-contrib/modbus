@@ -75,7 +75,9 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="baud_rate">波特率</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-input-number formControlName="baud_rate"></nz-input-number>
+        <input nz-input formControlName="baud_rate" [nzAutocomplete]="autoBaud" />
+        <nz-autocomplete [nzDataSource]="['2400', '4800', '9600', '19200', '38400', '115200']" #autoBaud>
+        </nz-autocomplete>
       </nz-form-control>
     </nz-form-item>
 
@@ -83,9 +85,11 @@
       <nz-form-label [nzSpan]="5" nzFor="parity_mode">奇偶校验</nz-form-label>
       <nz-form-control [nzSpan]="16">
         <nz-radio-group formControlName="parity_mode">
-          <label nz-radio [nzValue]="0">NONE</label>
-          <label nz-radio [nzValue]="1">ODD</label>
-          <label nz-radio [nzValue]="2">EVEN</label>
+          <label nz-radio [nzValue]="0">无校验 NONE</label>
+          <label nz-radio [nzValue]="1">奇校验 ODD</label>
+          <label nz-radio [nzValue]="2">偶校验 EVEN</label>
+          <label nz-radio [nzValue]="3">1校验 MARK</label>
+          <label nz-radio [nzValue]="4">0校验 SPACE</label>
         </nz-radio-group>
       </nz-form-control>
     </nz-form-item>
@@ -93,14 +97,23 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="stop_bits">停止位</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-input-number formControlName="stop_bits"></nz-input-number>
+        <nz-radio-group formControlName="stop_bits">
+          <label nz-radio [nzValue]="1">1</label>
+          <label nz-radio [nzValue]="1.5" nzDisabled>1.5</label>
+          <label nz-radio [nzValue]="2">2</label>
+        </nz-radio-group>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzFor="data_bits">字长</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <nz-input-number formControlName="data_bits"></nz-input-number>
+        <nz-radio-group formControlName="data_bits">
+          <label nz-radio [nzValue]="5">5</label>
+          <label nz-radio [nzValue]="6">6</label>
+          <label nz-radio [nzValue]="7">7</label>
+          <label nz-radio [nzValue]="8">8</label>
+        </nz-radio-group>
       </nz-form-control>
     </nz-form-item>
   </form>

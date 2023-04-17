@@ -25,7 +25,7 @@ export class SerialEditComponent implements OnInit {
     private rs: RequestService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.rs.get('serial/ports').subscribe((res) => {
@@ -54,10 +54,10 @@ export class SerialEditComponent implements OnInit {
       protocol_options: [mess.protocol || ''],
       retry_timeout: [mess.retry_timeout || 10],
       retry_maximum: [mess.retry_maximum || 0],
-      baud_rate: [mess.baud_rate || 0],
+      baud_rate: [mess.baud_rate || 9600],
       parity_mode: [mess.parity_mode || 0],
-      stop_bits: [mess.stop_bits || 0],
-      data_bits: [mess.data_bits || 0],
+      stop_bits: [mess.stop_bits || 1],
+      data_bits: [mess.data_bits || 8],
     });
   }
   setData(res: any) {
@@ -77,7 +77,9 @@ export class SerialEditComponent implements OnInit {
   submit() {
     if (this.validateForm.valid) {
       let url = this.id ? `serial/${this.id}` : `serial/create`;
-      this.rs.post(url, this.validateForm.value).subscribe((res) => {
+      const sendData = Object.assign({}, this.validateForm.value);
+      sendData.baud_rate = Number(this.validateForm.value.baud_rate)
+      this.rs.post(url, sendData).subscribe((res) => {
         this.msg.success('保存成功');
         this.router.navigateByUrl(`/admin/serial`);
       });
