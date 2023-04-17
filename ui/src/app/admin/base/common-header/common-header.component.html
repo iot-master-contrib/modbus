@@ -23,7 +23,7 @@
                         (change)="handleReadCsv($event)" />
                 </div> -->
                 <nz-upload *nzSpaceItem nzAction="/api/product/import"
-                    [nzHeaders]="{ authorization: 'authorization-text' }" (nzChange)="handleChange($event)">
+                    [nzHeaders]="{ authorization: 'authorization-text' }" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
                     <button nz-button nzType="primary">
                         <span nz-icon nzType="cloud-upload"></span>
                         导入
