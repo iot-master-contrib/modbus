@@ -24,7 +24,8 @@ export class CommonHeaderComponent {
     if (info.file && info.file.response) {
       const res = info.file.response;
       if (!res.error) {
-        this.msg.success(`上传成功`);
+        this.msg.success(`成功导入${res.data}条数据!`);
+        this.load();
       } else {
         this.msg.error(`${res.error}`);
       }
