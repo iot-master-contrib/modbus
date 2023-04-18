@@ -125,8 +125,9 @@ func (l *tunnelBase) start(model *types.Tunnel) (err error) {
 			if elapsed < int64(model.PollerPeriod) {
 				time.Sleep(time.Duration(int64(model.PollerPeriod)-elapsed) * time.Second)
 			}
-
 		}
+
+		_ = l.poller.Close()
 
 		l.running = false
 	}()
