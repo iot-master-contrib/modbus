@@ -1,4 +1,4 @@
-package model
+package types
 
 type Serial struct {
 	Tunnel        `xorm:"extends"`

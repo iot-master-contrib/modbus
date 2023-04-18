@@ -8,7 +8,7 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
 	"io"
 	"modbus/define"
-	"modbus/model"
+	"modbus/types"
 	"time"
 )
 
@@ -35,7 +35,7 @@ func init() {
 
 type poller struct {
 	modbus  Modbus
-	devices []model.Device
+	devices []types.Device
 }
 
 func (p *poller) Load(tunnel string) error {

@@ -8,7 +8,7 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"go.bug.st/serial"
 	"modbus/connect"
-	"modbus/model"
+	"modbus/types"
 )
 
 // @Summary 查询串口数量
@@ -29,7 +29,7 @@ func noopSerialCount() {}
 // @Param search body ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Serial] 返回串口信息
+// @Success 200 {object} ReplyList[types.Serial] 返回串口信息
 // @Router /serial/search [post]
 func noopSerialSearch() {}
 
@@ -40,7 +40,7 @@ func noopSerialSearch() {}
 // @Param search query ParamList true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Serial] 返回串口信息
+// @Success 200 {object} ReplyList[types.Serial] 返回串口信息
 // @Router /serial/list [get]
 func noopSerialList() {}
 
@@ -48,10 +48,10 @@ func noopSerialList() {}
 // @Schemes
 // @Description 创建串口
 // @Tags serial
-// @Param search body model.Serial true "串口信息"
+// @Param search body types.Serial true "串口信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Serial] 返回串口信息
+// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
 // @Router /serial/create [post]
 func noopSerialCreate() {}
 
@@ -60,10 +60,10 @@ func noopSerialCreate() {}
 // @Description 修改串口
 // @Tags serial
 // @Param id path int true "串口ID"
-// @Param serial body model.Serial true "串口信息"
+// @Param serial body types.Serial true "串口信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Serial] 返回串口信息
+// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id} [post]
 func noopSerialUpdate() {}
 
@@ -74,7 +74,7 @@ func noopSerialUpdate() {}
 // @Param id path int true "串口ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Serial] 返回串口信息
+// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id} [get]
 func noopSerialGet() {}
 
@@ -85,7 +85,7 @@ func noopSerialGet() {}
 // @Param id path int true "串口ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Serial] 返回串口信息
+// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id}/delete [get]
 func noopSerialDelete() {}
 
@@ -96,7 +96,7 @@ func noopSerialDelete() {}
 // @Param id path int true "串口ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Serial] 返回串口信息
+// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id}/enable [get]
 func noopSerialEnable() {}
 
@@ -107,7 +107,7 @@ func noopSerialEnable() {}
 // @Param id path int true "串口ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Serial] 返回串口信息
+// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id}/disable [get]
 func noopSerialDisable() {}
 
@@ -142,19 +142,19 @@ func noopSerialPorts() {}
 
 func serialRouter(app *gin.RouterGroup) {
 
-	app.POST("/count", curd.ApiCount[model.Serial]())
+	app.POST("/count", curd.ApiCount[types.Serial]())
 
-	app.POST("/search", curd.ApiSearch[model.Serial]())
+	app.POST("/search", curd.ApiSearch[types.Serial]())
 
-	app.GET("/list", curd.ApiList[model.Serial]())
+	app.GET("/list", curd.ApiList[types.Serial]())
 
-	app.POST("/create", curd.ApiCreate[model.Serial](curd.GenerateRandomId[model.Serial](8), func(value *model.Serial) error {
+	app.POST("/create", curd.ApiCreate[types.Serial](curd.GenerateRandomId[types.Serial](8), func(value *types.Serial) error {
 		return connect.LoadSerial(value)
 	}))
 
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Serial]())
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Serial]())
 
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Serial](nil, func(value *model.Serial) error {
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Serial](nil, func(value *types.Serial) error {
 		c := connect.GetSerial(value.Id)
 		err := c.Close()
 		if err != nil {
@@ -165,21 +165,21 @@ func serialRouter(app *gin.RouterGroup) {
 		"id", "name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options",
 		"port_name", "baud_rate", "data_bits", "stop_bits", "parity_mode", "retry_timeout", "retry_maximum", "disabled"))
 
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Serial](nil, func(value interface{}) error {
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Serial](nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetSerial(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Serial](true, nil, func(value interface{}) error {
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[types.Serial](true, nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetSerial(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[model.Serial](false, nil, func(value interface{}) error {
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[types.Serial](false, nil, func(value interface{}) error {
 		id := value.(string)
-		var m model.Serial
+		var m types.Serial
 		has, err := db.Engine.ID(id).Get(&m)
 		if err != nil {
 			return err
@@ -190,8 +190,8 @@ func serialRouter(app *gin.RouterGroup) {
 		return connect.LoadSerial(&m)
 	}))
 
-	app.GET("/export", curd.ApiExport[model.Serial]("serial"))
-	app.POST("/import", curd.ApiImport[model.Serial]())
+	app.GET("/export", curd.ApiExport[types.Serial]("serial"))
+	app.POST("/import", curd.ApiImport[types.Serial]())
 
 	app.GET("ports", func(ctx *gin.Context) {
 		list, err := serial.GetPortsList()

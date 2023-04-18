@@ -69,7 +69,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Client"
+                            "$ref": "#/definitions/types.Client"
                         }
                     }
                 ],
@@ -77,7 +77,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -160,7 +160,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Client"
+                            "$ref": "#/definitions/api.ReplyList-types_Client"
                         }
                     }
                 }
@@ -194,7 +194,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Client"
+                            "$ref": "#/definitions/api.ReplyList-types_Client"
                         }
                     }
                 }
@@ -226,7 +226,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -257,7 +257,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Client"
+                            "$ref": "#/definitions/types.Client"
                         }
                     }
                 ],
@@ -265,7 +265,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -297,7 +297,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -329,7 +329,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -361,7 +361,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -641,7 +641,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Device"
+                            "$ref": "#/definitions/types.Device"
                         }
                     }
                 ],
@@ -649,7 +649,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -732,7 +732,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Device"
+                            "$ref": "#/definitions/api.ReplyList-types_Device"
                         }
                     }
                 }
@@ -766,7 +766,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Device"
+                            "$ref": "#/definitions/api.ReplyList-types_Device"
                         }
                     }
                 }
@@ -798,7 +798,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -829,7 +829,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Device"
+                            "$ref": "#/definitions/types.Device"
                         }
                     }
                 ],
@@ -837,7 +837,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -869,7 +869,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -901,7 +901,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -933,7 +933,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -1050,7 +1050,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Link"
+                            "$ref": "#/definitions/api.ReplyList-types_Link"
                         }
                     }
                 }
@@ -1084,7 +1084,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Link"
+                            "$ref": "#/definitions/api.ReplyList-types_Link"
                         }
                     }
                 }
@@ -1116,7 +1116,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                            "$ref": "#/definitions/api.ReplyData-types_Link"
                         }
                     }
                 }
@@ -1147,7 +1147,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Link"
+                            "$ref": "#/definitions/types.Link"
                         }
                     }
                 ],
@@ -1155,7 +1155,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                            "$ref": "#/definitions/api.ReplyData-types_Link"
                         }
                     }
                 }
@@ -1187,7 +1187,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                            "$ref": "#/definitions/api.ReplyData-types_Link"
                         }
                     }
                 }
@@ -1219,7 +1219,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                            "$ref": "#/definitions/api.ReplyData-types_Link"
                         }
                     }
                 }
@@ -1251,7 +1251,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                            "$ref": "#/definitions/api.ReplyData-types_Link"
                         }
                     }
                 }
@@ -1311,7 +1311,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Product"
+                            "$ref": "#/definitions/types.Product"
                         }
                     }
                 ],
@@ -1319,7 +1319,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                            "$ref": "#/definitions/api.ReplyData-types_Product"
                         }
                     }
                 }
@@ -1402,7 +1402,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Product"
+                            "$ref": "#/definitions/api.ReplyList-types_Product"
                         }
                     }
                 }
@@ -1436,7 +1436,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Product"
+                            "$ref": "#/definitions/api.ReplyList-types_Product"
                         }
                     }
                 }
@@ -1468,7 +1468,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                            "$ref": "#/definitions/api.ReplyData-types_Product"
                         }
                     }
                 }
@@ -1499,7 +1499,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Product"
+                            "$ref": "#/definitions/types.Product"
                         }
                     }
                 ],
@@ -1507,7 +1507,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                            "$ref": "#/definitions/api.ReplyData-types_Product"
                         }
                     }
                 }
@@ -1539,7 +1539,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                            "$ref": "#/definitions/api.ReplyData-types_Product"
                         }
                     }
                 }
@@ -1599,7 +1599,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Serial"
+                            "$ref": "#/definitions/types.Serial"
                         }
                     }
                 ],
@@ -1607,7 +1607,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1690,7 +1690,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Serial"
+                            "$ref": "#/definitions/api.ReplyList-types_Serial"
                         }
                     }
                 }
@@ -1744,7 +1744,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Serial"
+                            "$ref": "#/definitions/api.ReplyList-types_Serial"
                         }
                     }
                 }
@@ -1776,7 +1776,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1807,7 +1807,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Serial"
+                            "$ref": "#/definitions/types.Serial"
                         }
                     }
                 ],
@@ -1815,7 +1815,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1847,7 +1847,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1879,7 +1879,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1911,7 +1911,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1971,7 +1971,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Server"
+                            "$ref": "#/definitions/types.Server"
                         }
                     }
                 ],
@@ -1979,7 +1979,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2062,7 +2062,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Server"
+                            "$ref": "#/definitions/api.ReplyList-types_Server"
                         }
                     }
                 }
@@ -2096,7 +2096,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Server"
+                            "$ref": "#/definitions/api.ReplyList-types_Server"
                         }
                     }
                 }
@@ -2128,7 +2128,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2159,7 +2159,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Server"
+                            "$ref": "#/definitions/types.Server"
                         }
                     }
                 ],
@@ -2167,7 +2167,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2199,7 +2199,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2231,7 +2231,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2263,7 +2263,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2364,72 +2364,6 @@ const docTemplate = `{
                 }
             }
         },
-        "api.ReplyData-model_Client": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Client"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "api.ReplyData-model_Device": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Device"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "api.ReplyData-model_Link": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Link"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "api.ReplyData-model_Product": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Product"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "api.ReplyData-model_Serial": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Serial"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "api.ReplyData-model_Server": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Server"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
         "api.ReplyData-string": {
             "type": "object",
             "properties": {
@@ -2441,13 +2375,79 @@ const docTemplate = `{
                 }
             }
         },
-        "api.ReplyList-model_Client": {
+        "api.ReplyData-types_Client": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Client"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-types_Device": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Device"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-types_Link": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Link"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-types_Product": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Product"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-types_Serial": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Serial"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-types_Server": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Server"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyList-types_Client": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Client"
+                        "$ref": "#/definitions/types.Client"
                     }
                 },
                 "error": {
@@ -2458,13 +2458,13 @@ const docTemplate = `{
                 }
             }
         },
-        "api.ReplyList-model_Device": {
+        "api.ReplyList-types_Device": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Device"
+                        "$ref": "#/definitions/types.Device"
                     }
                 },
                 "error": {
@@ -2475,13 +2475,13 @@ const docTemplate = `{
                 }
             }
         },
-        "api.ReplyList-model_Link": {
+        "api.ReplyList-types_Link": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Link"
+                        "$ref": "#/definitions/types.Link"
                     }
                 },
                 "error": {
@@ -2492,13 +2492,13 @@ const docTemplate = `{
                 }
             }
         },
-        "api.ReplyList-model_Product": {
+        "api.ReplyList-types_Product": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Product"
+                        "$ref": "#/definitions/types.Product"
                     }
                 },
                 "error": {
@@ -2509,13 +2509,13 @@ const docTemplate = `{
                 }
             }
         },
-        "api.ReplyList-model_Serial": {
+        "api.ReplyList-types_Serial": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Serial"
+                        "$ref": "#/definitions/types.Serial"
                     }
                 },
                 "error": {
@@ -2526,13 +2526,13 @@ const docTemplate = `{
                 }
             }
         },
-        "api.ReplyList-model_Server": {
+        "api.ReplyList-types_Server": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Server"
+                        "$ref": "#/definitions/types.Server"
                     }
                 },
                 "error": {
@@ -2631,7 +2631,7 @@ const docTemplate = `{
                 }
             }
         },
-        "model.Client": {
+        "types.Client": {
             "type": "object",
             "properties": {
                 "addr": {
@@ -2695,7 +2695,7 @@ const docTemplate = `{
                 }
             }
         },
-        "model.DefaultDevice": {
+        "types.DefaultDevice": {
             "type": "object",
             "properties": {
                 "name": {
@@ -2712,7 +2712,7 @@ const docTemplate = `{
                 }
             }
         },
-        "model.Device": {
+        "types.Device": {
             "type": "object",
             "properties": {
                 "created": {
@@ -2746,7 +2746,7 @@ const docTemplate = `{
                 }
             }
         },
-        "model.Link": {
+        "types.Link": {
             "type": "object",
             "properties": {
                 "created": {
@@ -2798,7 +2798,7 @@ const docTemplate = `{
                 }
             }
         },
-        "model.Mapper": {
+        "types.Mapper": {
             "type": "object",
             "properties": {
                 "addr": {
@@ -2813,7 +2813,7 @@ const docTemplate = `{
                     "description": "数据点",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Point"
+                        "$ref": "#/definitions/types.Point"
                     }
                 },
                 "size": {
@@ -2822,7 +2822,7 @@ const docTemplate = `{
                 }
             }
         },
-        "model.Point": {
+        "types.Point": {
             "type": "object",
             "properties": {
                 "be": {
@@ -2847,7 +2847,7 @@ const docTemplate = `{
                 }
             }
         },
-        "model.Product": {
+        "types.Product": {
             "type": "object",
             "properties": {
                 "created": {
@@ -2865,7 +2865,7 @@ const docTemplate = `{
                     "description": "model.Product ` + "`" + `xorm:\"extends\"` + "`" + `",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Mapper"
+                        "$ref": "#/definitions/types.Mapper"
                     }
                 },
                 "name": {
@@ -2874,7 +2874,7 @@ const docTemplate = `{
                 }
             }
         },
-        "model.Serial": {
+        "types.Serial": {
             "type": "object",
             "properties": {
                 "baud_rate": {
@@ -2946,7 +2946,7 @@ const docTemplate = `{
                 }
             }
         },
-        "model.Server": {
+        "types.Server": {
             "type": "object",
             "properties": {
                 "created": {
@@ -2960,7 +2960,7 @@ const docTemplate = `{
                 "devices": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.DefaultDevice"
+                        "$ref": "#/definitions/types.DefaultDevice"
                     }
                 },
                 "disabled": {

@@ -3,7 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
-	"modbus/model"
+	"modbus/types"
 )
 
 // @Summary 查询设备数量
@@ -24,7 +24,7 @@ func noopDeviceCount() {}
 // @Param search body ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Device] 返回设备信息
+// @Success 200 {object} ReplyList[types.Device] 返回设备信息
 // @Router /device/search [post]
 func noopDeviceSearch() {}
 
@@ -35,7 +35,7 @@ func noopDeviceSearch() {}
 // @Param search query ParamList true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Device] 返回设备信息
+// @Success 200 {object} ReplyList[types.Device] 返回设备信息
 // @Router /device/list [get]
 func noopDeviceList() {}
 
@@ -43,10 +43,10 @@ func noopDeviceList() {}
 // @Schemes
 // @Description 创建设备
 // @Tags device
-// @Param search body model.Device true "设备信息"
+// @Param search body types.Device true "设备信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Device] 返回设备信息
+// @Success 200 {object} ReplyData[types.Device] 返回设备信息
 // @Router /device/create [post]
 func noopDeviceCreate() {}
 
@@ -55,10 +55,10 @@ func noopDeviceCreate() {}
 // @Description 修改设备
 // @Tags device
 // @Param id path int true "设备ID"
-// @Param device body model.Device true "设备信息"
+// @Param device body types.Device true "设备信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Device] 返回设备信息
+// @Success 200 {object} ReplyData[types.Device] 返回设备信息
 // @Router /device/{id} [post]
 func noopDeviceUpdate() {}
 
@@ -69,7 +69,7 @@ func noopDeviceUpdate() {}
 // @Param id path int true "设备ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Device] 返回设备信息
+// @Success 200 {object} ReplyData[types.Device] 返回设备信息
 // @Router /device/{id} [get]
 func noopDeviceGet() {}
 
@@ -80,7 +80,7 @@ func noopDeviceGet() {}
 // @Param id path int true "设备ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Device] 返回设备信息
+// @Success 200 {object} ReplyData[types.Device] 返回设备信息
 // @Router /device/{id}/delete [get]
 func noopDeviceDelete() {}
 
@@ -91,7 +91,7 @@ func noopDeviceDelete() {}
 // @Param id path int true "设备ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Device] 返回设备信息
+// @Success 200 {object} ReplyData[types.Device] 返回设备信息
 // @Router /device/{id}/enable [get]
 func noopDeviceEnable() {}
 
@@ -102,10 +102,9 @@ func noopDeviceEnable() {}
 // @Param id path int true "设备ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Device] 返回设备信息
+// @Success 200 {object} ReplyData[types.Device] 返回设备信息
 // @Router /device/{id}/disable [get]
 func noopDeviceDisable() {}
-
 
 // @Summary 导出设备
 // @Schemes
@@ -129,17 +128,17 @@ func noopDeviceImport() {}
 
 func deviceRouter(app *gin.RouterGroup) {
 
-	app.POST("/count", curd.ApiCount[model.Device]())
-	app.POST("/search", curd.ApiSearch[model.Device]())
-	app.GET("/list", curd.ApiList[model.Device]())
-	app.POST("/create", curd.ApiCreate[model.Device](curd.GenerateRandomId[model.Device](8), nil))
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Device]())
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Device](nil, nil,
+	app.POST("/count", curd.ApiCount[types.Device]())
+	app.POST("/search", curd.ApiSearch[types.Device]())
+	app.GET("/list", curd.ApiList[types.Device]())
+	app.POST("/create", curd.ApiCreate[types.Device](curd.GenerateRandomId[types.Device](8), nil))
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Device]())
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Device](nil, nil,
 		"id", "name", "desc", "tunnel_id", "product_id", "slave", "disabled"))
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Device](nil, nil))
-	app.GET("/export", curd.ApiExport[model.Device]("device"))
-	app.POST("/import", curd.ApiImport[model.Device]())
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Device](nil, nil))
+	app.GET("/export", curd.ApiExport[types.Device]("device"))
+	app.POST("/import", curd.ApiImport[types.Device]())
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Device](true, nil, nil))
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[model.Device](false, nil, nil))
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[types.Device](true, nil, nil))
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[types.Device](false, nil, nil))
 }

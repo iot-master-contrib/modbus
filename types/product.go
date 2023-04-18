@@ -1,4 +1,4 @@
-package model
+package types
 
 import (
 	"github.com/zgwit/iot-master/v3/model"

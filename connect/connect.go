@@ -4,7 +4,7 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/lib"
 	"github.com/zgwit/iot-master/v3/pkg/log"
-	"modbus/model"
+	"modbus/types"
 	"xorm.io/xorm"
 )
 
@@ -14,7 +14,7 @@ var servers lib.Map[Server]
 var links lib.Map[Link]
 
 func LoadSerials() error {
-	var serials []*model.Serial
+	var serials []*types.Serial
 	err := db.Engine.Find(&serials)
 	if err != nil {
 		if err == xorm.ErrNotExist {
@@ -31,7 +31,7 @@ func LoadSerials() error {
 	return nil
 }
 
-func LoadSerial(m *model.Serial) error {
+func LoadSerial(m *types.Serial) error {
 	s := NewSerial(m)
 	serials.Store(m.Id, s)
 	return s.Open()
@@ -42,7 +42,7 @@ func GetSerial(id string) *Serial {
 }
 
 func LoadClients() error {
-	var clients []*model.Client
+	var clients []*types.Client
 	err := db.Engine.Find(&clients)
 	if err != nil {
 		if err == xorm.ErrNotExist {
@@ -59,7 +59,7 @@ func LoadClients() error {
 	return nil
 }
 
-func LoadClient(m *model.Client) error {
+func LoadClient(m *types.Client) error {
 	s := NewClient(m)
 	clients.Store(m.Id, s)
 	return s.Open()
@@ -70,7 +70,7 @@ func GetClient(id string) *Client {
 }
 
 func LoadServers() error {
-	var servers []*model.Server
+	var servers []*types.Server
 	err := db.Engine.Find(&servers)
 	if err != nil {
 		if err == xorm.ErrNotExist {
@@ -87,7 +87,7 @@ func LoadServers() error {
 	return nil
 }
 
-func LoadServer(m *model.Server) error {
+func LoadServer(m *types.Server) error {
 	s := NewServer(m)
 	servers.Store(m.Id, s)
 	return s.Open()

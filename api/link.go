@@ -3,7 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
-	"modbus/model"
+	"modbus/types"
 )
 
 // @Summary 查询连接数量
@@ -24,7 +24,7 @@ func noopLinkCount() {}
 // @Param search body ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Link] 返回连接信息
+// @Success 200 {object} ReplyList[types.Link] 返回连接信息
 // @Router /link/search [post]
 func noopLinkSearch() {}
 
@@ -35,7 +35,7 @@ func noopLinkSearch() {}
 // @Param search query ParamList true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Link] 返回连接信息
+// @Success 200 {object} ReplyList[types.Link] 返回连接信息
 // @Router /link/list [get]
 func noopLinkList() {}
 
@@ -44,10 +44,10 @@ func noopLinkList() {}
 // @Description 修改连接
 // @Tags link
 // @Param id path int true "连接ID"
-// @Param link body model.Link true "连接信息"
+// @Param link body types.Link true "连接信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Link] 返回连接信息
+// @Success 200 {object} ReplyData[types.Link] 返回连接信息
 // @Router /link/{id} [post]
 func noopLinkUpdate() {}
 
@@ -58,7 +58,7 @@ func noopLinkUpdate() {}
 // @Param id path int true "连接ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Link] 返回连接信息
+// @Success 200 {object} ReplyData[types.Link] 返回连接信息
 // @Router /link/{id} [get]
 func noopLinkGet() {}
 
@@ -69,7 +69,7 @@ func noopLinkGet() {}
 // @Param id path int true "连接ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Link] 返回连接信息
+// @Success 200 {object} ReplyData[types.Link] 返回连接信息
 // @Router /link/{id}/delete [get]
 func noopLinkDelete() {}
 
@@ -80,7 +80,7 @@ func noopLinkDelete() {}
 // @Param id path int true "连接ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Link] 返回连接信息
+// @Success 200 {object} ReplyData[types.Link] 返回连接信息
 // @Router /link/{id}/enable [get]
 func noopLinkEnable() {}
 
@@ -91,7 +91,7 @@ func noopLinkEnable() {}
 // @Param id path int true "连接ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Link] 返回连接信息
+// @Success 200 {object} ReplyData[types.Link] 返回连接信息
 // @Router /link/{id}/disable [get]
 func noopLinkDisable() {}
 
@@ -117,18 +117,18 @@ func noopLinkImport() {}
 
 func linkRouter(app *gin.RouterGroup) {
 
-	app.POST("/count", curd.ApiCount[model.Link]())
-	app.POST("/search", curd.ApiSearch[model.Link]())
-	app.GET("/list", curd.ApiList[model.Link]())
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Link]())
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Link](nil, nil,
+	app.POST("/count", curd.ApiCount[types.Link]())
+	app.POST("/search", curd.ApiSearch[types.Link]())
+	app.GET("/list", curd.ApiList[types.Link]())
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Link]())
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Link](nil, nil,
 		"name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "disabled"))
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Link](nil, nil))
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Link](nil, nil))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Link](true, nil, nil))
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[model.Link](false, nil, nil))
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[types.Link](true, nil, nil))
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[types.Link](false, nil, nil))
 
-	app.GET("/export", curd.ApiExport[model.Link]("link"))
-	app.POST("/import", curd.ApiImport[model.Link]())
+	app.GET("/export", curd.ApiExport[types.Link]("link"))
+	app.POST("/import", curd.ApiImport[types.Link]())
 
 }

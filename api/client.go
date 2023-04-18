@@ -7,7 +7,7 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"modbus/connect"
-	"modbus/model"
+	"modbus/types"
 )
 
 // @Summary 查询客户端数量
@@ -28,7 +28,7 @@ func noopClientCount() {}
 // @Param search body ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Client] 返回客户端信息
+// @Success 200 {object} ReplyList[types.Client] 返回客户端信息
 // @Router /client/search [post]
 func noopClientSearch() {}
 
@@ -39,7 +39,7 @@ func noopClientSearch() {}
 // @Param search query ParamList true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Client] 返回客户端信息
+// @Success 200 {object} ReplyList[types.Client] 返回客户端信息
 // @Router /client/list [get]
 func noopClientList() {}
 
@@ -47,10 +47,10 @@ func noopClientList() {}
 // @Schemes
 // @Description 创建客户端
 // @Tags client
-// @Param search body model.Client true "客户端信息"
+// @Param search body types.Client true "客户端信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Client] 返回客户端信息
+// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
 // @Router /client/create [post]
 func noopClientCreate() {}
 
@@ -59,10 +59,10 @@ func noopClientCreate() {}
 // @Description 修改客户端
 // @Tags client
 // @Param id path int true "客户端ID"
-// @Param client body model.Client true "客户端信息"
+// @Param client body types.Client true "客户端信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Client] 返回客户端信息
+// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id} [post]
 func noopClientUpdate() {}
 
@@ -73,7 +73,7 @@ func noopClientUpdate() {}
 // @Param id path int true "客户端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Client] 返回客户端信息
+// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id} [get]
 func noopClientGet() {}
 
@@ -84,7 +84,7 @@ func noopClientGet() {}
 // @Param id path int true "客户端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Client] 返回客户端信息
+// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id}/delete [get]
 func noopClientDelete() {}
 
@@ -95,7 +95,7 @@ func noopClientDelete() {}
 // @Param id path int true "客户端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Client] 返回客户端信息
+// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id}/enable [get]
 func noopClientEnable() {}
 
@@ -106,7 +106,7 @@ func noopClientEnable() {}
 // @Param id path int true "客户端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Client] 返回客户端信息
+// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id}/disable [get]
 func noopClientDisable() {}
 
@@ -132,19 +132,19 @@ func noopClientImport() {}
 
 func clientRouter(app *gin.RouterGroup) {
 
-	app.POST("/count", curd.ApiCount[model.Client]())
+	app.POST("/count", curd.ApiCount[types.Client]())
 
-	app.POST("/search", curd.ApiSearch[model.Client]())
+	app.POST("/search", curd.ApiSearch[types.Client]())
 
-	app.GET("/list", curd.ApiList[model.Client]())
+	app.GET("/list", curd.ApiList[types.Client]())
 
-	app.POST("/create", curd.ApiCreate[model.Client](curd.GenerateRandomId[model.Client](8), func(value *model.Client) error {
+	app.POST("/create", curd.ApiCreate[types.Client](curd.GenerateRandomId[types.Client](8), func(value *types.Client) error {
 		return connect.LoadClient(value)
 	}))
 
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Client]())
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Client]())
 
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Client](nil, func(value *model.Client) error {
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Client](nil, func(value *types.Client) error {
 		c := connect.GetClient(value.Id)
 		err := c.Close()
 		if err != nil {
@@ -154,21 +154,21 @@ func clientRouter(app *gin.RouterGroup) {
 	},
 		"id", "name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "disabled", "retry_timeout", "retry_maximum", "net", "addr", "port"))
 
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Client](nil, func(value interface{}) error {
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Client](nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetClient(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Client](true, nil, func(value interface{}) error {
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[types.Client](true, nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetClient(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[model.Client](false, nil, func(value interface{}) error {
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[types.Client](false, nil, func(value interface{}) error {
 		id := value.(string)
-		var m model.Client
+		var m types.Client
 		has, err := db.Engine.ID(id).Get(&m)
 		if err != nil {
 			return err
@@ -179,7 +179,7 @@ func clientRouter(app *gin.RouterGroup) {
 		return connect.LoadClient(&m)
 	}))
 
-	app.GET("/export", curd.ApiExport[model.Client]("client"))
-	app.POST("/import", curd.ApiImport[model.Client]())
+	app.GET("/export", curd.ApiExport[types.Client]("client"))
+	app.POST("/import", curd.ApiImport[types.Client]())
 
 }

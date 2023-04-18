@@ -4,14 +4,14 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/lib"
 	"github.com/zgwit/iot-master/v3/pkg/log"
-	"modbus/model"
+	"modbus/types"
 	"xorm.io/xorm"
 )
 
-var Products lib.Map[model.Product]
+var Products lib.Map[types.Product]
 
 func LoadProducts() error {
-	var products []*model.Product
+	var products []*types.Product
 	err := db.Engine.Find(&products)
 	if err != nil {
 		if err == xorm.ErrNotExist {
@@ -28,11 +28,11 @@ func LoadProducts() error {
 	return nil
 }
 
-func LoadProduct(m *model.Product) error {
+func LoadProduct(m *types.Product) error {
 	Products.Store(m.Id, m)
 	return nil
 }
 
-func GetProduct(id string) *model.Product {
+func GetProduct(id string) *types.Product {
 	return Products.Load(id)
 }

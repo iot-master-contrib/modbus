@@ -7,7 +7,7 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"modbus/connect"
-	"modbus/model"
+	"modbus/types"
 )
 
 // @Summary 查询服务器数量
@@ -28,7 +28,7 @@ func noopServerCount() {}
 // @Param search body ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Server] 返回服务器信息
+// @Success 200 {object} ReplyList[types.Server] 返回服务器信息
 // @Router /server/search [post]
 func noopServerSearch() {}
 
@@ -39,7 +39,7 @@ func noopServerSearch() {}
 // @Param search query ParamList true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Server] 返回服务器信息
+// @Success 200 {object} ReplyList[types.Server] 返回服务器信息
 // @Router /server/list [get]
 func noopServerList() {}
 
@@ -47,10 +47,10 @@ func noopServerList() {}
 // @Schemes
 // @Description 创建服务器
 // @Tags server
-// @Param search body model.Server true "服务器信息"
+// @Param search body types.Server true "服务器信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Server] 返回服务器信息
+// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
 // @Router /server/create [post]
 func noopServerCreate() {}
 
@@ -59,10 +59,10 @@ func noopServerCreate() {}
 // @Description 修改服务器
 // @Tags server
 // @Param id path int true "服务器ID"
-// @Param server body model.Server true "服务器信息"
+// @Param server body types.Server true "服务器信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Server] 返回服务器信息
+// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
 // @Router /server/{id} [post]
 func noopServerUpdate() {}
 
@@ -73,7 +73,7 @@ func noopServerUpdate() {}
 // @Param id path int true "服务器ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Server] 返回服务器信息
+// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
 // @Router /server/{id} [get]
 func noopServerGet() {}
 
@@ -84,7 +84,7 @@ func noopServerGet() {}
 // @Param id path int true "服务器ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Server] 返回服务器信息
+// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
 // @Router /server/{id}/delete [get]
 func noopServerDelete() {}
 
@@ -95,7 +95,7 @@ func noopServerDelete() {}
 // @Param id path int true "服务器ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Server] 返回服务器信息
+// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
 // @Router /server/{id}/enable [get]
 func noopServerEnable() {}
 
@@ -106,7 +106,7 @@ func noopServerEnable() {}
 // @Param id path int true "服务器ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Server] 返回服务器信息
+// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
 // @Router /server/{id}/disable [get]
 func noopServerDisable() {}
 
@@ -132,18 +132,18 @@ func noopServerImport() {}
 
 func serverRouter(app *gin.RouterGroup) {
 
-	app.POST("/count", curd.ApiCount[model.Server]())
+	app.POST("/count", curd.ApiCount[types.Server]())
 
-	app.POST("/search", curd.ApiSearch[model.Server]())
+	app.POST("/search", curd.ApiSearch[types.Server]())
 
-	app.GET("/list", curd.ApiList[model.Server]())
+	app.GET("/list", curd.ApiList[types.Server]())
 
-	app.POST("/create", curd.ApiCreate[model.Server](curd.GenerateRandomId[model.Server](8), func(value *model.Server) error {
+	app.POST("/create", curd.ApiCreate[types.Server](curd.GenerateRandomId[types.Server](8), func(value *types.Server) error {
 		return connect.LoadServer(value)
 	}))
 
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Server]())
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Server](nil, func(value *model.Server) error {
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Server]())
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Server](nil, func(value *types.Server) error {
 		c := connect.GetServer(value.Id)
 		err := c.Close()
 		if err != nil {
@@ -153,21 +153,21 @@ func serverRouter(app *gin.RouterGroup) {
 	},
 		"id", "name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "retry", "options", "disabled", "port", "standalone", "servers"))
 
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Server](nil, func(value interface{}) error {
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Server](nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetServer(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[model.Server](true, nil, func(value interface{}) error {
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[types.Server](true, nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetServer(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[model.Server](false, nil, func(value interface{}) error {
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[types.Server](false, nil, func(value interface{}) error {
 		id := value.(string)
-		var m model.Server
+		var m types.Server
 		has, err := db.Engine.ID(id).Get(&m)
 		if err != nil {
 			return err
@@ -178,7 +178,7 @@ func serverRouter(app *gin.RouterGroup) {
 		return connect.LoadServer(&m)
 	}))
 
-	app.GET("/export", curd.ApiExport[model.Server]("server"))
-	app.POST("/import", curd.ApiImport[model.Server]())
+	app.GET("/export", curd.ApiExport[types.Server]("server"))
+	app.POST("/import", curd.ApiImport[types.Server]())
 
 }

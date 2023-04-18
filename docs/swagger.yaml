@@ -60,48 +60,6 @@ definitions:
       error:
         type: string
     type: object
-  api.ReplyData-model_Client:
-    properties:
-      data:
-        $ref: '#/definitions/model.Client'
-      error:
-        type: string
-    type: object
-  api.ReplyData-model_Device:
-    properties:
-      data:
-        $ref: '#/definitions/model.Device'
-      error:
-        type: string
-    type: object
-  api.ReplyData-model_Link:
-    properties:
-      data:
-        $ref: '#/definitions/model.Link'
-      error:
-        type: string
-    type: object
-  api.ReplyData-model_Product:
-    properties:
-      data:
-        $ref: '#/definitions/model.Product'
-      error:
-        type: string
-    type: object
-  api.ReplyData-model_Serial:
-    properties:
-      data:
-        $ref: '#/definitions/model.Serial'
-      error:
-        type: string
-    type: object
-  api.ReplyData-model_Server:
-    properties:
-      data:
-        $ref: '#/definitions/model.Server'
-      error:
-        type: string
-    type: object
   api.ReplyData-string:
     properties:
       data:
@@ -109,66 +67,108 @@ definitions:
       error:
         type: string
     type: object
-  api.ReplyList-model_Client:
+  api.ReplyData-types_Client:
+    properties:
+      data:
+        $ref: '#/definitions/types.Client'
+      error:
+        type: string
+    type: object
+  api.ReplyData-types_Device:
+    properties:
+      data:
+        $ref: '#/definitions/types.Device'
+      error:
+        type: string
+    type: object
+  api.ReplyData-types_Link:
+    properties:
+      data:
+        $ref: '#/definitions/types.Link'
+      error:
+        type: string
+    type: object
+  api.ReplyData-types_Product:
+    properties:
+      data:
+        $ref: '#/definitions/types.Product'
+      error:
+        type: string
+    type: object
+  api.ReplyData-types_Serial:
+    properties:
+      data:
+        $ref: '#/definitions/types.Serial'
+      error:
+        type: string
+    type: object
+  api.ReplyData-types_Server:
+    properties:
+      data:
+        $ref: '#/definitions/types.Server'
+      error:
+        type: string
+    type: object
+  api.ReplyList-types_Client:
     properties:
       data:
         items:
-          $ref: '#/definitions/model.Client'
+          $ref: '#/definitions/types.Client'
         type: array
       error:
         type: string
       total:
         type: integer
     type: object
-  api.ReplyList-model_Device:
+  api.ReplyList-types_Device:
     properties:
       data:
         items:
-          $ref: '#/definitions/model.Device'
+          $ref: '#/definitions/types.Device'
         type: array
       error:
         type: string
       total:
         type: integer
     type: object
-  api.ReplyList-model_Link:
+  api.ReplyList-types_Link:
     properties:
       data:
         items:
-          $ref: '#/definitions/model.Link'
+          $ref: '#/definitions/types.Link'
         type: array
       error:
         type: string
       total:
         type: integer
     type: object
-  api.ReplyList-model_Product:
+  api.ReplyList-types_Product:
     properties:
       data:
         items:
-          $ref: '#/definitions/model.Product'
+          $ref: '#/definitions/types.Product'
         type: array
       error:
         type: string
       total:
         type: integer
     type: object
-  api.ReplyList-model_Serial:
+  api.ReplyList-types_Serial:
     properties:
       data:
         items:
-          $ref: '#/definitions/model.Serial'
+          $ref: '#/definitions/types.Serial'
         type: array
       error:
         type: string
       total:
         type: integer
     type: object
-  api.ReplyList-model_Server:
+  api.ReplyList-types_Server:
     properties:
       data:
         items:
-          $ref: '#/definitions/model.Server'
+          $ref: '#/definitions/types.Server'
         type: array
       error:
         type: string
@@ -232,7 +232,7 @@ definitions:
       gzip:
         type: boolean
     type: object
-  model.Client:
+  types.Client:
     properties:
       addr:
         description: 地址，主机名或IP
@@ -279,7 +279,7 @@ definitions:
         description: 重试时间
         type: integer
     type: object
-  model.DefaultDevice:
+  types.DefaultDevice:
     properties:
       name:
         description: 名称
@@ -291,7 +291,7 @@ definitions:
         description: 从站号
         type: integer
     type: object
-  model.Device:
+  types.Device:
     properties:
       created:
         type: string
@@ -315,7 +315,7 @@ definitions:
         description: 通道
         type: string
     type: object
-  model.Link:
+  types.Link:
     properties:
       created:
         description: 创建时间
@@ -353,7 +353,7 @@ definitions:
         description: 服务器ID
         type: string
     type: object
-  model.Mapper:
+  types.Mapper:
     properties:
       addr:
         description: 地址
@@ -364,13 +364,13 @@ definitions:
       points:
         description: 数据点
         items:
-          $ref: '#/definitions/model.Point'
+          $ref: '#/definitions/types.Point'
         type: array
       size:
         description: 长度
         type: integer
     type: object
-  model.Point:
+  types.Point:
     properties:
       be:
         description: 大端模式
@@ -388,7 +388,7 @@ definitions:
         description: 类型
         type: string
     type: object
-  model.Product:
+  types.Product:
     properties:
       created:
         description: 创建时间
@@ -401,13 +401,13 @@ definitions:
       mappers:
         description: model.Product `xorm:"extends"`
         items:
-          $ref: '#/definitions/model.Mapper'
+          $ref: '#/definitions/types.Mapper'
         type: array
       name:
         description: 名称
         type: string
     type: object
-  model.Serial:
+  types.Serial:
     properties:
       baud_rate:
         description: 9600 115200
@@ -460,7 +460,7 @@ definitions:
         description: 1 2
         type: integer
     type: object
-  model.Server:
+  types.Server:
     properties:
       created:
         description: 创建时间
@@ -470,7 +470,7 @@ definitions:
         type: string
       devices:
         items:
-          $ref: '#/definitions/model.DefaultDevice'
+          $ref: '#/definitions/types.DefaultDevice'
         type: array
       disabled:
         type: boolean
@@ -525,7 +525,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Client'
+            $ref: '#/definitions/api.ReplyData-types_Client'
       summary: 获取客户端
       tags:
       - client
@@ -544,14 +544,14 @@ paths:
         name: client
         required: true
         schema:
-          $ref: '#/definitions/model.Client'
+          $ref: '#/definitions/types.Client'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Client'
+            $ref: '#/definitions/api.ReplyData-types_Client'
       summary: 修改客户端
       tags:
       - client
@@ -572,7 +572,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Client'
+            $ref: '#/definitions/api.ReplyData-types_Client'
       summary: 删除客户端
       tags:
       - client
@@ -593,7 +593,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Client'
+            $ref: '#/definitions/api.ReplyData-types_Client'
       summary: 禁用客户端
       tags:
       - client
@@ -614,7 +614,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Client'
+            $ref: '#/definitions/api.ReplyData-types_Client'
       summary: 启用客户端
       tags:
       - client
@@ -651,14 +651,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/model.Client'
+          $ref: '#/definitions/types.Client'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Client'
+            $ref: '#/definitions/api.ReplyData-types_Client'
       summary: 创建客户端
       tags:
       - client
@@ -712,7 +712,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Client'
+            $ref: '#/definitions/api.ReplyList-types_Client'
       summary: 查询客户端
       tags:
       - client
@@ -734,7 +734,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Client'
+            $ref: '#/definitions/api.ReplyList-types_Client'
       summary: 查询客户端
       tags:
       - client
@@ -899,7 +899,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Device'
+            $ref: '#/definitions/api.ReplyData-types_Device'
       summary: 获取设备
       tags:
       - device
@@ -918,14 +918,14 @@ paths:
         name: device
         required: true
         schema:
-          $ref: '#/definitions/model.Device'
+          $ref: '#/definitions/types.Device'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Device'
+            $ref: '#/definitions/api.ReplyData-types_Device'
       summary: 修改设备
       tags:
       - device
@@ -946,7 +946,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Device'
+            $ref: '#/definitions/api.ReplyData-types_Device'
       summary: 删除设备
       tags:
       - device
@@ -967,7 +967,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Device'
+            $ref: '#/definitions/api.ReplyData-types_Device'
       summary: 禁用设备
       tags:
       - device
@@ -988,7 +988,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Device'
+            $ref: '#/definitions/api.ReplyData-types_Device'
       summary: 启用设备
       tags:
       - device
@@ -1025,14 +1025,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/model.Device'
+          $ref: '#/definitions/types.Device'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Device'
+            $ref: '#/definitions/api.ReplyData-types_Device'
       summary: 创建设备
       tags:
       - device
@@ -1086,7 +1086,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Device'
+            $ref: '#/definitions/api.ReplyList-types_Device'
       summary: 查询设备
       tags:
       - device
@@ -1108,7 +1108,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Device'
+            $ref: '#/definitions/api.ReplyList-types_Device'
       summary: 查询设备
       tags:
       - device
@@ -1129,7 +1129,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Link'
+            $ref: '#/definitions/api.ReplyData-types_Link'
       summary: 获取连接
       tags:
       - link
@@ -1148,14 +1148,14 @@ paths:
         name: link
         required: true
         schema:
-          $ref: '#/definitions/model.Link'
+          $ref: '#/definitions/types.Link'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Link'
+            $ref: '#/definitions/api.ReplyData-types_Link'
       summary: 修改连接
       tags:
       - link
@@ -1176,7 +1176,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Link'
+            $ref: '#/definitions/api.ReplyData-types_Link'
       summary: 删除连接
       tags:
       - link
@@ -1197,7 +1197,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Link'
+            $ref: '#/definitions/api.ReplyData-types_Link'
       summary: 禁用连接
       tags:
       - link
@@ -1218,7 +1218,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Link'
+            $ref: '#/definitions/api.ReplyData-types_Link'
       summary: 启用连接
       tags:
       - link
@@ -1294,7 +1294,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Link'
+            $ref: '#/definitions/api.ReplyList-types_Link'
       summary: 查询连接
       tags:
       - link
@@ -1316,7 +1316,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Link'
+            $ref: '#/definitions/api.ReplyList-types_Link'
       summary: 查询连接
       tags:
       - link
@@ -1337,7 +1337,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Product'
+            $ref: '#/definitions/api.ReplyData-types_Product'
       summary: 获取产品
       tags:
       - product
@@ -1356,14 +1356,14 @@ paths:
         name: product
         required: true
         schema:
-          $ref: '#/definitions/model.Product'
+          $ref: '#/definitions/types.Product'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Product'
+            $ref: '#/definitions/api.ReplyData-types_Product'
       summary: 修改产品
       tags:
       - product
@@ -1384,7 +1384,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Product'
+            $ref: '#/definitions/api.ReplyData-types_Product'
       summary: 删除产品
       tags:
       - product
@@ -1421,14 +1421,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/model.Product'
+          $ref: '#/definitions/types.Product'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Product'
+            $ref: '#/definitions/api.ReplyData-types_Product'
       summary: 创建产品
       tags:
       - product
@@ -1482,7 +1482,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Product'
+            $ref: '#/definitions/api.ReplyList-types_Product'
       summary: 查询产品
       tags:
       - product
@@ -1504,7 +1504,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Product'
+            $ref: '#/definitions/api.ReplyList-types_Product'
       summary: 查询产品
       tags:
       - product
@@ -1525,7 +1525,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Serial'
+            $ref: '#/definitions/api.ReplyData-types_Serial'
       summary: 获取串口
       tags:
       - serial
@@ -1544,14 +1544,14 @@ paths:
         name: serial
         required: true
         schema:
-          $ref: '#/definitions/model.Serial'
+          $ref: '#/definitions/types.Serial'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Serial'
+            $ref: '#/definitions/api.ReplyData-types_Serial'
       summary: 修改串口
       tags:
       - serial
@@ -1572,7 +1572,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Serial'
+            $ref: '#/definitions/api.ReplyData-types_Serial'
       summary: 删除串口
       tags:
       - serial
@@ -1593,7 +1593,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Serial'
+            $ref: '#/definitions/api.ReplyData-types_Serial'
       summary: 禁用串口
       tags:
       - serial
@@ -1614,7 +1614,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Serial'
+            $ref: '#/definitions/api.ReplyData-types_Serial'
       summary: 启用串口
       tags:
       - serial
@@ -1651,14 +1651,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/model.Serial'
+          $ref: '#/definitions/types.Serial'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Serial'
+            $ref: '#/definitions/api.ReplyData-types_Serial'
       summary: 创建串口
       tags:
       - serial
@@ -1712,7 +1712,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Serial'
+            $ref: '#/definitions/api.ReplyList-types_Serial'
       summary: 查询串口
       tags:
       - serial
@@ -1747,7 +1747,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Serial'
+            $ref: '#/definitions/api.ReplyList-types_Serial'
       summary: 查询串口
       tags:
       - serial
@@ -1768,7 +1768,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Server'
+            $ref: '#/definitions/api.ReplyData-types_Server'
       summary: 获取服务器
       tags:
       - server
@@ -1787,14 +1787,14 @@ paths:
         name: server
         required: true
         schema:
-          $ref: '#/definitions/model.Server'
+          $ref: '#/definitions/types.Server'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Server'
+            $ref: '#/definitions/api.ReplyData-types_Server'
       summary: 修改服务器
       tags:
       - server
@@ -1815,7 +1815,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Server'
+            $ref: '#/definitions/api.ReplyData-types_Server'
       summary: 删除服务器
       tags:
       - server
@@ -1836,7 +1836,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Server'
+            $ref: '#/definitions/api.ReplyData-types_Server'
       summary: 禁用服务器
       tags:
       - server
@@ -1857,7 +1857,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Server'
+            $ref: '#/definitions/api.ReplyData-types_Server'
       summary: 启用服务器
       tags:
       - server
@@ -1894,14 +1894,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/model.Server'
+          $ref: '#/definitions/types.Server'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-model_Server'
+            $ref: '#/definitions/api.ReplyData-types_Server'
       summary: 创建服务器
       tags:
       - server
@@ -1955,7 +1955,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Server'
+            $ref: '#/definitions/api.ReplyList-types_Server'
       summary: 查询服务器
       tags:
       - server
@@ -1977,7 +1977,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-model_Server'
+            $ref: '#/definitions/api.ReplyList-types_Server'
       summary: 查询服务器
       tags:
       - server

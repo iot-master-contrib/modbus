@@ -62,7 +62,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Client"
+                            "$ref": "#/definitions/types.Client"
                         }
                     }
                 ],
@@ -70,7 +70,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -153,7 +153,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Client"
+                            "$ref": "#/definitions/api.ReplyList-types_Client"
                         }
                     }
                 }
@@ -187,7 +187,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Client"
+                            "$ref": "#/definitions/api.ReplyList-types_Client"
                         }
                     }
                 }
@@ -219,7 +219,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -250,7 +250,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Client"
+                            "$ref": "#/definitions/types.Client"
                         }
                     }
                 ],
@@ -258,7 +258,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -290,7 +290,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -322,7 +322,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -354,7 +354,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Client"
+                            "$ref": "#/definitions/api.ReplyData-types_Client"
                         }
                     }
                 }
@@ -634,7 +634,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Device"
+                            "$ref": "#/definitions/types.Device"
                         }
                     }
                 ],
@@ -642,7 +642,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -725,7 +725,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Device"
+                            "$ref": "#/definitions/api.ReplyList-types_Device"
                         }
                     }
                 }
@@ -759,7 +759,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Device"
+                            "$ref": "#/definitions/api.ReplyList-types_Device"
                         }
                     }
                 }
@@ -791,7 +791,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -822,7 +822,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Device"
+                            "$ref": "#/definitions/types.Device"
                         }
                     }
                 ],
@@ -830,7 +830,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -862,7 +862,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -894,7 +894,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -926,7 +926,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Device"
+                            "$ref": "#/definitions/api.ReplyData-types_Device"
                         }
                     }
                 }
@@ -1043,7 +1043,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Link"
+                            "$ref": "#/definitions/api.ReplyList-types_Link"
                         }
                     }
                 }
@@ -1077,7 +1077,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Link"
+                            "$ref": "#/definitions/api.ReplyList-types_Link"
                         }
                     }
                 }
@@ -1109,7 +1109,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                            "$ref": "#/definitions/api.ReplyData-types_Link"
                         }
                     }
                 }
@@ -1140,7 +1140,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Link"
+                            "$ref": "#/definitions/types.Link"
                         }
                     }
                 ],
@@ -1148,7 +1148,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                            "$ref": "#/definitions/api.ReplyData-types_Link"
                         }
                     }
                 }
@@ -1180,7 +1180,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                            "$ref": "#/definitions/api.ReplyData-types_Link"
                         }
                     }
                 }
@@ -1212,7 +1212,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                            "$ref": "#/definitions/api.ReplyData-types_Link"
                         }
                     }
                 }
@@ -1244,7 +1244,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Link"
+                            "$ref": "#/definitions/api.ReplyData-types_Link"
                         }
                     }
                 }
@@ -1304,7 +1304,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Product"
+                            "$ref": "#/definitions/types.Product"
                         }
                     }
                 ],
@@ -1312,7 +1312,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                            "$ref": "#/definitions/api.ReplyData-types_Product"
                         }
                     }
                 }
@@ -1395,7 +1395,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Product"
+                            "$ref": "#/definitions/api.ReplyList-types_Product"
                         }
                     }
                 }
@@ -1429,7 +1429,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Product"
+                            "$ref": "#/definitions/api.ReplyList-types_Product"
                         }
                     }
                 }
@@ -1461,7 +1461,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                            "$ref": "#/definitions/api.ReplyData-types_Product"
                         }
                     }
                 }
@@ -1492,7 +1492,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Product"
+                            "$ref": "#/definitions/types.Product"
                         }
                     }
                 ],
@@ -1500,7 +1500,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                            "$ref": "#/definitions/api.ReplyData-types_Product"
                         }
                     }
                 }
@@ -1532,7 +1532,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Product"
+                            "$ref": "#/definitions/api.ReplyData-types_Product"
                         }
                     }
                 }
@@ -1592,7 +1592,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Serial"
+                            "$ref": "#/definitions/types.Serial"
                         }
                     }
                 ],
@@ -1600,7 +1600,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1683,7 +1683,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Serial"
+                            "$ref": "#/definitions/api.ReplyList-types_Serial"
                         }
                     }
                 }
@@ -1737,7 +1737,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Serial"
+                            "$ref": "#/definitions/api.ReplyList-types_Serial"
                         }
                     }
                 }
@@ -1769,7 +1769,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1800,7 +1800,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Serial"
+                            "$ref": "#/definitions/types.Serial"
                         }
                     }
                 ],
@@ -1808,7 +1808,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1840,7 +1840,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1872,7 +1872,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1904,7 +1904,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Serial"
+                            "$ref": "#/definitions/api.ReplyData-types_Serial"
                         }
                     }
                 }
@@ -1964,7 +1964,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Server"
+                            "$ref": "#/definitions/types.Server"
                         }
                     }
                 ],
@@ -1972,7 +1972,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2055,7 +2055,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Server"
+                            "$ref": "#/definitions/api.ReplyList-types_Server"
                         }
                     }
                 }
@@ -2089,7 +2089,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-model_Server"
+                            "$ref": "#/definitions/api.ReplyList-types_Server"
                         }
                     }
                 }
@@ -2121,7 +2121,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2152,7 +2152,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Server"
+                            "$ref": "#/definitions/types.Server"
                         }
                     }
                 ],
@@ -2160,7 +2160,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2192,7 +2192,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2224,7 +2224,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2256,7 +2256,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-model_Server"
+                            "$ref": "#/definitions/api.ReplyData-types_Server"
                         }
                     }
                 }
@@ -2357,72 +2357,6 @@
                 }
             }
         },
-        "api.ReplyData-model_Client": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Client"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "api.ReplyData-model_Device": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Device"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "api.ReplyData-model_Link": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Link"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "api.ReplyData-model_Product": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Product"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "api.ReplyData-model_Serial": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Serial"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "api.ReplyData-model_Server": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/model.Server"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
         "api.ReplyData-string": {
             "type": "object",
             "properties": {
@@ -2434,13 +2368,79 @@
                 }
             }
         },
-        "api.ReplyList-model_Client": {
+        "api.ReplyData-types_Client": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Client"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-types_Device": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Device"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-types_Link": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Link"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-types_Product": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Product"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-types_Serial": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Serial"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyData-types_Server": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.Server"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyList-types_Client": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Client"
+                        "$ref": "#/definitions/types.Client"
                     }
                 },
                 "error": {
@@ -2451,13 +2451,13 @@
                 }
             }
         },
-        "api.ReplyList-model_Device": {
+        "api.ReplyList-types_Device": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Device"
+                        "$ref": "#/definitions/types.Device"
                     }
                 },
                 "error": {
@@ -2468,13 +2468,13 @@
                 }
             }
         },
-        "api.ReplyList-model_Link": {
+        "api.ReplyList-types_Link": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Link"
+                        "$ref": "#/definitions/types.Link"
                     }
                 },
                 "error": {
@@ -2485,13 +2485,13 @@
                 }
             }
         },
-        "api.ReplyList-model_Product": {
+        "api.ReplyList-types_Product": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Product"
+                        "$ref": "#/definitions/types.Product"
                     }
                 },
                 "error": {
@@ -2502,13 +2502,13 @@
                 }
             }
         },
-        "api.ReplyList-model_Serial": {
+        "api.ReplyList-types_Serial": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Serial"
+                        "$ref": "#/definitions/types.Serial"
                     }
                 },
                 "error": {
@@ -2519,13 +2519,13 @@
                 }
             }
         },
-        "api.ReplyList-model_Server": {
+        "api.ReplyList-types_Server": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Server"
+                        "$ref": "#/definitions/types.Server"
                     }
                 },
                 "error": {
@@ -2624,7 +2624,7 @@
                 }
             }
         },
-        "model.Client": {
+        "types.Client": {
             "type": "object",
             "properties": {
                 "addr": {
@@ -2688,7 +2688,7 @@
                 }
             }
         },
-        "model.DefaultDevice": {
+        "types.DefaultDevice": {
             "type": "object",
             "properties": {
                 "name": {
@@ -2705,7 +2705,7 @@
                 }
             }
         },
-        "model.Device": {
+        "types.Device": {
             "type": "object",
             "properties": {
                 "created": {
@@ -2739,7 +2739,7 @@
                 }
             }
         },
-        "model.Link": {
+        "types.Link": {
             "type": "object",
             "properties": {
                 "created": {
@@ -2791,7 +2791,7 @@
                 }
             }
         },
-        "model.Mapper": {
+        "types.Mapper": {
             "type": "object",
             "properties": {
                 "addr": {
@@ -2806,7 +2806,7 @@
                     "description": "数据点",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Point"
+                        "$ref": "#/definitions/types.Point"
                     }
                 },
                 "size": {
@@ -2815,7 +2815,7 @@
                 }
             }
         },
-        "model.Point": {
+        "types.Point": {
             "type": "object",
             "properties": {
                 "be": {
@@ -2840,7 +2840,7 @@
                 }
             }
         },
-        "model.Product": {
+        "types.Product": {
             "type": "object",
             "properties": {
                 "created": {
@@ -2858,7 +2858,7 @@
                     "description": "model.Product `xorm:\"extends\"`",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Mapper"
+                        "$ref": "#/definitions/types.Mapper"
                     }
                 },
                 "name": {
@@ -2867,7 +2867,7 @@
                 }
             }
         },
-        "model.Serial": {
+        "types.Serial": {
             "type": "object",
             "properties": {
                 "baud_rate": {
@@ -2939,7 +2939,7 @@
                 }
             }
         },
-        "model.Server": {
+        "types.Server": {
             "type": "object",
             "properties": {
                 "created": {
@@ -2953,7 +2953,7 @@
                 "devices": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.DefaultDevice"
+                        "$ref": "#/definitions/types.DefaultDevice"
                     }
                 },
                 "disabled": {

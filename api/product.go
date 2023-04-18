@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
 	"modbus/internal"
-	"modbus/model"
+	"modbus/types"
 )
 
 // @Summary 查询产品数量
@@ -25,7 +25,7 @@ func noopProductCount() {}
 // @Param search body ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Product] 返回产品信息
+// @Success 200 {object} ReplyList[types.Product] 返回产品信息
 // @Router /product/search [post]
 func noopProductSearch() {}
 
@@ -36,7 +36,7 @@ func noopProductSearch() {}
 // @Param search query ParamList true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[model.Product] 返回产品信息
+// @Success 200 {object} ReplyList[types.Product] 返回产品信息
 // @Router /product/list [get]
 func noopProductList() {}
 
@@ -44,10 +44,10 @@ func noopProductList() {}
 // @Schemes
 // @Description 创建产品
 // @Tags product
-// @Param search body model.Product true "产品信息"
+// @Param search body types.Product true "产品信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Product] 返回产品信息
+// @Success 200 {object} ReplyData[types.Product] 返回产品信息
 // @Router /product/create [post]
 func noopProductCreate() {}
 
@@ -56,10 +56,10 @@ func noopProductCreate() {}
 // @Description 修改产品
 // @Tags product
 // @Param id path int true "产品ID"
-// @Param product body model.Product true "产品信息"
+// @Param product body types.Product true "产品信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Product] 返回产品信息
+// @Success 200 {object} ReplyData[types.Product] 返回产品信息
 // @Router /product/{id} [post]
 func noopProductUpdate() {}
 
@@ -70,7 +70,7 @@ func noopProductUpdate() {}
 // @Param id path int true "产品ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Product] 返回产品信息
+// @Success 200 {object} ReplyData[types.Product] 返回产品信息
 // @Router /product/{id} [get]
 func noopProductGet() {}
 
@@ -81,7 +81,7 @@ func noopProductGet() {}
 // @Param id path int true "产品ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[model.Product] 返回产品信息
+// @Success 200 {object} ReplyData[types.Product] 返回产品信息
 // @Router /product/{id}/delete [get]
 func noopProductDelete() {}
 
@@ -107,28 +107,28 @@ func noopProductImport() {}
 
 func productRouter(app *gin.RouterGroup) {
 
-	app.POST("/count", curd.ApiCount[model.Product]())
+	app.POST("/count", curd.ApiCount[types.Product]())
 
-	app.POST("/search", curd.ApiSearch[model.Product]())
-	
-	app.GET("/list", curd.ApiList[model.Product]())
+	app.POST("/search", curd.ApiSearch[types.Product]())
 
-	app.POST("/create", curd.ApiCreate[model.Product](curd.GenerateRandomId[model.Product](8), func(m *model.Product) error {
+	app.GET("/list", curd.ApiList[types.Product]())
+
+	app.POST("/create", curd.ApiCreate[types.Product](curd.GenerateRandomId[types.Product](8), func(m *types.Product) error {
 		return internal.LoadProduct(m)
 	}))
 
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[model.Product]())
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Product]())
 
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[model.Product](nil, func(m *model.Product) error {
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Product](nil, func(m *types.Product) error {
 		return internal.LoadProduct(m)
 	}, "id", "name", "desc", "mappers"))
 
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[model.Product](nil, func(id interface{}) error {
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Product](nil, func(id interface{}) error {
 		//internal.DeleteProduct(id)
 		return nil
 	}))
 
-	app.GET("/export", curd.ApiExport[model.Product]("product"))
-	
-	app.POST("/import", curd.ApiImport[model.Product]())
+	app.GET("/export", curd.ApiExport[types.Product]("product"))
+
+	app.POST("/import", curd.ApiImport[types.Product]())
 }

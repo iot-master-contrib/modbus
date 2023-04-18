@@ -1,4 +1,4 @@
-package model
+package types
 
 type Server struct {
 	Tunnel     `xorm:"extends"`

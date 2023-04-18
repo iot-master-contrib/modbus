@@ -5,7 +5,7 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"io"
 	"modbus/define"
-	"modbus/model"
+	"modbus/types"
 	"sync"
 	"time"
 )
@@ -78,7 +78,7 @@ func (l *tunnelBase) Read(data []byte) (int, error) {
 	return l.link.Read(data)
 }
 
-func (l *tunnelBase) start(model *model.Tunnel) (err error) {
+func (l *tunnelBase) start(model *types.Tunnel) (err error) {
 	l.poller, err = define.CreatePoller(l, model.ProtocolName, model.ProtocolOptions)
 	if err != nil {
 		return

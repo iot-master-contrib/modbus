@@ -2,17 +2,17 @@ package connect
 
 import (
 	"errors"
-	"modbus/model"
+	"modbus/types"
 	"net"
 )
 
 // Link 网络连接
 type Link struct {
 	tunnelBase
-	model *model.Link
+	model *types.Link
 }
 
-func newLink(client *model.Link, conn net.Conn) *Link {
+func newLink(client *types.Link, conn net.Conn) *Link {
 	return &Link{
 		model: client,
 		tunnelBase: tunnelBase{

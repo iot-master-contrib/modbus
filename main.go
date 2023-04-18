@@ -15,7 +15,7 @@ import (
 	"modbus/connect"
 	_ "modbus/docs"
 	"modbus/internal"
-	"modbus/model"
+	"modbus/types"
 	"net/http"
 	"os"
 	"os/signal"
@@ -134,9 +134,9 @@ func originMain() {
 
 	//同步表结构
 	err = db.Engine.Sync2(
-		new(model.Client), new(model.Server),
-		new(model.Link), new(model.Serial),
-		new(model.Product), new(model.Device),
+		new(types.Client), new(types.Server),
+		new(types.Link), new(types.Serial),
+		new(types.Product), new(types.Device),
 	)
 	if err != nil {
 		log.Fatal(err)
