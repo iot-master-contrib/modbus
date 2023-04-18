@@ -15,19 +15,19 @@ import (
 func init() {
 
 	define.RegisterFactory("rtu", func(tunnel io.ReadWriteCloser, opts string) (define.Poller, error) {
-		p := &poller{}
+		p := &poller{online: map[string]bool{}, offline: map[string]bool{}}
 		p.modbus = NewRTU(tunnel, opts)
 		return p, nil
 	})
 
 	define.RegisterFactory("tcp", func(tunnel io.ReadWriteCloser, opts string) (define.Poller, error) {
-		p := &poller{}
+		p := &poller{online: map[string]bool{}, offline: map[string]bool{}}
 		p.modbus = NewTCP(tunnel, opts)
 		return p, nil
 	})
 
 	define.RegisterFactory("parallel-tcp", func(tunnel io.ReadWriteCloser, opts string) (define.Poller, error) {
-		p := &poller{}
+		p := &poller{online: map[string]bool{}, offline: map[string]bool{}}
 		p.modbus = NewParallelTCP(tunnel, opts)
 		return p, nil
 	})
@@ -36,6 +36,8 @@ func init() {
 type poller struct {
 	modbus  Modbus
 	devices []types.Device
+	online  map[string]bool
+	offline map[string]bool
 }
 
 func (p *poller) Load(tunnel string) error {
@@ -81,12 +83,22 @@ func (p *poller) Poll() bool {
 			if err != nil {
 				log.Error(err)
 			}
-		} else {
-			topic := fmt.Sprintf("offline/%s/%s", device.ProductId, device.Id)
-			err := mqtt.Publish(topic, nil, false, 0)
-			if err != nil {
-				log.Error(err)
+
+			//上线提醒
+			if v, ok := p.online[device.Id]; !v || !ok {
+				p.online[device.Id] = true
+				topic := fmt.Sprintf("online/%s/%s", device.ProductId, device.Id)
+				_ = mqtt.Publish(topic, nil, false, 0)
 			}
+			p.offline[device.Id] = false
+		} else {
+			//掉线提醒
+			if v, ok := p.offline[device.Id]; !v || !ok {
+				p.offline[device.Id] = true
+				topic := fmt.Sprintf("offline/%s/%s", device.ProductId, device.Id)
+				_ = mqtt.Publish(topic, nil, false, 0)
+			}
+			p.online[device.Id] = false
 		}
 	}
 
