@@ -2692,6 +2692,9 @@ const docTemplate = `{
                 "retry_timeout": {
                     "description": "重试时间",
                     "type": "integer"
+                },
+                "running": {
+                    "type": "boolean"
                 }
             }
         },
@@ -2791,6 +2794,9 @@ const docTemplate = `{
                 "remote": {
                     "description": "远程地址",
                     "type": "string"
+                },
+                "running": {
+                    "type": "boolean"
                 },
                 "server_id": {
                     "description": "服务器ID",
@@ -2940,6 +2946,9 @@ const docTemplate = `{
                     "description": "重试时间",
                     "type": "integer"
                 },
+                "running": {
+                    "type": "boolean"
+                },
                 "stop_bits": {
                     "description": "1 2",
                     "type": "integer"
@@ -2997,6 +3006,9 @@ const docTemplate = `{
                 "protocol_options": {
                     "description": "协议参数",
                     "type": "string"
+                },
+                "running": {
+                    "type": "boolean"
                 },
                 "standalone": {
                     "description": "单例模式（不支持注册）",

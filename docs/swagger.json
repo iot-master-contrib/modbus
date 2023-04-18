@@ -2685,6 +2685,9 @@
                 "retry_timeout": {
                     "description": "重试时间",
                     "type": "integer"
+                },
+                "running": {
+                    "type": "boolean"
                 }
             }
         },
@@ -2784,6 +2787,9 @@
                 "remote": {
                     "description": "远程地址",
                     "type": "string"
+                },
+                "running": {
+                    "type": "boolean"
                 },
                 "server_id": {
                     "description": "服务器ID",
@@ -2933,6 +2939,9 @@
                     "description": "重试时间",
                     "type": "integer"
                 },
+                "running": {
+                    "type": "boolean"
+                },
                 "stop_bits": {
                     "description": "1 2",
                     "type": "integer"
@@ -2990,6 +2999,9 @@
                 "protocol_options": {
                     "description": "协议参数",
                     "type": "string"
+                },
+                "running": {
+                    "type": "boolean"
                 },
                 "standalone": {
                     "description": "单例模式（不支持注册）",
