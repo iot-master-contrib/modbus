@@ -12,6 +12,8 @@ type Tunnel struct {
 	Protocol `xorm:"extends"`
 	Poller   `xorm:"extends"`
 
+	Running bool `json:"running,omitempty" xorm:"-"`
+
 	Disabled bool       `json:"disabled"`
 	Created  model.Time `json:"created" xorm:"created"` //创建时间
 }
