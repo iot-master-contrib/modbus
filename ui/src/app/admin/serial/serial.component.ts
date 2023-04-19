@@ -43,7 +43,18 @@ export class SerialComponent {
       this.load();
     });
   }
-
+  status(num:number,id:any){
+    if(num){
+      this.rs.get(`serial/${id}/start`).subscribe((res) => {
+        this.msg.success(`已启动!`);
+        this.load();
+      });
+    }
+    else{ this.rs.get(`serial/${id}/stop`).subscribe((res) => {
+      this.msg.success(`已停止!`);
+      this.load();
+    });}
+  }
   add() {
     this.router.navigateByUrl(`/admin/create/serial`);
   }

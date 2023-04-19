@@ -53,7 +53,18 @@ export class ServerComponent {
     const path = `/admin/server/edit/${id}`;
     this.router.navigateByUrl(path);
   }
-
+status(num:number,id:any){
+  if(num){
+    this.rs.get(`server/${id}/start`).subscribe((res) => {
+      this.msg.success(`已启动!`);
+      this.load();
+    });
+  }
+  else{ this.rs.get(`server/${id}/stop`).subscribe((res) => {
+    this.msg.success(`已停止!`);
+    this.load();
+  });}
+}
   search(text: any) {
     if (text)
       this.query.filter = {

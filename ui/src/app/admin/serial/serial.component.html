@@ -39,6 +39,14 @@
               (nzOnConfirm)="handleToggleStatus(i, data)" nzPopconfirmPlacement="topLeft">
               {{ data.disabled?'启用':'禁用' }}
             </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="status(1, data.id)">
+              启动
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="status(0, data.id)">
+             停止
+            </a>
           </td>
         </tr>
       </tbody>
