@@ -55,7 +55,7 @@ import { ServerEditComponent } from './admin/server/server-edit/server-edit.comp
 import { ServerDetailComponent } from './admin/server/server-detail/server-detail.component';
 import { ServerLinkComponent } from './admin/server/server-link/server-link.component';
 import { BaseModule } from './admin/base/base.module';
-import { ProductEditComponent } from './admin/product-edit/product-edit.component';
+import { ProductEditComponent } from './admin/product/product-edit/product-edit.component';
 import { TunnelDeviceComponent } from './admin/tunnel-device/tunnel-device.component';
 import { SetProductIdComponent } from './admin/product/set-product-id/set-product-id.component';
 

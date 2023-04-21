@@ -16,7 +16,7 @@ import { ServerEditComponent } from './admin/server/server-edit/server-edit.comp
 import { ServerDetailComponent } from './admin/server/server-detail/server-detail.component';
 import { DeviceComponent } from './admin/device/device.component';
 import { DeviceEditComponent } from './admin/device/device-edit/device-edit.component';
-import { ProductEditComponent } from './admin/product-edit/product-edit.component';
+import { ProductEditComponent } from './admin/product/product-edit/product-edit.component';
 
 const pages: Routes = [
   {
