@@ -14,19 +14,19 @@ import (
 
 func init() {
 
-	define.RegisterFactory("rtu", func(tunnel io.ReadWriteCloser, opts string) (define.Poller, error) {
+	define.RegisterFactory("rtu", func(tunnel define.Conn, opts string) (define.Poller, error) {
 		p := &poller{online: map[string]bool{}, offline: map[string]bool{}}
 		p.modbus = NewRTU(tunnel, opts)
 		return p, nil
 	})
 
-	define.RegisterFactory("tcp", func(tunnel io.ReadWriteCloser, opts string) (define.Poller, error) {
+	define.RegisterFactory("tcp", func(tunnel define.Conn, opts string) (define.Poller, error) {
 		p := &poller{online: map[string]bool{}, offline: map[string]bool{}}
 		p.modbus = NewTCP(tunnel, opts)
 		return p, nil
 	})
 
-	define.RegisterFactory("parallel-tcp", func(tunnel io.ReadWriteCloser, opts string) (define.Poller, error) {
+	define.RegisterFactory("parallel-tcp", func(tunnel define.Conn, opts string) (define.Poller, error) {
 		p := &poller{online: map[string]bool{}, offline: map[string]bool{}}
 		p.modbus = NewParallelTCP(tunnel, opts)
 		return p, nil

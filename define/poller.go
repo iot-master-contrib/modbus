@@ -2,7 +2,6 @@ package define
 
 import (
 	"fmt"
-	"io"
 )
 
 type Poller interface {
@@ -11,7 +10,7 @@ type Poller interface {
 	Close() error
 }
 
-type Factory func(link io.ReadWriteCloser, opts string) (Poller, error)
+type Factory func(conn Conn, opts string) (Poller, error)
 
 //
 //type Factory interface {
@@ -24,9 +23,9 @@ func RegisterFactory(protocol string, factory Factory) {
 	factories[protocol] = factory
 }
 
-func CreatePoller(link io.ReadWriteCloser, protocol string, opts string) (Poller, error) {
+func CreatePoller(conn Conn, protocol string, opts string) (Poller, error) {
 	if f, ok := factories[protocol]; ok {
-		return f(link, opts)
+		return f(conn, opts)
 	}
 	return nil, fmt.Errorf("unkown protocol %s", protocol)
 }

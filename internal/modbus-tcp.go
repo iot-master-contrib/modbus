@@ -4,20 +4,20 @@ import (
 	"errors"
 	"fmt"
 	"github.com/zgwit/iot-master/v3/pkg/bin"
-	"io"
+	"modbus/define"
 	"time"
 )
 
 // TCP Modbus-TCP协议
 type TCP struct {
-	link Messenger
-	buf  []byte
+	messenger Messenger
+	buf       []byte
 }
 
-func NewTCP(link io.ReadWriter, opts string) *TCP {
+func NewTCP(tunnel define.Conn, opts string) *TCP {
 	tcp := &TCP{
-		link: Messenger{Timeout: time.Second, Conn: link},
-		buf:  make([]byte, 260),
+		messenger: Messenger{Timeout: time.Second, tunnel: tunnel},
+		buf:       make([]byte, 260),
 	}
 	return tcp
 }
@@ -26,7 +26,7 @@ func (m *TCP) execute(cmd []byte) ([]byte, error) {
 	bin.WriteUint16(cmd, 0x0A0A) //写入事务ID
 
 	//下发指令
-	l, err := m.link.AskAtLeast(cmd, m.buf, 10)
+	l, err := m.messenger.AskAtLeast(cmd, m.buf, 10)
 	if err != nil {
 		return nil, err
 	}

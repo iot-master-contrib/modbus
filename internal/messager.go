@@ -1,8 +1,8 @@
 package internal
 
 import (
-	"errors"
 	"io"
+	"modbus/define"
 	"sync"
 	"time"
 )
@@ -10,44 +10,28 @@ import (
 type Messenger struct {
 	Timeout time.Duration
 	mu      sync.Mutex
-	Conn    io.ReadWriter
+	tunnel  define.Conn
 }
 
 func (m *Messenger) Ask(request []byte, response []byte) (int, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
-	//s := bufio.NewReader(m.Conn)
+	//s := bufio.NewReader(m.tunnel)
 
 	//先写
-	_, err := m.Conn.Write(request)
+	_, err := m.tunnel.Write(request)
 	if err != nil {
 		return 0, err
 	}
 
-	//接收返回值
-	n := make(chan int)
-	e := make(chan error)
-
-	//TODO 此处开启了新协程，不太好
-	go func() {
-		//读
-		nn, ee := m.Conn.Read(response)
-		if ee != nil {
-			e <- ee
-			return
-		}
-		n <- nn
-	}()
-
-	select {
-	case <-time.After(m.Timeout):
-		return 0, errors.New("timeout")
-	case nn := <-n:
-		return nn, nil
-	case ee := <-e:
-		return 0, ee
+	//读超时
+	err = m.tunnel.SetReadTimeout(m.Timeout)
+	if err != nil {
+		return 0, err
 	}
+
+	return m.tunnel.Read(response)
 }
 
 func (m *Messenger) AskAtLeast(request []byte, response []byte, min int) (int, error) {
@@ -55,90 +39,42 @@ func (m *Messenger) AskAtLeast(request []byte, response []byte, min int) (int, e
 	defer m.mu.Unlock()
 
 	//先写
-	_, err := m.Conn.Write(request)
+	_, err := m.tunnel.Write(request)
 	if err != nil {
 		return 0, err
 	}
 
-	//接收返回值
-	n := make(chan int)
-	e := make(chan error)
-
-	//TODO 此处开启了新协程，不太好
-	go func() {
-		//读
-		nn, ee := io.ReadAtLeast(m.Conn, response, min)
-		if ee != nil {
-			e <- ee
-			return
-		}
-		n <- nn
-	}()
-
-	select {
-	case <-time.After(m.Timeout):
-		return 0, errors.New("timeout")
-	case nn := <-n:
-		return nn, nil
-	case ee := <-e:
-		return 0, ee
+	//读超时
+	err = m.tunnel.SetReadTimeout(m.Timeout)
+	if err != nil {
+		return 0, err
 	}
+
+	return io.ReadAtLeast(m.tunnel, response, min)
 }
 
 func (m *Messenger) Read(response []byte) (int, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
-	//接收返回值
-	n := make(chan int)
-	e := make(chan error)
-
-	//TODO 此处开启了新协程，不太好
-	go func() {
-		//读
-		nn, ee := m.Conn.Read(response)
-		if ee != nil {
-			e <- ee
-			return
-		}
-		n <- nn
-	}()
-
-	select {
-	case <-time.After(m.Timeout):
-		return 0, errors.New("timeout")
-	case nn := <-n:
-		return nn, nil
-	case ee := <-e:
-		return 0, ee
+	//读超时
+	err := m.tunnel.SetReadTimeout(m.Timeout)
+	if err != nil {
+		return 0, err
 	}
+	//读
+	return m.tunnel.Read(response)
 }
 
 func (m *Messenger) ReadAtLeast(response []byte, min int) (int, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
-	//接收返回值
-	n := make(chan int)
-	e := make(chan error)
-
-	//TODO 此处开启了新协程，不太好
-	go func() {
-		//读
-		nn, ee := io.ReadAtLeast(m.Conn, response, min)
-		if ee != nil {
-			e <- ee
-			return
-		}
-		n <- nn
-	}()
-
-	select {
-	case <-time.After(m.Timeout):
-		return 0, errors.New("timeout")
-	case nn := <-n:
-		return nn, nil
-	case ee := <-e:
-		return 0, ee
+	//读超时
+	err := m.tunnel.SetReadTimeout(m.Timeout)
+	if err != nil {
+		return 0, err
 	}
+
+	return io.ReadAtLeast(m.tunnel, response, min)
 }

@@ -4,20 +4,20 @@ import (
 	"errors"
 	"fmt"
 	"github.com/zgwit/iot-master/v3/pkg/bin"
-	"io"
+	"modbus/define"
 	"time"
 )
 
 // RTU Modbus-RTU协议
 type RTU struct {
-	link Messenger
-	buf  []byte
+	messenger Messenger
+	buf       []byte
 }
 
-func NewRTU(link io.ReadWriter, opts string) *RTU {
+func NewRTU(tunnel define.Conn, opts string) *RTU {
 	//TODO parse opts(yaml)
 	rtu := &RTU{
-		link: Messenger{Timeout: 5 * time.Second, Conn: link},
+		messenger: Messenger{Timeout: 5 * time.Second, tunnel: tunnel},
 		//slave: opts["slave"].(uint8),
 		buf: make([]byte, 256),
 	}
@@ -27,7 +27,7 @@ func NewRTU(link io.ReadWriter, opts string) *RTU {
 
 func (m *RTU) execute(cmd []byte) ([]byte, error) {
 
-	l, err := m.link.AskAtLeast(cmd, m.buf, 5)
+	l, err := m.messenger.AskAtLeast(cmd, m.buf, 5)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (m *RTU) execute(cmd []byte) ([]byte, error) {
 
 		if l < length {
 			//长度不够，继续读
-			_, err = m.link.ReadAtLeast(m.buf[l:], length-l)
+			_, err = m.messenger.ReadAtLeast(m.buf[l:], length-l)
 			if err != nil {
 				return nil, err
 			}
@@ -72,7 +72,7 @@ func (m *RTU) execute(cmd []byte) ([]byte, error) {
 		length += 1 + count
 		if l < length {
 			//长度不够，继续读
-			_, err = m.link.ReadAtLeast(m.buf[l:], length-l)
+			_, err = m.messenger.ReadAtLeast(m.buf[l:], length-l)
 			if err != nil {
 				return nil, err
 			}

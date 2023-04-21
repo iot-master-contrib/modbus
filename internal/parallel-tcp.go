@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/zgwit/iot-master/v3/pkg/bin"
-	"io"
+	"modbus/define"
 	"sync"
 	"time"
 )
@@ -21,18 +21,18 @@ type request struct {
 
 // ParallelTCP Modbus-TCP协议
 type ParallelTCP struct {
-	link  io.ReadWriter
-	queue chan interface{} //in
+	tunnel define.Conn
+	queue  chan interface{} //in
 
 	requests  sync.Map
 	increment uint16
 }
 
-func NewParallelTCP(link io.ReadWriter, opts string) *ParallelTCP {
+func NewParallelTCP(tunnel define.Conn, opts string) *ParallelTCP {
 	concurrency := 10
 
 	tcp := &ParallelTCP{
-		link:      link,
+		tunnel:    tunnel,
 		queue:     make(chan interface{}, concurrency),
 		increment: 0x0A0A, //避免首字节为0，有些DTU可能会异常
 	}
@@ -59,7 +59,7 @@ func (m *ParallelTCP) execute(cmd []byte, immediate bool) ([]byte, error) {
 	m.requests.Store(id, req)
 
 	//TODO 下发指令
-	_, err := m.link.Write(cmd)
+	_, err := m.tunnel.Write(cmd)
 	if err != nil {
 		if !immediate {
 			//释放队列

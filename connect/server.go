@@ -91,7 +91,7 @@ func (s *Server) Open() error {
 			sn := string(data)
 
 			var link types.Link
-			//get, err := db.Engine.Where("server_id=?", s.model.Id).And("sn=?", sn).Get(&link)
+			//get, err := db.Engine.Where("server_id=?", s.model.Id).And("sn=?", sn).Get(&conn)
 			get, err := db.Engine.ID(sn).Get(&link)
 			if err != nil {
 				_, _ = c.Write([]byte(err.Error()))

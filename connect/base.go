@@ -11,7 +11,8 @@ import (
 )
 
 type tunnelBase struct {
-	link   io.ReadWriteCloser
+	define.Conn
+
 	poller define.Poller
 
 	lock sync.Mutex
@@ -44,7 +45,7 @@ func (l *tunnelBase) Close() error {
 	}
 
 	l.onClose()
-	return l.link.Close()
+	return l.Conn.Close()
 }
 
 func (l *tunnelBase) onClose() {
@@ -62,7 +63,7 @@ func (l *tunnelBase) Write(data []byte) (int, error) {
 	if l.pipe != nil {
 		return 0, nil //透传模式下，直接抛弃
 	}
-	return l.link.Write(data)
+	return l.Conn.Write(data)
 }
 
 // Read 读
@@ -75,7 +76,7 @@ func (l *tunnelBase) Read(data []byte) (int, error) {
 		//TODO 先read，然后透传
 		return 0, nil //透传模式下，直接抛弃
 	}
-	return l.link.Read(data)
+	return l.Conn.Read(data)
 }
 
 func (l *tunnelBase) start(model *types.Tunnel) (err error) {
@@ -158,7 +159,7 @@ func (l *tunnelBase) Pipe(pipe io.ReadWriteCloser) {
 			break
 		}
 		//将收到的数据转发出去
-		n, err = l.link.Write(buf[:n])
+		n, err = l.Conn.Write(buf[:n])
 		if err != nil {
 			//发送失败，说明连接失效
 			_ = pipe.Close()
@@ -168,6 +169,6 @@ func (l *tunnelBase) Pipe(pipe io.ReadWriteCloser) {
 	l.pipe = nil
 
 	//TODO 使用io.copy
-	//go io.Copy(pipe, l.link)
-	//go io.Copy(l.link, pipe)
+	//go io.Copy(pipe, l.conn)
+	//go io.Copy(l.conn, pipe)
 }
