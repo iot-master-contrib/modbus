@@ -23,9 +23,10 @@ type Mapper struct {
 }
 
 type Point struct {
-	Name      string  `json:"name"`           //名称
-	Type      string  `json:"type"`           //类型
-	Offset    uint16  `json:"offset"`         //偏移
+	Name      string  `json:"name"`   //名称
+	Type      string  `json:"type"`   //类型
+	Offset    uint16  `json:"offset"` //偏移
+	Bits      uint16  `json:"bits,omitempty"`
 	BigEndian bool    `json:"be,omitempty"`   //大端模式
 	Rate      float64 `json:"rate,omitempty"` //倍率
 }
@@ -44,7 +45,24 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 			continue
 		}
 		switch p.Type {
-		case "word":
+		case "bit":
+			var v uint16
+			if p.BigEndian {
+				v = bin.ParseUint16(buf[offset:])
+			} else {
+				v = bin.ParseUint16LittleEndian(buf[offset:])
+			}
+			ret[p.Name] = 1<<p.Bits&v != 0
+		case "short", "int16":
+			if p.BigEndian {
+				ret[p.Name] = int16(bin.ParseUint16(buf[offset:]))
+			} else {
+				ret[p.Name] = int16(bin.ParseUint16LittleEndian(buf[offset:]))
+			}
+			if p.Rate != 0 && p.Rate != 1 {
+				ret[p.Name] = float64(ret[p.Name].(uint16)) * p.Rate
+			}
+		case "word", "uint16":
 			if p.BigEndian {
 				ret[p.Name] = bin.ParseUint16(buf[offset:])
 			} else {
@@ -53,7 +71,16 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(uint16)) * p.Rate
 			}
-		case "qword":
+		case "int32":
+			if p.BigEndian {
+				ret[p.Name] = int32(bin.ParseUint32(buf[offset:]))
+			} else {
+				ret[p.Name] = int32(bin.ParseUint32LittleEndian(buf[offset:]))
+			}
+			if p.Rate != 0 && p.Rate != 1 {
+				ret[p.Name] = float64(ret[p.Name].(uint16)) * p.Rate
+			}
+		case "qword", "uint32":
 			if p.BigEndian {
 				ret[p.Name] = bin.ParseUint32(buf[offset:])
 			} else {
@@ -62,7 +89,7 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(uint16)) * p.Rate
 			}
-		case "float":
+		case "float", "float32":
 			if p.BigEndian {
 				ret[p.Name] = bin.ParseFloat32(buf[offset:])
 			} else {
@@ -71,7 +98,7 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(float32)) * p.Rate
 			}
-		case "double":
+		case "double", "float64":
 			if p.BigEndian {
 				ret[p.Name] = bin.ParseFloat64(buf[offset:])
 			} else {
