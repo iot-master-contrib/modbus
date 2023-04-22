@@ -23,10 +23,10 @@ type Mapper struct {
 }
 
 type Point struct {
-	Name      string  `json:"name"`   //名称
-	Type      string  `json:"type"`   //类型
-	Offset    uint16  `json:"offset"` //偏移
-	Bits      uint16  `json:"bits,omitempty"`
+	Name      string  `json:"name"`           //名称
+	Type      string  `json:"type"`           //类型
+	Offset    uint16  `json:"offset"`         //偏移
+	Bits      uint16  `json:"bits,omitempty"` //位，1 2 3...
 	BigEndian bool    `json:"be,omitempty"`   //大端模式
 	Rate      float64 `json:"rate,omitempty"` //倍率
 }
@@ -52,7 +52,7 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 			} else {
 				v = bin.ParseUint16LittleEndian(buf[offset:])
 			}
-			ret[p.Name] = 1<<p.Bits&v != 0
+			ret[p.Name] = 1<<(p.Bits-1)&v != 0
 		case "short", "int16":
 			if p.BigEndian {
 				ret[p.Name] = int16(bin.ParseUint16(buf[offset:]))
@@ -60,7 +60,7 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 				ret[p.Name] = int16(bin.ParseUint16LittleEndian(buf[offset:]))
 			}
 			if p.Rate != 0 && p.Rate != 1 {
-				ret[p.Name] = float64(ret[p.Name].(uint16)) * p.Rate
+				ret[p.Name] = float64(ret[p.Name].(int16)) * p.Rate
 			}
 		case "word", "uint16":
 			if p.BigEndian {
