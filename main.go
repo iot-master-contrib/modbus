@@ -64,8 +64,8 @@ func main() {
 
 	//注册应用
 	payload, _ := json.Marshal(model.App{
-		Id:   "alarm",
-		Name: "modbus",
+		Id:   "modbus",
+		Name: "Modbus",
 		Entries: []model.AppEntry{{
 			Path: "app/modbus",
 			Name: "modbus",
