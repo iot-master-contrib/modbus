@@ -110,6 +110,28 @@ func noopClientEnable() {}
 // @Router /client/{id}/disable [get]
 func noopClientDisable() {}
 
+// @Summary 启动客户端
+// @Schemes
+// @Description 启动客户端
+// @Tags client
+// @Param id path int true "客户端ID"
+// @Accept json
+// @Produce json
+// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
+// @Router /client/{id}/start [get]
+func noopClientStart() {}
+
+// @Summary 停止客户端
+// @Schemes
+// @Description 停止客户端
+// @Tags client
+// @Param id path int true "客户端ID"
+// @Accept json
+// @Produce json
+// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
+// @Router /client/{id}/stop [get]
+func noopClientStop() {}
+
 // @Summary 导出客户端
 // @Schemes
 // @Description 导出客户端
@@ -134,7 +156,15 @@ func clientRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Client]())
 
-	app.POST("/search", curd.ApiSearch[types.Client]())
+	app.POST("/search", curd.ApiSearchMapHook[types.Client](func(clients []map[string]any) error {
+		for _, client := range clients {
+			c := connect.GetClient(client["id"].(string))
+			if c != nil {
+				client["running"] = c.Running()
+			}
+		}
+		return nil
+	}))
 
 	app.GET("/list", curd.ApiList[types.Client]())
 
@@ -142,7 +172,13 @@ func clientRouter(app *gin.RouterGroup) {
 		return connect.LoadClient(value)
 	}))
 
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Client]())
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGetMapHook[types.Client](func(client map[string]any) error {
+		c := connect.GetClient(client["id"].(string))
+		if c != nil {
+			client["running"] = c.Running()
+		}
+		return nil
+	}))
 
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Client](nil, func(value *types.Client) error {
 		c := connect.GetClient(value.Id)
@@ -179,7 +215,38 @@ func clientRouter(app *gin.RouterGroup) {
 		return connect.LoadClient(&m)
 	}))
 
+	app.GET(":id/start", curd.ParseParamStringId, func(ctx *gin.Context) {
+		id := ctx.GetString("id")
+		c := connect.GetClient(id)
+		if c == nil {
+			curd.Fail(ctx, "找不到连接")
+			return
+		}
+		err := c.Open()
+		if err != nil {
+			curd.Error(ctx, err)
+			return
+		}
+		curd.OK(ctx, nil)
+	})
+
+	app.GET(":id/stop", curd.ParseParamStringId, func(ctx *gin.Context) {
+		id := ctx.GetString("id")
+		c := connect.GetClient(id)
+		if c == nil {
+			curd.Fail(ctx, "找不到连接")
+			return
+		}
+		err := c.Close()
+		if err != nil {
+			curd.Error(ctx, err)
+			return
+		}
+		curd.OK(ctx, nil)
+	})
+
 	app.GET("/export", curd.ApiExport[types.Client]("client"))
+
 	app.POST("/import", curd.ApiImport[types.Client]())
 
 }

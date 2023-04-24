@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
+	"modbus/connect"
 	"modbus/types"
 )
 
@@ -95,6 +96,17 @@ func noopLinkEnable() {}
 // @Router /link/{id}/disable [get]
 func noopLinkDisable() {}
 
+// @Summary 停止连接
+// @Schemes
+// @Description 停止连接
+// @Tags link
+// @Param id path int true "连接ID"
+// @Accept json
+// @Produce json
+// @Success 200 {object} ReplyData[types.Link] 返回连接信息
+// @Router /link/{id}/stop [get]
+func noopLinkStop() {}
+
 // @Summary 导出连接
 // @Schemes
 // @Description 导出连接
@@ -118,15 +130,51 @@ func noopLinkImport() {}
 func linkRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Link]())
-	app.POST("/search", curd.ApiSearch[types.Link]())
+	app.POST("/search", curd.ApiSearchMapHook[types.Link](func(links []map[string]any) error {
+		for _, link := range links {
+			c := connect.GetLink(link["id"].(string))
+			if c != nil {
+				link["running"] = c.Running()
+			}
+		}
+		return nil
+	}))
+
 	app.GET("/list", curd.ApiList[types.Link]())
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Link]())
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGetMapHook[types.Link](func(link map[string]any) error {
+		c := connect.GetLink(link["id"].(string))
+		if c != nil {
+			link["running"] = c.Running()
+		}
+		return nil
+	}))
+
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Link](nil, nil,
 		"name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "disabled"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Link](nil, nil))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Link](true, nil, nil))
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Link](true, nil, func(value interface{}) error {
+		id := value.(string)
+		c := connect.GetLink(id)
+		return c.Close()
+	}))
+
 	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisableHook[types.Link](false, nil, nil))
+
+	app.GET(":id/stop", curd.ParseParamStringId, func(ctx *gin.Context) {
+		id := ctx.GetString("id")
+		c := connect.GetLink(id)
+		if c == nil {
+			curd.Fail(ctx, "找不到连接")
+			return
+		}
+		err := c.Close()
+		if err != nil {
+			curd.Error(ctx, err)
+			return
+		}
+		curd.OK(ctx, nil)
+	})
 
 	app.GET("/export", curd.ApiExport[types.Link]("link"))
 	app.POST("/import", curd.ApiImport[types.Link]())

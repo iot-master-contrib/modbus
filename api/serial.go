@@ -111,6 +111,28 @@ func noopSerialEnable() {}
 // @Router /serial/{id}/disable [get]
 func noopSerialDisable() {}
 
+// @Summary 启动串口
+// @Schemes
+// @Description 启动串口
+// @Tags serial
+// @Param id path int true "串口ID"
+// @Accept json
+// @Produce json
+// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
+// @Router /serial/{id}/start [get]
+func noopSerialStart() {}
+
+// @Summary 停止串口
+// @Schemes
+// @Description 停止串口
+// @Tags serial
+// @Param id path int true "串口ID"
+// @Accept json
+// @Produce json
+// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
+// @Router /serial/{id}/stop [get]
+func noopSerialStop() {}
+
 // @Summary 导出串口
 // @Schemes
 // @Description 导出串口
@@ -144,7 +166,15 @@ func serialRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Serial]())
 
-	app.POST("/search", curd.ApiSearch[types.Serial]())
+	app.POST("/search", curd.ApiSearchMapHook[types.Serial](func(serials []map[string]any) error {
+		for _, serial := range serials {
+			c := connect.GetSerial(serial["id"].(string))
+			if c != nil {
+				serial["running"] = c.Running()
+			}
+		}
+		return nil
+	}))
 
 	app.GET("/list", curd.ApiList[types.Serial]())
 
@@ -152,7 +182,13 @@ func serialRouter(app *gin.RouterGroup) {
 		return connect.LoadSerial(value)
 	}))
 
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Serial]())
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGetMapHook[types.Serial](func(serial map[string]any) error {
+		c := connect.GetSerial(serial["id"].(string))
+		if c != nil {
+			serial["running"] = c.Running()
+		}
+		return nil
+	}))
 
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Serial](nil, func(value *types.Serial) error {
 		c := connect.GetSerial(value.Id)
@@ -189,6 +225,36 @@ func serialRouter(app *gin.RouterGroup) {
 		}
 		return connect.LoadSerial(&m)
 	}))
+
+	app.GET(":id/start", curd.ParseParamStringId, func(ctx *gin.Context) {
+		id := ctx.GetString("id")
+		c := connect.GetSerial(id)
+		if c == nil {
+			curd.Fail(ctx, "找不到连接")
+			return
+		}
+		err := c.Open()
+		if err != nil {
+			curd.Error(ctx, err)
+			return
+		}
+		curd.OK(ctx, nil)
+	})
+
+	app.GET(":id/stop", curd.ParseParamStringId, func(ctx *gin.Context) {
+		id := ctx.GetString("id")
+		c := connect.GetSerial(id)
+		if c == nil {
+			curd.Fail(ctx, "找不到连接")
+			return
+		}
+		err := c.Close()
+		if err != nil {
+			curd.Error(ctx, err)
+			return
+		}
+		curd.OK(ctx, nil)
+	})
 
 	app.GET("/export", curd.ApiExport[types.Serial]("serial"))
 	app.POST("/import", curd.ApiImport[types.Serial]())

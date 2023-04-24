@@ -1,4 +1,4 @@
-basePath: /api/
+basePath: /api/modbus/api/
 definitions:
   api.ParamSearch:
     properties:
@@ -17,41 +17,6 @@ definitions:
         additionalProperties:
           type: integer
         type: object
-    type: object
-  api.ReplyData-api_dbOptions:
-    properties:
-      data:
-        $ref: '#/definitions/api.dbOptions'
-      error:
-        type: string
-    type: object
-  api.ReplyData-api_logOptions:
-    properties:
-      data:
-        $ref: '#/definitions/api.logOptions'
-      error:
-        type: string
-    type: object
-  api.ReplyData-api_mqttOptions:
-    properties:
-      data:
-        $ref: '#/definitions/api.mqttOptions'
-      error:
-        type: string
-    type: object
-  api.ReplyData-api_webOptions:
-    properties:
-      data:
-        $ref: '#/definitions/api.webOptions'
-      error:
-        type: string
-    type: object
-  api.ReplyData-int:
-    properties:
-      data:
-        type: integer
-      error:
-        type: string
     type: object
   api.ReplyData-int64:
     properties:
@@ -174,63 +139,6 @@ definitions:
         type: string
       total:
         type: integer
-    type: object
-  api.dbOptions:
-    properties:
-      debug:
-        type: boolean
-      log_level:
-        type: integer
-      type:
-        type: string
-      url:
-        type: string
-    type: object
-  api.logOptions:
-    properties:
-      caller:
-        type: boolean
-      format:
-        type: string
-      level:
-        type: string
-      output:
-        $ref: '#/definitions/api.logOutput'
-      text:
-        type: boolean
-    type: object
-  api.logOutput:
-    properties:
-      filename:
-        type: string
-      max_age:
-        type: integer
-      max_backups:
-        type: integer
-      max_size:
-        type: integer
-    type: object
-  api.mqttOptions:
-    properties:
-      clientId:
-        type: string
-      password:
-        type: string
-      url:
-        type: string
-      username:
-        type: string
-    type: object
-  api.webOptions:
-    properties:
-      addr:
-        type: string
-      cors:
-        type: boolean
-      debug:
-        type: boolean
-      gzip:
-        type: boolean
     type: object
   types.Client:
     properties:
@@ -379,6 +287,9 @@ definitions:
       be:
         description: 大端模式
         type: boolean
+      bits:
+        description: 位，1 2 3...
+        type: integer
       name:
         description: 名称
         type: string
@@ -626,6 +537,48 @@ paths:
       summary: 启用客户端
       tags:
       - client
+  /client/{id}/start:
+    get:
+      consumes:
+      - application/json
+      description: 启动客户端
+      parameters:
+      - description: 客户端ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Client'
+      summary: 启动客户端
+      tags:
+      - client
+  /client/{id}/stop:
+    get:
+      consumes:
+      - application/json
+      description: 停止客户端
+      parameters:
+      - description: 客户端ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Client'
+      summary: 停止客户端
+      tags:
+      - client
   /client/count:
     post:
       consumes:
@@ -746,150 +699,6 @@ paths:
       summary: 查询客户端
       tags:
       - client
-  /config/db:
-    get:
-      consumes:
-      - application/json
-      description: 查询数据库配置
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-api_dbOptions'
-      summary: 查询数据库配置
-      tags:
-      - config
-    post:
-      consumes:
-      - application/json
-      description: 修改数据库配置
-      parameters:
-      - description: 数据库配置
-        in: body
-        name: cfg
-        required: true
-        schema:
-          $ref: '#/definitions/api.dbOptions'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-int'
-      summary: 修改数据库配置
-      tags:
-      - config
-  /config/log:
-    get:
-      consumes:
-      - application/json
-      description: 查询日志配置
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-api_logOptions'
-      summary: 查询日志配置
-      tags:
-      - config
-    post:
-      consumes:
-      - application/json
-      description: 修改日志配置
-      parameters:
-      - description: 日志配置
-        in: body
-        name: cfg
-        required: true
-        schema:
-          $ref: '#/definitions/api.logOptions'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-int'
-      summary: 修改日志配置
-      tags:
-      - config
-  /config/mqtt:
-    get:
-      consumes:
-      - application/json
-      description: 查询MQTT配置
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-api_mqttOptions'
-      summary: 查询MQTT配置
-      tags:
-      - config
-    post:
-      consumes:
-      - application/json
-      description: 修改MQTT配置
-      parameters:
-      - description: MQTT配置
-        in: body
-        name: cfg
-        required: true
-        schema:
-          $ref: '#/definitions/api.mqttOptions'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-int'
-      summary: 修改MQTT配置
-      tags:
-      - config
-  /config/web:
-    get:
-      consumes:
-      - application/json
-      description: 查询WEB配置
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-api_webOptions'
-      summary: 查询WEB配置
-      tags:
-      - config
-    post:
-      consumes:
-      - application/json
-      description: 修改WEB配置
-      parameters:
-      - description: WEB配置
-        in: body
-        name: cfg
-        required: true
-        schema:
-          $ref: '#/definitions/api.webOptions'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-int'
-      summary: 修改WEB配置
-      tags:
-      - config
   /device/{id}:
     get:
       consumes:
@@ -1228,6 +1037,27 @@ paths:
           schema:
             $ref: '#/definitions/api.ReplyData-types_Link'
       summary: 启用连接
+      tags:
+      - link
+  /link/{id}/stop:
+    get:
+      consumes:
+      - application/json
+      description: 停止连接
+      parameters:
+      - description: 连接ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Link'
+      summary: 停止连接
       tags:
       - link
   /link/count:
@@ -1626,6 +1456,48 @@ paths:
       summary: 启用串口
       tags:
       - serial
+  /serial/{id}/start:
+    get:
+      consumes:
+      - application/json
+      description: 启动串口
+      parameters:
+      - description: 串口ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Serial'
+      summary: 启动串口
+      tags:
+      - serial
+  /serial/{id}/stop:
+    get:
+      consumes:
+      - application/json
+      description: 停止串口
+      parameters:
+      - description: 串口ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Serial'
+      summary: 停止串口
+      tags:
+      - serial
   /serial/count:
     post:
       consumes:
@@ -1867,6 +1739,48 @@ paths:
           schema:
             $ref: '#/definitions/api.ReplyData-types_Server'
       summary: 启用服务器
+      tags:
+      - server
+  /server/{id}/start:
+    get:
+      consumes:
+      - application/json
+      description: 启动服务端
+      parameters:
+      - description: 服务端ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Server'
+      summary: 启动服务端
+      tags:
+      - server
+  /server/{id}/stop:
+    get:
+      consumes:
+      - application/json
+      description: 停止服务端
+      parameters:
+      - description: 服务端ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Server'
+      summary: 停止服务端
       tags:
       - server
   /server/count:
