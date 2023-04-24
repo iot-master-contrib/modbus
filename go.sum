@@ -464,6 +464,8 @@ github.com/zgwit/iot-master/v3 v3.1.0 h1:TlGhkOscqp5xSIq/zHzOKfII0qaBpKSBsJ2RJSG
 github.com/zgwit/iot-master/v3 v3.1.0/go.mod h1:O3jlGIeFTbBUOCjP2fM+k1vg5rdlyBkzmZuLHtf9fWE=
 github.com/zgwit/iot-master/v3 v3.1.1 h1:Cdq31mGRGNobuERc6/yLS+pDZ0pLdSyH7fWEe2VLHXM=
 github.com/zgwit/iot-master/v3 v3.1.1/go.mod h1:O3jlGIeFTbBUOCjP2fM+k1vg5rdlyBkzmZuLHtf9fWE=
+github.com/zgwit/iot-master/v3 v3.1.2 h1:1sLtJ/I+t/zFVHLxlpQBCmAzHsyLhy2p/SjAg5+Lb8Q=
+github.com/zgwit/iot-master/v3 v3.1.2/go.mod h1:O3jlGIeFTbBUOCjP2fM+k1vg5rdlyBkzmZuLHtf9fWE=
 github.com/zgwit/swagger-files v1.0.0 h1:aE0iX7r3Nh/c1CTLHPqX9Oo/14Nti4xssHTNsQpylkc=
 github.com/zgwit/swagger-files v1.0.0/go.mod h1:1d6t8kgfOaE/IZW3KXMjp1K9EftV65QaQPs4LsQMabQ=
 github.com/ziutek/mymysql v1.5.4/go.mod h1:LMSpPZ6DbqWFxNCHW77HeMg9I646SAhApZ/wKdgO/C0=

@@ -43,6 +43,7 @@ func (s *Server) Open() error {
 	if err != nil {
 		return err
 	}
+	defer s.listener.Close()
 
 	s.running = true
 	go func() {
@@ -50,6 +51,7 @@ func (s *Server) Open() error {
 			c, err := s.listener.AcceptTCP()
 			if err != nil {
 				//TODO 需要正确处理接收错误
+				log.Error(err)
 				break
 			}
 
@@ -81,8 +83,7 @@ func (s *Server) Open() error {
 			}
 
 			buf := make([]byte, 128)
-			n := 0
-			n, err = c.Read(buf)
+			n, err := c.Read(buf)
 			if err != nil {
 				_ = c.Close()
 				continue
@@ -96,7 +97,7 @@ func (s *Server) Open() error {
 			if err != nil {
 				_, _ = c.Write([]byte(err.Error()))
 				_ = c.Close()
-				return
+				continue
 			}
 			if !get {
 				link = types.Link{
@@ -109,7 +110,7 @@ func (s *Server) Open() error {
 				if err != nil {
 					_, _ = c.Write([]byte(err.Error()))
 					_ = c.Close()
-					return
+					continue
 				}
 			}
 
