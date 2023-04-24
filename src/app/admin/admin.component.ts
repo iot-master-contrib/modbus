@@ -40,7 +40,8 @@ export class AdminComponent {
         path: '/admin/device'
       }
     ]
-  }, {
+  }
+  , {
     title: '连接管理',
     icon: 'appstore',
     open: false,
@@ -62,29 +63,32 @@ export class AdminComponent {
         path: '/admin/serial'
       },
     ]
-  }, {
-    title: '系统设置',
-    icon: 'apartment',
-    open: false,
-    children: [
-      {
-        title: '网站',
-        path: '/admin/setting/web'
-      },
-      {
-        title: '数据库',
-        path: '/admin/setting/database'
-      },
-      {
-        title: '日志',
-        path: '/admin/setting/log'
-      },
-      {
-        title: '消息总线',
-        path: '/admin/setting/mqtt'
-      },
-    ]
-  }]
+  }
+  // ,
+  // {
+  //   title: '系统设置',
+  //   icon: 'apartment',
+  //   open: false,
+  //   children: [
+  //     {
+  //       title: '网站',
+  //       path: '/admin/setting/web'
+  //     },
+  //     {
+  //       title: '数据库',
+  //       path: '/admin/setting/database'
+  //     },
+  //     {
+  //       title: '日志',
+  //       path: '/admin/setting/log'
+  //     },
+  //     {
+  //       title: '消息总线',
+  //       path: '/admin/setting/mqtt'
+  //     },
+  //   ]
+  // }
+]
   // contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent, mes: number): void {
   //   this.edit = mes
   //   this.nzContextMenuService.create($event, menu);
