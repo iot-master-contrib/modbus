@@ -1,8 +1,14 @@
 {
-  "/api": {
-    "target": "http://demo.iot-master.com:8088",
-    "secure": false,
-    "logLevel": "debug",
-    "changeOrigin": true
-  }
+    "/app/modbus/api": {
+        "target": "http://demo.iot-master.com:8888",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/api": {
+        "target": "http://demo.iot-master.com:8888",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
 }

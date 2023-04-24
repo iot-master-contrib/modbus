@@ -138,12 +138,12 @@ func serverRouter(app *gin.RouterGroup) {
 
 	app.GET("/list", curd.ApiList[types.Server]())
 
-	app.POST("/create", curd.ApiCreate[types.Server](curd.GenerateRandomId[types.Server](8), func(value *types.Server) error {
+	app.POST("/create", curd.ApiCreateHook[types.Server](curd.GenerateRandomId[types.Server](8), func(value *types.Server) error {
 		return connect.LoadServer(value)
 	}))
 
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Server]())
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Server](nil, func(value *types.Server) error {
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Server](nil, func(value *types.Server) error {
 		c := connect.GetServer(value.Id)
 		err := c.Close()
 		if err != nil {
@@ -153,19 +153,19 @@ func serverRouter(app *gin.RouterGroup) {
 	},
 		"id", "name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "retry", "options", "disabled", "port", "standalone", "servers"))
 
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Server](nil, func(value interface{}) error {
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Server](nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetServer(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[types.Server](true, nil, func(value interface{}) error {
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Server](true, nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetServer(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[types.Server](false, nil, func(value interface{}) error {
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisableHook[types.Server](false, nil, func(value interface{}) error {
 		id := value.(string)
 		var m types.Server
 		has, err := db.Engine.ID(id).Get(&m)

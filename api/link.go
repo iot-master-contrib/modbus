@@ -121,12 +121,12 @@ func linkRouter(app *gin.RouterGroup) {
 	app.POST("/search", curd.ApiSearch[types.Link]())
 	app.GET("/list", curd.ApiList[types.Link]())
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Link]())
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Link](nil, nil,
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Link](nil, nil,
 		"name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "disabled"))
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Link](nil, nil))
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Link](nil, nil))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[types.Link](true, nil, nil))
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[types.Link](false, nil, nil))
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Link](true, nil, nil))
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisableHook[types.Link](false, nil, nil))
 
 	app.GET("/export", curd.ApiExport[types.Link]("link"))
 	app.POST("/import", curd.ApiImport[types.Link]())

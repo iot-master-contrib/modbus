@@ -131,14 +131,14 @@ func deviceRouter(app *gin.RouterGroup) {
 	app.POST("/count", curd.ApiCount[types.Device]())
 	app.POST("/search", curd.ApiSearch[types.Device]())
 	app.GET("/list", curd.ApiList[types.Device]())
-	app.POST("/create", curd.ApiCreate[types.Device](curd.GenerateRandomId[types.Device](8), nil))
+	app.POST("/create", curd.ApiCreateHook[types.Device](curd.GenerateRandomId[types.Device](8), nil))
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Device]())
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Device](nil, nil,
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Device](nil, nil,
 		"id", "name", "desc", "tunnel_id", "product_id", "slave", "disabled"))
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Device](nil, nil))
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Device](nil, nil))
 	app.GET("/export", curd.ApiExport[types.Device]("device"))
 	app.POST("/import", curd.ApiImport[types.Device]())
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[types.Device](true, nil, nil))
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[types.Device](false, nil, nil))
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Device](true, nil, nil))
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisableHook[types.Device](false, nil, nil))
 }

@@ -6,8 +6,8 @@ require (
 	github.com/gin-gonic/gin v1.9.0
 	github.com/kardianos/service v1.2.2
 	github.com/swaggo/gin-swagger v1.6.0
-	github.com/swaggo/swag v1.8.12
-	github.com/zgwit/iot-master/v3 v3.0.9
+	github.com/swaggo/swag v1.16.1
+	github.com/zgwit/iot-master/v3 v3.1.0
 	github.com/zgwit/swagger-files v1.0.0
 	go.bug.st/serial v1.5.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -26,7 +26,7 @@ require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect
 	github.com/go-openapi/jsonreference v0.20.2 // indirect
-	github.com/go-openapi/spec v0.20.8 // indirect
+	github.com/go-openapi/spec v0.20.9 // indirect
 	github.com/go-openapi/swag v0.22.3 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect

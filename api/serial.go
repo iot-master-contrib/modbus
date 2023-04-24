@@ -148,13 +148,13 @@ func serialRouter(app *gin.RouterGroup) {
 
 	app.GET("/list", curd.ApiList[types.Serial]())
 
-	app.POST("/create", curd.ApiCreate[types.Serial](curd.GenerateRandomId[types.Serial](8), func(value *types.Serial) error {
+	app.POST("/create", curd.ApiCreateHook[types.Serial](curd.GenerateRandomId[types.Serial](8), func(value *types.Serial) error {
 		return connect.LoadSerial(value)
 	}))
 
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Serial]())
 
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Serial](nil, func(value *types.Serial) error {
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Serial](nil, func(value *types.Serial) error {
 		c := connect.GetSerial(value.Id)
 		err := c.Close()
 		if err != nil {
@@ -165,19 +165,19 @@ func serialRouter(app *gin.RouterGroup) {
 		"id", "name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options",
 		"port_name", "baud_rate", "data_bits", "stop_bits", "parity_mode", "retry_timeout", "retry_maximum", "disabled"))
 
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Serial](nil, func(value interface{}) error {
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Serial](nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetSerial(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[types.Serial](true, nil, func(value interface{}) error {
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Serial](true, nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetSerial(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[types.Serial](false, nil, func(value interface{}) error {
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisableHook[types.Serial](false, nil, func(value interface{}) error {
 		id := value.(string)
 		var m types.Serial
 		has, err := db.Engine.ID(id).Get(&m)

@@ -138,13 +138,13 @@ func clientRouter(app *gin.RouterGroup) {
 
 	app.GET("/list", curd.ApiList[types.Client]())
 
-	app.POST("/create", curd.ApiCreate[types.Client](curd.GenerateRandomId[types.Client](8), func(value *types.Client) error {
+	app.POST("/create", curd.ApiCreateHook[types.Client](curd.GenerateRandomId[types.Client](8), func(value *types.Client) error {
 		return connect.LoadClient(value)
 	}))
 
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Client]())
 
-	app.POST("/:id", curd.ParseParamStringId, curd.ApiModify[types.Client](nil, func(value *types.Client) error {
+	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Client](nil, func(value *types.Client) error {
 		c := connect.GetClient(value.Id)
 		err := c.Close()
 		if err != nil {
@@ -154,19 +154,19 @@ func clientRouter(app *gin.RouterGroup) {
 	},
 		"id", "name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "disabled", "retry_timeout", "retry_maximum", "net", "addr", "port"))
 
-	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDelete[types.Client](nil, func(value interface{}) error {
+	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Client](nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetClient(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisable[types.Client](true, nil, func(value interface{}) error {
+	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Client](true, nil, func(value interface{}) error {
 		id := value.(string)
 		c := connect.GetClient(id)
 		return c.Close()
 	}))
 
-	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisable[types.Client](false, nil, func(value interface{}) error {
+	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisableHook[types.Client](false, nil, func(value interface{}) error {
 		id := value.(string)
 		var m types.Client
 		has, err := db.Engine.ID(id).Get(&m)

@@ -39,7 +39,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "www",
+            "outputPath": "app/modbus",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -67,7 +67,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "4mb",
+                  "maximumWarning": "2mb",
                   "maximumError": "8mb"
                 },
                 {
