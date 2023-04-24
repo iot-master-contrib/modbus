@@ -130,21 +130,21 @@ func noopLinkImport() {}
 func linkRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Link]())
-	app.POST("/search", curd.ApiSearchMapHook[types.Link](func(links []map[string]any) error {
-		for _, link := range links {
-			c := connect.GetLink(link["id"].(string))
+	app.POST("/search", curd.ApiSearchHook[types.Link](func(links []types.Link) error {
+		for k, link := range links {
+			c := connect.GetLink(link.Id)
 			if c != nil {
-				link["running"] = c.Running()
+				links[k].Running = c.Running()
 			}
 		}
 		return nil
 	}))
 
 	app.GET("/list", curd.ApiList[types.Link]())
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGetMapHook[types.Link](func(link map[string]any) error {
-		c := connect.GetLink(link["id"].(string))
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGetHook[types.Link](func(link *types.Link) error {
+		c := connect.GetLink(link.Id)
 		if c != nil {
-			link["running"] = c.Running()
+			link.Running = c.Running()
 		}
 		return nil
 	}))

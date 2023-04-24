@@ -156,11 +156,11 @@ func serverRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Server]())
 
-	app.POST("/search", curd.ApiSearchMapHook[types.Server](func(servers []map[string]any) error {
-		for _, server := range servers {
-			c := connect.GetServer(server["id"].(string))
+	app.POST("/search", curd.ApiSearchHook[types.Server](func(servers []types.Server) error {
+		for k, server := range servers {
+			c := connect.GetServer(server.Id)
 			if c != nil {
-				server["running"] = c.Running()
+				servers[k].Running = c.Running()
 			}
 		}
 		return nil
@@ -172,10 +172,10 @@ func serverRouter(app *gin.RouterGroup) {
 		return connect.LoadServer(value)
 	}))
 
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGetMapHook[types.Server](func(server map[string]any) error {
-		c := connect.GetServer(server["id"].(string))
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGetHook[types.Server](func(server *types.Server) error {
+		c := connect.GetServer(server.Id)
 		if c != nil {
-			server["running"] = c.Running()
+			server.Running = c.Running()
 		}
 		return nil
 	}))

@@ -166,11 +166,11 @@ func serialRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Serial]())
 
-	app.POST("/search", curd.ApiSearchMapHook[types.Serial](func(serials []map[string]any) error {
-		for _, serial := range serials {
-			c := connect.GetSerial(serial["id"].(string))
+	app.POST("/search", curd.ApiSearchHook[types.Serial](func(serials []types.Serial) error {
+		for k, ser := range serials {
+			c := connect.GetSerial(ser.Id)
 			if c != nil {
-				serial["running"] = c.Running()
+				serials[k].Running = c.Running()
 			}
 		}
 		return nil
@@ -182,10 +182,10 @@ func serialRouter(app *gin.RouterGroup) {
 		return connect.LoadSerial(value)
 	}))
 
-	app.GET("/:id", curd.ParseParamStringId, curd.ApiGetMapHook[types.Serial](func(serial map[string]any) error {
-		c := connect.GetSerial(serial["id"].(string))
+	app.GET("/:id", curd.ParseParamStringId, curd.ApiGetHook[types.Serial](func(ser *types.Serial) error {
+		c := connect.GetSerial(ser.Id)
 		if c != nil {
-			serial["running"] = c.Running()
+			ser.Running = c.Running()
 		}
 		return nil
 	}))
