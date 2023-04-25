@@ -23,7 +23,7 @@ export class ClientComponent {
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
-  load() {
+  load() { 
     this.loading = true;
     this.rs
       .post('client/search', this.query)
@@ -43,18 +43,8 @@ export class ClientComponent {
       this.load();
     });
   }
-  status(num:number,id:any){
-    if(num){
-      this.rs.get(`client/${id}/start`).subscribe((res) => {
-        this.msg.success(`已启动!`);
-        this.load();
-      });
-    }
-    else{ this.rs.get(`client/${id}/stop`).subscribe((res) => {
-      this.msg.success(`已停止!`);
-      this.load();
-    });}
-  }
+   
+  run(){}
   add() {
     this.router.navigateByUrl(`/admin/create/client`);
   }
@@ -76,6 +66,16 @@ export class ClientComponent {
 
   open(id: string) {
     this.router.navigateByUrl('/admin/client/' + id);
+  }
+  use(id: any) {
+    this.rs.get( `client/${id}/enable`).subscribe((res) => {
+      this.load();
+    });
+  }
+  forbid(id: any) {
+    this.rs.get( `client/${id}/disable`).subscribe((res) => {
+      this.load();
+    });
   }
   handleToggleStatus(index: number, data: { disabled: boolean, id: number }) {
     const { disabled, id } = data;
