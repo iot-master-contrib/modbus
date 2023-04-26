@@ -67,7 +67,8 @@ export class DeviceEditComponent implements OnInit {
   }
   submit() {
     if (this.validateForm.valid) {
-      let url = this.id ? `device/${this.id}` : `device/create`;
+      let url = this.id ? `device/${this.id}` : `device/create`; 
+      this.validateForm.patchValue({product_id:this.setProductIdTag.product_id})
       this.rs.post(url, this.validateForm.value).subscribe((res) => {
         this.msg.success('保存成功');
         this.router.navigateByUrl(`/admin/device`);
