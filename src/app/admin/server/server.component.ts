@@ -28,7 +28,7 @@ export class ServerComponent {
     this.loading = true;
     this.rs
       .post('server/search', this.query)
-      .subscribe((res) => {console.log(res.data)
+      .subscribe((res) => {
         this.datum = res.data;
         this.total = res.total;
       })
