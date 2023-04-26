@@ -23,6 +23,9 @@ func LoadSerials() error {
 		return err
 	}
 	for _, m := range serials {
+		if m.Disabled {
+			continue
+		}
 		err := LoadSerial(m)
 		if err != nil {
 			log.Error(err)
@@ -51,6 +54,9 @@ func LoadClients() error {
 		return err
 	}
 	for _, m := range clients {
+		if m.Disabled {
+			continue
+		}
 		err := LoadClient(m)
 		if err != nil {
 			log.Error(err)
@@ -79,6 +85,9 @@ func LoadServers() error {
 		return err
 	}
 	for _, m := range servers {
+		if m.Disabled {
+			continue
+		}
 		err := LoadServer(m)
 		if err != nil {
 			log.Error(err)

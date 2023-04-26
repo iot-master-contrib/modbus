@@ -43,7 +43,7 @@ func (s *Server) Open() error {
 	if err != nil {
 		return err
 	}
-	defer s.listener.Close()
+	//defer s.listener.Close()
 
 	s.running = true
 	go func() {
