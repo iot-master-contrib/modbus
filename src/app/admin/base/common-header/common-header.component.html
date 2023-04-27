@@ -4,14 +4,12 @@
             <nz-space>
                 <app-search-box *nzSpaceItem [placeholder]="title+'id'" (onSearch)="onSearch.emit($event)">
                 </app-search-box>
-                <a *nzSpaceItem download="filename" class="fileButton"
-                    [href]="'/api/'+(downloadHref?downloadHref:moduleName+'/export')">
+                <a *nzSpaceItem download="filename" class="fileButton" [href]="downloadHref">
                     <i nz-icon nzType="cloud-download"></i>
                     导出
                 </a>
-                <nz-upload *nzSpaceItem [nzAction]="'/api/'+(uploadHref?uploadHref:moduleName+'/import')"
-                    [nzHeaders]="{ authorization: 'authorization-text' }" [nzShowUploadList]="false"
-                    (nzChange)="handleChange($event)">
+                <nz-upload *nzSpaceItem [nzAction]="importHref" [nzHeaders]="{ authorization: 'authorization-text' }"
+                    [nzShowUploadList]="false" (nzChange)="handleChange($event)">
                     <button nz-button nzType="primary">
                         <span nz-icon nzType="cloud-upload"></span>
                         导入

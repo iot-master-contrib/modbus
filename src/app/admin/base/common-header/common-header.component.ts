@@ -7,10 +7,14 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./common-header.component.scss']
 })
 export class CommonHeaderComponent {
+  downloadHref = "";
+  importHref = "";
   @Input() title = "";
-  @Input() downloadHref = "";
-  @Input() uploadHref = "";
-  @Input() moduleName = "";
+  @Input()
+  set moduleName(moduleName: string) {
+    this.downloadHref = `/api/${moduleName}/export`;
+    this.importHref = `/api/${moduleName}/import`;
+  };
   @Output() onLoad = new EventEmitter<string>();
   @Output() onSearch = new EventEmitter<string>();
   @Output() onAdd = new EventEmitter<string>();
