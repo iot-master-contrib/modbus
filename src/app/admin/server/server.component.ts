@@ -1,8 +1,9 @@
 import { RequestService } from './../../request.service';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { ParseTableQuery } from '../base/table';
 @Component({
   selector: 'app-server',
   templateUrl: './server.component.html',
@@ -17,7 +18,6 @@ export class ServerComponent {
     this.load();
   }
 
-  isVisible = false;
   loading = true;
   datum: any[] = [];
   total = 1;
@@ -41,7 +41,6 @@ export class ServerComponent {
     this.datum.splice(index, 1);
     this.rs.get(`server/${id}/delete`).subscribe((res) => {
       this.msg.success('删除成功');
-      this.isVisible = false;
       this.load();
     });
   }
@@ -53,18 +52,30 @@ export class ServerComponent {
     const path = `/admin/server/edit/${id}`;
     this.router.navigateByUrl(path);
   }
-status(num:number,id:any){
-  if(num){
-    this.rs.get(`server/${id}/start`).subscribe((res) => {
-      this.msg.success(`已启动!`);
-      this.load();
-    });
-  }
-  else{ this.rs.get(`server/${id}/stop`).subscribe((res) => {
-    this.msg.success(`已停止!`);
+  onQuery($event: NzTableQueryParams) {
+    ParseTableQuery($event, this.query);
     this.load();
-  });}
-}
+  }
+  pageIndexChange(pageIndex: number) {
+    this.query.skip = pageIndex - 1;
+  }
+  pageSizeChange(pageSize: number) {
+    this.query.limit = pageSize;
+  }
+  status(num: number, id: any) {
+    if (num) {
+      this.rs.get(`server/${id}/start`).subscribe((res) => {
+        this.msg.success(`已启动!`);
+        this.load();
+      });
+    }
+    else {
+      this.rs.get(`server/${id}/stop`).subscribe((res) => {
+        this.msg.success(`已停止!`);
+        this.load();
+      });
+    }
+  }
   search(text: any) {
     if (text)
       this.query.filter = {

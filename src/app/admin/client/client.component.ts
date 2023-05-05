@@ -2,6 +2,8 @@ import { RequestService } from '../../request.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { ParseTableQuery } from '../base/table';
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
@@ -16,14 +18,13 @@ export class ClientComponent {
     this.load();
   }
 
-  isVisible = false;
   loading = true;
   datum: any[] = [];
   total = 1;
   pageSize = 20;
   pageIndex = 1;
   query: any = {};
-  load() { 
+  load() {
     this.loading = true;
     this.rs
       .post('client/search', this.query)
@@ -39,18 +40,27 @@ export class ClientComponent {
     this.datum.splice(index, 1);
     this.rs.get(`client/${id}/delete`).subscribe((res) => {
       this.msg.success('删除成功');
-      this.isVisible = false;
       this.load();
     });
   }
-   
-  run(){}
+
+  run() { }
   add() {
     this.router.navigateByUrl(`/admin/create/client`);
   }
   edit(id: number, data: any) {
     const path = `/admin/client/edit/${id}`;
     this.router.navigateByUrl(path);
+  }
+  onQuery($event: NzTableQueryParams) {
+    ParseTableQuery($event, this.query);
+    this.load();
+  }
+  pageIndexChange(pageIndex: number) {
+    this.query.skip = pageIndex - 1;
+  }
+  pageSizeChange(pageSize: number) {
+    this.query.limit = pageSize;
   }
   search(text: any) {
     if (text)
@@ -68,12 +78,12 @@ export class ClientComponent {
     this.router.navigateByUrl('/admin/client/' + id);
   }
   use(id: any) {
-    this.rs.get( `client/${id}/enable`).subscribe((res) => {
+    this.rs.get(`client/${id}/enable`).subscribe((res) => {
       this.load();
     });
   }
   forbid(id: any) {
-    this.rs.get( `client/${id}/disable`).subscribe((res) => {
+    this.rs.get(`client/${id}/disable`).subscribe((res) => {
       this.load();
     });
   }
