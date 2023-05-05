@@ -14,5 +14,7 @@ type Device struct {
 	Slave    uint8 `json:"slave"` //从站号
 	Disabled bool  `json:"disabled"`
 
+	Online bool `json:"online" xorm:"-"`
+
 	Created model.Time `json:"created" xorm:"created"`
 }
