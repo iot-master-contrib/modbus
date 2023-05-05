@@ -120,7 +120,7 @@ export class ProductEditComponent implements OnInit {
                                             type: [p.type || 'word', []],
                                             offset: [p.offset || 0, []],
                                             bits: [p.bits || 0, []],
-                                            be: [p.be || true, []],
+                                            be: [p.be || false, []],
                                             rate: [p.rate || 1, []],
                                         })
                                     )
