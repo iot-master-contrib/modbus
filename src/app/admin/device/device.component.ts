@@ -2,6 +2,8 @@ import { RequestService } from '../../request.service';
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { ParseTableQuery } from '../base/table';
 @Component({
   selector: 'app-device',
   templateUrl: './device.component.html',
@@ -38,7 +40,6 @@ export class DeviceComponent {
   delete(index: number, id: number) {
     this.rs.get(`device/${id}/delete`).subscribe((res) => {
       this.msg.success('删除成功');
-      this.datum.splice(index, 1);
       this.load();
     });
   }
@@ -48,6 +49,16 @@ export class DeviceComponent {
   edit(id: number, data: any) {
     const path = `/admin/device/edit/${id}`;
     this.router.navigateByUrl(path);
+  }
+  onQuery($event: NzTableQueryParams) {
+    ParseTableQuery($event, this.query);
+    this.load();
+  }
+  pageIndexChange(pageIndex: number) {
+    this.query.skip = pageIndex - 1;
+  }
+  pageSizeChange(pageSize: number) {
+    this.query.limit = pageSize;
   }
   search(text: any) {
     if (text)

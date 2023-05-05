@@ -22,6 +22,7 @@ import { EditTableComponent } from './edit-table/edit-table.component';
 import { CommonHeaderComponent } from './common-header/common-header.component';
 import { OperateComponent } from './operate/operate.component';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+
 @NgModule({
   declarations: [
     SearchBoxComponent,
@@ -33,7 +34,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     SearchBoxComponent,
     EditTableComponent,
     CommonHeaderComponent,
-    OperateComponent
+    OperateComponent,
   ],
   imports: [
     CommonModule,
@@ -53,7 +54,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzSwitchModule,
     NzPageHeaderModule,
     NzLayoutModule,
-    NzUploadModule
+    NzUploadModule,
   ]
 })
 export class BaseModule { }

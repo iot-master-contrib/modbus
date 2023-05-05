@@ -1,7 +1,9 @@
 import { RequestService } from '../../request.service';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { ParseTableQuery } from '../base/table';
 @Component({
   selector: 'app-link',
   templateUrl: './link.component.html',
@@ -48,6 +50,16 @@ export class LinkComponent {
   edit(id: number, data: any) {
     const path = `/admin/link/edit/${id}`;
     this.router.navigateByUrl(path);
+  }
+  onQuery($event: NzTableQueryParams) {
+    ParseTableQuery($event, this.query);
+    this.load();
+  }
+  pageIndexChange(pageIndex: number) {
+    this.query.skip = pageIndex - 1;
+  }
+  pageSizeChange(pageSize: number) {
+    this.query.limit = pageSize;
   }
   search(text: any) {
     if (text)

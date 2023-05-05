@@ -2,7 +2,10 @@
   <app-common-header title="串口连接" moduleName="serial" (onSearch)="search($event)" (onAdd)="add()" (onLoad)="load()">
   </app-common-header>
   <nz-content>
-    <nz-table #basicTable [nzData]="datum">
+    <ng-template #totalTemplate let-total>总共 {{ total }} 条</ng-template>
+    <nz-table #basicTable [nzData]="datum" nzShowSizeChanger [nzFrontPagination]="false" [nzShowTotal]="totalTemplate"
+      (nzPageSizeChange)="pageSizeChange($event)" (nzPageIndexChange)="pageIndexChange($event)" [nzPageSize]="pageSize"
+      [nzPageIndex]="pageIndex" [nzTotal]="total" (nzQueryParams)="onQuery($event)">
       <thead>
         <tr>
           <th>ID</th>
