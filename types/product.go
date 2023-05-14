@@ -11,8 +11,14 @@ type Product struct {
 	Name string `json:"name,omitempty"` //名称
 	Desc string `json:"desc,omitempty"` //说明
 	//model.Product `xorm:"extends"`
-	Mappers []Mapper   `json:"mappers" xorm:"json"`
-	Created model.Time `json:"created" xorm:"created"` //创建时间
+	Mappers     []Mapper     `json:"mappers" xorm:"json"`
+	Calculators []Calculator `json:"calculators" xorm:"json"`
+	Created     model.Time   `json:"created" xorm:"created"` //创建时间
+}
+
+type Calculator struct {
+	Expression string `json:"expression"` //表达式
+	Assign     string `json:"assign"`     //赋值
 }
 
 type Mapper struct {
