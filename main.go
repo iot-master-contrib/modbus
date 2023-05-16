@@ -72,6 +72,7 @@ func main() {
 		}},
 		Type:    "tcp",
 		Address: "http://localhost" + web.GetOptions().Addr,
+		Icon: "/app/modbus/assets/modbus.svg",
 	})
 	_ = mqtt.Publish("master/register", payload, false, 0)
 	//内部加载
