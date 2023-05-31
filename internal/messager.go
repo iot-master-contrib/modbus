@@ -1,8 +1,8 @@
 package internal
 
 import (
+	"github.com/iot-master-contrib/modbus/define"
 	"io"
-	"modbus/define"
 	"sync"
 	"time"
 )

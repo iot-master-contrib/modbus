@@ -2,9 +2,9 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/modbus/connect"
+	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
-	"modbus/connect"
-	"modbus/types"
 )
 
 // @Summary 查询连接数量
@@ -130,7 +130,7 @@ func noopLinkImport() {}
 func linkRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Link]())
-	app.POST("/search", curd.ApiSearchHook[types.Link](func(links []types.Link) error {
+	app.POST("/search", curd.ApiSearchHook[types.Link](func(links []*types.Link) error {
 		for k, link := range links {
 			c := connect.GetLink(link.Id)
 			if c != nil {
@@ -176,7 +176,7 @@ func linkRouter(app *gin.RouterGroup) {
 		curd.OK(ctx, nil)
 	})
 
-	app.GET("/export", curd.ApiExport[types.Link]("link"))
-	app.POST("/import", curd.ApiImport[types.Link]())
+	app.GET("/export", curd.ApiExport("link", "link"))
+	app.POST("/import", curd.ApiImport("link"))
 
 }

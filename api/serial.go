@@ -3,12 +3,12 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/modbus/connect"
+	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"go.bug.st/serial"
-	"modbus/connect"
-	"modbus/types"
 )
 
 // @Summary 查询串口数量
@@ -166,7 +166,7 @@ func serialRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Serial]())
 
-	app.POST("/search", curd.ApiSearchHook[types.Serial](func(serials []types.Serial) error {
+	app.POST("/search", curd.ApiSearchHook[types.Serial](func(serials []*types.Serial) error {
 		for k, ser := range serials {
 			c := connect.GetSerial(ser.Id)
 			if c != nil {
@@ -256,8 +256,8 @@ func serialRouter(app *gin.RouterGroup) {
 		curd.OK(ctx, nil)
 	})
 
-	app.GET("/export", curd.ApiExport[types.Serial]("serial"))
-	app.POST("/import", curd.ApiImport[types.Serial]())
+	app.GET("/export", curd.ApiExport("serial", "serial"))
+	app.POST("/import", curd.ApiImport("serial"))
 
 	app.GET("ports", func(ctx *gin.Context) {
 		list, err := serial.GetPortsList()

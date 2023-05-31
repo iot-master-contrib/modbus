@@ -2,9 +2,9 @@ package connect
 
 import (
 	"errors"
+	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"go.bug.st/serial"
-	"modbus/types"
 	"time"
 )
 

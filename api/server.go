@@ -3,11 +3,11 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/modbus/connect"
+	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/log"
-	"modbus/connect"
-	"modbus/types"
 )
 
 // @Summary 查询服务器数量
@@ -156,7 +156,7 @@ func serverRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Server]())
 
-	app.POST("/search", curd.ApiSearchHook[types.Server](func(servers []types.Server) error {
+	app.POST("/search", curd.ApiSearchHook[types.Server](func(servers []*types.Server) error {
 		for k, server := range servers {
 			c := connect.GetServer(server.Id)
 			if c != nil {
@@ -245,7 +245,7 @@ func serverRouter(app *gin.RouterGroup) {
 		curd.OK(ctx, nil)
 	})
 
-	app.GET("/export", curd.ApiExport[types.Server]("server"))
-	app.POST("/import", curd.ApiImport[types.Server]())
+	app.GET("/export", curd.ApiExport("server", "server"))
+	app.POST("/import", curd.ApiImport("server"))
 
 }

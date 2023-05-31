@@ -2,9 +2,9 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/modbus/internal"
+	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
-	"modbus/internal"
-	"modbus/types"
 )
 
 // @Summary 查询产品数量
@@ -128,7 +128,7 @@ func productRouter(app *gin.RouterGroup) {
 		return nil
 	}))
 
-	app.GET("/export", curd.ApiExport[types.Product]("product"))
+	app.GET("/export", curd.ApiExport("product", "product"))
 
-	app.POST("/import", curd.ApiImport[types.Product]())
+	app.POST("/import", curd.ApiImport("product"))
 }

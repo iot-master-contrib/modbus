@@ -3,8 +3,8 @@ package connect
 import (
 	"errors"
 	"fmt"
+	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/log"
-	"modbus/types"
 	"net"
 	"time"
 )

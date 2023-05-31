@@ -3,8 +3,8 @@ package internal
 import (
 	"errors"
 	"fmt"
+	"github.com/iot-master-contrib/modbus/define"
 	"github.com/zgwit/iot-master/v3/pkg/bin"
-	"modbus/define"
 	"time"
 )
 

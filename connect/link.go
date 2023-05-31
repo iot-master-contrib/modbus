@@ -2,7 +2,7 @@ package connect
 
 import (
 	"errors"
-	"modbus/types"
+	"github.com/iot-master-contrib/modbus/types"
 	"net"
 )
 

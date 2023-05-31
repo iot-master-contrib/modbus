@@ -25,7 +25,7 @@ ldflags="-X '${pkg}.Version=$version' \
 export GOARCH=amd64
 
 export GOOS=windows
-go build -ldflags "$ldflags" -o modbus.exe main.go
+go build -ldflags "$ldflags" -o modbus.exe cmd/main.go
 
 export GOOS=linux
-go build -ldflags "$ldflags" -o modbus main.go
+go build -ldflags "$ldflags" -o modbus cmd/main.go

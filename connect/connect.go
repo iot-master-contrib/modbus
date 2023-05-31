@@ -1,10 +1,10 @@
 package connect
 
 import (
+	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/lib"
 	"github.com/zgwit/iot-master/v3/pkg/log"
-	"modbus/types"
 	"xorm.io/xorm"
 )
 

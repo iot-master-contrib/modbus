@@ -3,11 +3,11 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/modbus/connect"
+	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/log"
-	"modbus/connect"
-	"modbus/types"
 )
 
 // @Summary 查询客户端数量
@@ -156,7 +156,7 @@ func clientRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Client]())
 
-	app.POST("/search", curd.ApiSearchHook[types.Client](func(clients []types.Client) error {
+	app.POST("/search", curd.ApiSearchHook[types.Client](func(clients []*types.Client) error {
 		for k, client := range clients {
 			c := connect.GetClient(client.Id)
 			if c != nil {
@@ -245,8 +245,8 @@ func clientRouter(app *gin.RouterGroup) {
 		curd.OK(ctx, nil)
 	})
 
-	app.GET("/export", curd.ApiExport[types.Client]("client"))
+	app.GET("/export", curd.ApiExport("client", "client"))
 
-	app.POST("/import", curd.ApiImport[types.Client]())
+	app.POST("/import", curd.ApiImport("client"))
 
 }

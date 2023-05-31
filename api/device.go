@@ -2,8 +2,8 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
-	"modbus/types"
 )
 
 // @Summary 查询设备数量
@@ -136,8 +136,8 @@ func deviceRouter(app *gin.RouterGroup) {
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Device](nil, nil,
 		"id", "name", "desc", "tunnel_id", "product_id", "slave", "disabled"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Device](nil, nil))
-	app.GET("/export", curd.ApiExport[types.Device]("device"))
-	app.POST("/import", curd.ApiImport[types.Device]())
+	app.GET("/export", curd.ApiExport("device", "device"))
+	app.POST("/import", curd.ApiImport("device"))
 
 	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Device](true, nil, nil))
 	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisableHook[types.Device](false, nil, nil))

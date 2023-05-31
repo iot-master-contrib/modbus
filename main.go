@@ -1,23 +1,34 @@
-package main
+package modbus
 
 import (
 	"embed"
 	"encoding/json"
+	"github.com/iot-master-contrib/modbus/api"
+	"github.com/iot-master-contrib/modbus/connect"
+	_ "github.com/iot-master-contrib/modbus/docs"
+	"github.com/iot-master-contrib/modbus/internal"
+	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/model"
-	"github.com/zgwit/iot-master/v3/pkg/banner"
-	"github.com/zgwit/iot-master/v3/pkg/build"
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
 	"github.com/zgwit/iot-master/v3/pkg/web"
-	"modbus/api"
-	"modbus/config"
-	"modbus/connect"
-	_ "modbus/docs"
-	"modbus/internal"
-	"modbus/types"
 	"net/http"
 )
+
+func App() *model.App {
+	return &model.App{
+		Id:   "modbus",
+		Name: "Modbus",
+		Icon: "/app/modbus/assets/modbus.svg",
+		Entries: []model.AppEntry{{
+			Path: "app/modbus",
+			Name: "modbus",
+		}},
+		Type:    "tcp",
+		Address: "http://localhost" + web.GetOptions().Addr,
+	}
+}
 
 //go:embed all:app/modbus
 var wwwFiles embed.FS
@@ -28,25 +39,12 @@ var wwwFiles embed.FS
 // @BasePath /api/modbus/api/
 // @query.collection.format multi
 func main() {
-	banner.Print("iot-master-plugin:alarm")
-	build.Print()
+}
 
-	config.Load()
-
-	err := log.Open()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	//加载数据库
-	err = db.Open()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
+func Startup(app *web.Engine) error {
 
 	//同步表结构
-	err = db.Engine.Sync2(
+	err := db.Engine.Sync2(
 		new(types.Client), new(types.Server),
 		new(types.Link), new(types.Serial),
 		new(types.Product), new(types.Device),
@@ -55,26 +53,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	//MQTT总线
-	err = mqtt.Open()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer mqtt.Close()
-
-	//注册应用
-	payload, _ := json.Marshal(model.App{
-		Id:   "modbus",
-		Name: "Modbus",
-		Entries: []model.AppEntry{{
-			Path: "app/modbus",
-			Name: "modbus",
-		}},
-		Type:    "tcp",
-		Address: "http://localhost" + web.GetOptions().Addr,
-		Icon: "/app/modbus/assets/modbus.svg",
-	})
-	_ = mqtt.Publish("master/register", payload, false, 0)
 	//内部加载
 	err = internal.LoadProducts()
 	if err != nil {
@@ -88,25 +66,28 @@ func main() {
 	}
 	defer connect.Close()
 
-	//
-	////加载主程序
-	//err = internal.Open()
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	//defer internal.Close()
-
-	app := web.CreateEngine()
-
 	//注册前端接口
 	api.RegisterRoutes(app.Group("/app/modbus/api"))
 
 	//注册接口文档
-	web.RegisterSwaggerDocs(app.Group("/app/modbus"))
+	web.RegisterSwaggerDocs(app.Group("/app/modbus"), "modbus")
 
+	return nil
+}
+
+func Register() error {
+	payload, _ := json.Marshal(App())
+	return mqtt.Publish("master/register", payload, false, 0)
+}
+
+func Static(fs *web.FileSystem) {
 	//前端静态文件
-	app.RegisterFS(http.FS(wwwFiles), "", "app/modbus/index.html")
+	fs.Put("/app/modbus", http.FS(wwwFiles), "", "app/modbus/index.html")
+}
 
-	//监听HTTP
-	app.Serve()
+func Shutdown() error {
+
+	//只关闭Web就行了，其他通过defer关闭
+
+	return nil
 }

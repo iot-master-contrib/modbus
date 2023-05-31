@@ -3,12 +3,12 @@ package internal
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/iot-master-contrib/modbus/define"
+	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
 	"io"
-	"modbus/define"
-	"modbus/types"
 	"time"
 )
 
