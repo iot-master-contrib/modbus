@@ -1,9 +1,9 @@
 package types
 
 import (
-	"github.com/zgwit/iot-master/v3/model"
 	"github.com/zgwit/iot-master/v3/pkg/bin"
 	"github.com/zgwit/iot-master/v3/pkg/log"
+	"time"
 )
 
 type Product struct {
@@ -13,7 +13,7 @@ type Product struct {
 	//model.Product `xorm:"extends"`
 	Mappers     []Mapper     `json:"mappers" xorm:"json"`
 	Calculators []Calculator `json:"calculators" xorm:"json"`
-	Created     model.Time   `json:"created" xorm:"created"` //创建时间
+	Created     time.Time    `json:"created" xorm:"created"` //创建时间
 }
 
 type Calculator struct {

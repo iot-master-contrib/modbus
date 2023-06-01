@@ -1,6 +1,8 @@
 package types
 
-import "github.com/zgwit/iot-master/v3/model"
+import (
+	"time"
+)
 
 type Tunnel struct {
 	Id   string `json:"id,omitempty" xorm:"pk"` //ID
@@ -14,8 +16,8 @@ type Tunnel struct {
 
 	Running bool `json:"running,omitempty" xorm:"-"`
 
-	Disabled bool       `json:"disabled"`
-	Created  model.Time `json:"created" xorm:"created"` //创建时间
+	Disabled bool      `json:"disabled"`
+	Created  time.Time `json:"created" xorm:"created"` //创建时间
 }
 
 type Poller struct {

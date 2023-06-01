@@ -1,6 +1,8 @@
 package types
 
-import "github.com/zgwit/iot-master/v3/model"
+import (
+	"time"
+)
 
 type Device struct {
 	Id string `json:"id" xorm:"pk"`
@@ -16,5 +18,5 @@ type Device struct {
 
 	Online bool `json:"online" xorm:"-"`
 
-	Created model.Time `json:"created" xorm:"created"`
+	Created time.Time `json:"created" xorm:"created"`
 }
