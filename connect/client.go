@@ -32,6 +32,7 @@ func (client *Client) Open() error {
 	conn, err := net.Dial(client.model.Net, addr)
 	if err != nil {
 		client.Retry()
+		//time.AfterFunc(time.Minute, client.Retry)
 		return err
 	}
 	client.retry = 0

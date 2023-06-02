@@ -26,10 +26,12 @@ func LoadSerials() error {
 		if m.Disabled {
 			continue
 		}
-		err := LoadSerial(m)
-		if err != nil {
-			log.Error(err)
-		}
+		go func() {
+			err := LoadSerial(m)
+			if err != nil {
+				log.Error(err)
+			}
+		}()
 	}
 	return nil
 }
@@ -57,10 +59,12 @@ func LoadClients() error {
 		if m.Disabled {
 			continue
 		}
-		err := LoadClient(m)
-		if err != nil {
-			log.Error(err)
-		}
+		go func() {
+			err := LoadClient(m)
+			if err != nil {
+				log.Error(err)
+			}
+		}()
 	}
 	return nil
 }
@@ -88,10 +92,12 @@ func LoadServers() error {
 		if m.Disabled {
 			continue
 		}
-		err := LoadServer(m)
-		if err != nil {
-			log.Error(err)
-		}
+		go func() {
+			err := LoadServer(m)
+			if err != nil {
+				log.Error(err)
+			}
+		}()
 	}
 	return nil
 }

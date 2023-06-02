@@ -64,7 +64,7 @@ func Startup(app *web.Engine) error {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer connect.Close()
+	//defer connect.Close()
 
 	//注册前端接口
 	api.RegisterRoutes(app.Group("/app/modbus/api"))
