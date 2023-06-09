@@ -67,8 +67,8 @@ export class SerialEditComponent implements OnInit {
       if (resData[key]) {
         odata[key] = resData[key];
       }
-      this.validateForm.setValue(odata);
     }
+    this.validateForm.setValue(odata);
   }
   handleCancel() {
     this.router.navigateByUrl(`/admin/serial`);
