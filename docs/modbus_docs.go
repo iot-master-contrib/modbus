@@ -2495,12 +2495,12 @@ const docTemplatemodbus = `{
         "types.Calculator": {
             "type": "object",
             "properties": {
-                "assign": {
-                    "description": "赋值",
-                    "type": "string"
-                },
                 "expression": {
                     "description": "表达式",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "赋值",
                     "type": "string"
                 }
             }
@@ -2622,6 +2622,19 @@ const docTemplatemodbus = `{
                 },
                 "tunnel_id": {
                     "description": "通道",
+                    "type": "string"
+                }
+            }
+        },
+        "types.Filter": {
+            "type": "object",
+            "properties": {
+                "expression": {
+                    "description": "表达式",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "字段",
                     "type": "string"
                 }
             }
@@ -2750,6 +2763,12 @@ const docTemplatemodbus = `{
                 "desc": {
                     "description": "说明",
                     "type": "string"
+                },
+                "filters": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/types.Filter"
+                    }
                 },
                 "id": {
                     "type": "string"

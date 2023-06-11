@@ -12,13 +12,20 @@ type Product struct {
 	Desc string `json:"desc,omitempty"` //说明
 	//model.Product `xorm:"extends"`
 	Mappers     []Mapper     `json:"mappers" xorm:"json"`
+	Filters     []Filter     `json:"filters" xorm:"json"`
 	Calculators []Calculator `json:"calculators" xorm:"json"`
 	Created     time.Time    `json:"created" xorm:"created"` //创建时间
 }
 
-type Calculator struct {
+type Filter struct {
+	Name       string `json:"name"`       //字段
 	Expression string `json:"expression"` //表达式
-	Assign     string `json:"assign"`     //赋值
+	//Entire     bool   `json:"entire"`
+}
+
+type Calculator struct {
+	Name       string `json:"name"`       //赋值
+	Expression string `json:"expression"` //表达式
 }
 
 type Mapper struct {

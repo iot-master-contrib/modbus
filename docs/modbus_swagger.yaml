@@ -142,11 +142,11 @@ definitions:
     type: object
   types.Calculator:
     properties:
-      assign:
-        description: 赋值
-        type: string
       expression:
         description: 表达式
+        type: string
+      name:
+        description: 赋值
         type: string
     type: object
   types.Client:
@@ -234,6 +234,15 @@ definitions:
         type: integer
       tunnel_id:
         description: 通道
+        type: string
+    type: object
+  types.Filter:
+    properties:
+      expression:
+        description: 表达式
+        type: string
+      name:
+        description: 字段
         type: string
     type: object
   types.Link:
@@ -326,6 +335,10 @@ definitions:
       desc:
         description: 说明
         type: string
+      filters:
+        items:
+          $ref: '#/definitions/types.Filter'
+        type: array
       id:
         type: string
       mappers:
