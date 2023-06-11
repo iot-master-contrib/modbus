@@ -14,6 +14,7 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 import {DatePipe} from '@angular/common';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ActivatedRoute, Router} from '@angular/router';
+import {EditTableItem} from "../../base/edit-table/edit-table.component";
 
 @Component({
     selector: 'app-product-edit',
@@ -24,17 +25,19 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class ProductEditComponent implements OnInit {
     validateForm!: any;
     id: any = 0;
-    listData = [{
-        title: '名称',
-        keyName: 'name'
+
+    listData: EditTableItem[] = [{
+        label: '名称',
+        name: 'name'
     }, {
-        title: '类型',
-        keyName: 'type',
+        label: '类型',
+        name: 'type',
         type: 'select',
-        listOfOption: [{
+        default: 'uint16',
+        options: [{
             label: '位 BIT',
             value: 'bit'
-        },{
+        }, {
             label: '短整数 INT16',
             value: 'int16'
         }, {
@@ -43,7 +46,7 @@ export class ProductEditComponent implements OnInit {
         }, {
             label: '整数 INT32',
             value: 'int32'
-        },{
+        }, {
             label: '无符号整数 UINT32',
             value: 'uint32'
         }, {
@@ -52,29 +55,51 @@ export class ProductEditComponent implements OnInit {
         }, {
             label: '双精度浮点数 DOUBLE',
             value: 'double'
-        }],
-        defaultValue: 'word'
+        }]
     }, {
-        title: '偏移',
-        keyName: 'offset',
+        label: '偏移',
+        name: 'offset',
         type: 'number',
-        defaultValue: '0'
+        default: 0
     }, {
-        title: '位',
-        keyName: 'bits',
+        label: '位',
+        name: 'bits',
         type: 'number',
-        defaultValue: '0'
-    },{
-        title: '大端',
-        keyName: 'be',
+        default: 0
+    }, {
+        label: '大端',
+        name: 'be',
         type: 'switch',
-        defaultValue: true
+        default: true
     }, {
-        title: '倍率',
-        keyName: 'rate',
+        label: '倍率',
+        name: 'rate',
         type: 'number',
-        defaultValue: 1
+        default: 1
     }]
+
+
+    listFilter = [{
+        label: '过滤字段',
+        name: 'name',
+        placeholder: '例 a',
+    }, {
+        label: '表达式（条件为 假 时过滤掉）',
+        name: 'expression',
+        placeholder: '例 a<1 && a<10',
+    }]
+
+    listCalculators = [{
+        label: '赋值字段',
+        name: 'name',
+        placeholder: '例 c',
+    }, {
+        label: '表达式',
+        name: 'expression',
+        placeholder: '例 a+b',
+    }]
+
+
     mode = "new";
 
     constructor(
@@ -112,25 +137,11 @@ export class ProductEditComponent implements OnInit {
                             code: [prop.code || 3, []],
                             addr: [prop.addr || 0, []],
                             size: [prop.size || 0, []],
-                            points: this.fb.array(
-                                prop.points
-                                    ? prop.points.map((p: any) =>
-                                        this.fb.group({
-                                            name: [p.name || '', []],
-                                            type: [p.type || 'word', []],
-                                            offset: [p.offset || 0, []],
-                                            bits: [p.bits || 0, []],
-                                            be: [p.be || false, []],
-                                            rate: [p.rate || 1, []],
-                                        })
-                                    )
-                                    : []
-                            ),
-                        })
-                    )
-                    : []
-            ),
-        });
+                            points: [prop.points || [], []],
+                        })) : []),
+            filters: [obj.filters || [], []],
+            calculators: [obj.calculators || [], []],
+        })
     }
 
 
@@ -177,42 +188,57 @@ export class ProductEditComponent implements OnInit {
                 code: [3, []],
                 addr: [0, []],
                 size: [0, []],
-                points: this.fb.array([
-                    this.fb.group({
-                        name: ['', []],
-                        type: ['word', []],
-                        offset: [0, []],
-                        be: [true, []],
-                        rate: [1, []],
-                    }),
-                ]),
+                points: [[], []],
             })
         );
     }
 
-    drop(mapper: any, event: CdkDragDrop<string[]>): void {
+    drop(mapper
+             :
+             any, event
+             :
+             CdkDragDrop<string[]>
+    ):
+        void {
         moveItemInArray(
             mapper.get('points').controls,
             event.previousIndex,
             event.currentIndex
-        );
+        )
+        ;
     }
 
-    pointCopy(mapper: any, index: number) {
+    pointCopy(mapper
+                  :
+                  any, index
+                  :
+                  number
+    ) {
         const oitem = mapper.get('points').controls[index].value;
         mapper.get('points').insert(index, this.fb.group(oitem));
         this.msg.success('复制成功');
     }
 
-    pointDel(mapper: any, i: number) {
+    pointDel(mapper
+                 :
+                 any, i
+                 :
+                 number
+    ) {
         mapper.get('points').removeAt(i);
     }
 
-    mapperDel(i: number) {
+    mapperDel(i
+                  :
+                  number
+    ) {
         this.validateForm.get('mappers').removeAt(i);
     }
 
-    pointAdd(mapper: any) {
+    pointAdd(mapper
+                 :
+                 any
+    ) {
         mapper.get('points').push(
             this.fb.group({
                 name: ['', []],

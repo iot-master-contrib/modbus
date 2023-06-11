@@ -109,9 +109,9 @@ func productRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Product]())
 
-	app.POST("/search", curd.ApiSearch[types.Product]())
+	app.POST("/search", curd.ApiSearch[types.Product]("id", "name", "desc", "created"))
 
-	app.GET("/list", curd.ApiList[types.Product]())
+	app.GET("/list", curd.ApiList[types.Product]("id", "name", "desc", "created"))
 
 	app.POST("/create", curd.ApiCreateHook[types.Product](curd.GenerateRandomId[types.Product](8), func(m *types.Product) error {
 		return internal.LoadProduct(m)
@@ -121,7 +121,7 @@ func productRouter(app *gin.RouterGroup) {
 
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Product](nil, func(m *types.Product) error {
 		return internal.LoadProduct(m)
-	}, "id", "name", "desc", "mappers"))
+	}, "id", "name", "desc", "mappers", "filters", "calculators"))
 
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Product](nil, func(id interface{}) error {
 		//internal.DeleteProduct(id)
