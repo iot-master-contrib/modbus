@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/iot-master-contrib/modbus/define"
@@ -74,13 +75,39 @@ func (p *poller) Poll() bool {
 		if sum > 0 {
 			total += sum
 
+			//过滤字段
+			for i, c := range product.filters {
+				ret, err := c.EvalBool(context.Background(), values)
+				if err != nil {
+					log.Error(err)
+					continue
+				}
+				if !ret {
+					name := product.Filters[i].Name
+					if name == "*" {
+						//break xx
+						//TODO 不上传数据
+					} else {
+						delete(values, name)
+					}
+				}
+			}
+
+			//计算数据
+			for i, c := range product.calculators {
+				ret, err := c(context.Background(), values)
+				if err != nil {
+					log.Error(err)
+					continue
+				}
+				name := product.Filters[i].Name
+				values[name] = ret
+			}
+
 			//mqtt上传数据，暂定使用Object方式，简单
 			topic := fmt.Sprintf("up/property/%s/%s", product.Id, device.Id)
 			payload, _ := json.Marshal(values)
-			err := mqtt.Publish(topic, payload, false, 0)
-			if err != nil {
-				log.Error(err)
-			}
+			_ = mqtt.Publish(topic, payload, false, 0)
 
 			//上线提醒
 			if !device.Online {

@@ -63,63 +63,18 @@
                 </nz-form-item>
 
                 <button nz-button (click)="mapperDel(i)">删除映射</button>
-                <button nz-button (click)="pointAdd(mapper)">添加数据点</button>
 
-                <nz-table [nzData]="mapper.get('points').controls" nzSize="small" [nzFrontPagination]="false"
-                          [nzShowPagination]="false">
-                    <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>类型</th>
-                        <th>偏移</th>
-                        <th>位</th>
-                        <th>大端</th>
-                        <th>倍率</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody cdkDropList (cdkDropListDropped)="drop(mapper, $event)" formGroupName="points">
-                    <tr *ngFor="let item of mapper.get('points').controls; let j = index" [formGroupName]="j" cdkDrag>
-                        <td>
-                            <input nz-input formControlName="name"/>
-                        </td>
-                        <td>
-                            <nz-select formControlName="type">
-                                <nz-option nzValue="bit" nzLabel="位"></nz-option>
-                                <nz-option nzValue="word" nzLabel="字"></nz-option>
-                                <nz-option nzValue="int16" nzLabel="短整数"></nz-option>
-                                <nz-option nzValue="uint16" nzLabel="无符号短整数"></nz-option>
-                                <nz-option nzValue="qword" nzLabel="双字"></nz-option>
-                                <nz-option nzValue="int32" nzLabel="整数"></nz-option>
-                                <nz-option nzValue="uint32" nzLabel="无符号整数"></nz-option>
-                                <nz-option nzValue="float" nzLabel="浮点数"></nz-option>
-                                <nz-option nzValue="double" nzLabel="双精度浮点数"></nz-option>
-                            </nz-select>
-                        </td>
-                        <td>
-                            <nz-input-number formControlName="offset"></nz-input-number>
-                        </td>
-                        <td>
-                            <nz-input-number formControlName="bits"></nz-input-number>
-                        </td>
-                        <td>
-                            <nz-switch formControlName="be"></nz-switch>
-                        </td>
-                        <td>
-                            <nz-input-number formControlName="rate"></nz-input-number>
-                        </td>
-                        <td>
-                            <span nz-icon nzType="drag" nzTheme="outline" title="移动当前行" style="cursor:move;"
-                                  cdkDragHandle></span>
-                            <span nz-icon nzType="copy" nzTheme="outline" title="复制当前行"
-                                  (click)="pointCopy(mapper, j)"></span>
-                            <span nz-icon nzType="delete" nzTheme="outline" title="删除"
-                                  (click)="pointDel(mapper, j)"></span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </nz-table>
+                <app-edit-table formControlName="points" [items]="listData"></app-edit-table>
             </nz-card>
         </div>
+
+        <nz-card nzTitle="过滤器">
+            <app-edit-table formControlName="filters" [items]="listFilter"></app-edit-table>
+        </nz-card>
+
+        <nz-card nzTitle="计算器">
+            <app-edit-table formControlName="calculators" [items]="listCalculators"></app-edit-table>
+        </nz-card>
+
     </form>
 </nz-card>

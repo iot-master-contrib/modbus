@@ -1,67 +1,114 @@
-import { Component, OnInit, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
-import { NzMessageService } from "ng-zorro-antd/message";
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {Component, OnInit, Input, forwardRef} from '@angular/core';
+import {FormBuilder, FormArray, ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup} from "@angular/forms";
+import {NzMessageService} from "ng-zorro-antd/message";
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {NzSelectOptionInterface} from "ng-zorro-antd/select";
+
+
+export interface EditTableItem {
+    name: string
+    label: string
+    type?: string
+    placeholder?: string
+    default?: any
+    options?: NzSelectOptionInterface[]
+}
+
 
 @Component({
-  selector: 'app-edit-table',
-  templateUrl: './edit-table.component.html',
-  styleUrls: ['./edit-table.component.scss']
+    selector: 'app-edit-table',
+    templateUrl: './edit-table.component.html',
+    styleUrls: ['./edit-table.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => EditTableComponent),
+            multi: true
+        }
+    ]
 })
+export class EditTableComponent implements OnInit, ControlValueAccessor {
+    group!: FormGroup
+    formArray!: FormArray;
 
-export class EditTableComponent implements OnChanges {
-  group!: any;
-  itemObj: object = {};
-  constListData: any = [];
+    row: any = {};
+    _items: any = [];
 
-  @Input() data: any = {};
-  @Input()
-  set listData(dt: Array<{ title: string, type?: any, keyName: string, defaultValue?: any }>) {
-    const itemObj: any = {};
-    for (let index = 0; index < dt.length; index++) {
-      const { keyName, defaultValue } = dt[index];
-      itemObj[keyName] = defaultValue || '';
+    onChanged: any = () => {
     }
-    this.itemObj = itemObj;
-    this.constListData = dt;
-  };
-  constructor(
-    private msg: NzMessageService,
-    private fb: FormBuilder
-  ) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    let currentValue = {};
-    if (changes['data'] && changes['data'].currentValue) {
-      currentValue = changes['data'].currentValue;
+    onTouched: any = () => {
     }
-    this.build(currentValue)
-  }
-  build(obj?: any) {
-    const itemObj = JSON.parse(JSON.stringify(this.itemObj));
-    obj = obj || [];
-    this.group = this.fb.group({
-      keyName: this.fb.array(
-        obj ? obj.map((prop: any) =>
-          this.fb.group(Object.assign(itemObj, prop))
-        ) : []
-      ),
-    })
-  }
-  handleCopyProperTy(index: number) {
-    const oitem = this.group.get('keyName').controls[index].value;
-    this.aliases.insert(index, this.fb.group(oitem));
-    this.msg.success("复制成功");
-  }
-  propertyDel(i: number) {
-    this.group.get('keyName').controls.splice(i, 1)
-  }
-  get aliases() {
-    return this.group.get('keyName') as FormArray;
-  }
-  add() {
-    this.aliases.push(this.fb.group(Object.assign(this.itemObj)));
-  }
-  drop(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.group.get('keyName').controls, event.previousIndex, event.currentIndex);
-  }
+
+    @Input() data: any = {};
+
+    //TODO 只监听第一个？
+    @Input()
+    set items(data: EditTableItem[]) {
+        //TODO 创建默认group
+        const row: any = {};
+        data.forEach(item => {
+            //if (item.hasOwnProperty("default"))
+            row[item.name] = item.default
+        })
+        this.row = row;
+        this._items = data;
+    };
+
+    constructor(
+        private msg: NzMessageService,
+        private fb: FormBuilder
+    ) {
+    }
+
+    ngOnInit(): void {
+        this.formArray = this.fb.array([]);
+        //this.formArray.value
+        this.group = this.fb.group({
+            array: this.formArray
+        })
+    }
+
+    writeValue(data: any): void {
+        const itemObj = JSON.parse(JSON.stringify(this.row));
+        if (data && data.length) {
+            data.forEach((item: any) => {
+                const newGroup = this.fb.group(Object.assign(itemObj, item));
+                this.formArray.push(newGroup);
+            });
+        }
+    }
+
+    registerOnChange(fn: any): void {
+        this.onChanged = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this.onTouched = fn;
+    }
+
+    change() {
+        const data = this.formArray.controls.map((item) => item.value);
+        this.onChanged(data);
+    }
+
+    handleCopyProperTy(index: number) {
+        const old = this.formArray.controls[index].value;
+        this.formArray.insert(index, this.fb.group(old));
+        this.msg.success("复制成功");
+        this.change();
+    }
+
+    propertyDel(i: number) {
+        this.formArray.removeAt(i);
+        this.change();
+    }
+
+    drop(event: CdkDragDrop<string[]>): void {
+        moveItemInArray(this.formArray.controls, event.previousIndex, event.currentIndex);
+        this.change();
+    }
+
+    propertyAdd() {
+        this.formArray.insert(0, this.fb.group(this.row));
+    }
 }

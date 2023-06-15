@@ -16,21 +16,23 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./server-edit.component.scss'],
 })
 export class ServerEditComponent implements OnInit {
+
   validateForm!: UntypedFormGroup;
   id: any = 0;
   deviceList = [];
   mode = 'new';
   listData = [{
-    title: '从站号',
-    keyName: 'slave',
+    label: '从站号',
+    name: 'slave',
     type: 'number'
   }, {
-    title: '名称',
-    keyName: 'name'
+    label: '名称',
+    name: 'name'
   }, {
-    title: '产品号',
-    keyName: 'product_id'
+    label: '产品号',
+    name: 'product_id'
   }]
+
   defaultEquip: any = [];
   @ViewChild('editTableChild') editTableChild: any;
   constructor(
