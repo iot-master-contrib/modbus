@@ -58,7 +58,7 @@ func (p *poller) Poll() bool {
 		sum := 0
 
 		for _, mapper := range product.Mappers {
-			r, e := p.modbus.Read(device.Slave, mapper.Code, mapper.Addr, mapper.Size)
+			r, e := p.modbus.Read(uint8(device.Slave), mapper.Code, mapper.Addr, mapper.Size)
 			if e != nil {
 				//连接关闭就退出
 				if e == io.EOF {
