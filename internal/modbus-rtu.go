@@ -66,8 +66,8 @@ func (m *RTU) execute(cmd []byte) ([]byte, error) {
 		}
 		b := m.buf[3 : l-2]
 		//数组解压
-		bb := bin.ExpandBool(b, count)
-		return bb, nil
+		//b = bin.ExpandBool(b, count)
+		return bin.Dup(b), nil
 	case 3, 4, 23:
 		length += 1 + count
 		if l < length {

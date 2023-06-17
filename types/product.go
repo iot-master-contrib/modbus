@@ -147,18 +147,22 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 
 	//识别位
 	if m.Code == 1 || m.Code == 2 {
+		bytes := bin.ExpandBool(buf, int(m.Size))
+		l = uint16(len(bytes))
 		for _, p := range m.Points {
 			offset := p.Offset
 			if offset >= l {
 				continue
 			}
-
+			ret[p.Name] = bytes[p.Offset] > 0
 		}
 		return
 	}
 
+	//解析16位
 	for _, p := range m.Points {
-		offset := p.Offset * 2
+		//offset := p.Offset * 2
+		offset := p.Offset << 1
 		if offset >= l {
 			continue
 		}
