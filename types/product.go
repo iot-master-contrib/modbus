@@ -227,7 +227,7 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 				ret[p.Name] = bin.ParseFloat64LittleEndian(buf[offset:])
 			}
 			if p.Rate != 0 && p.Rate != 1 {
-				ret[p.Name] = float64(ret[p.Name].(float64)) * p.Rate
+				ret[p.Name] = ret[p.Name].(float64) * p.Rate
 			}
 		}
 	}
