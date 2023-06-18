@@ -181,11 +181,17 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 			} else {
 				ret[p.Name] = int16(bin.ParseUint16LittleEndian(buf[offset:]))
 			}
+			if p.Rate != 0 && p.Rate != 1 {
+				ret[p.Name] = float64(ret[p.Name].(int16)) * p.Rate
+			}
 		case "word", "uint16":
 			if p.BigEndian {
 				ret[p.Name] = bin.ParseUint16(buf[offset:])
 			} else {
 				ret[p.Name] = bin.ParseUint16LittleEndian(buf[offset:])
+			}
+			if p.Rate != 0 && p.Rate != 1 {
+				ret[p.Name] = float64(ret[p.Name].(uint16)) * p.Rate
 			}
 		case "int32", "int":
 			if p.BigEndian {
@@ -193,11 +199,17 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 			} else {
 				ret[p.Name] = int32(bin.ParseUint32LittleEndian(buf[offset:]))
 			}
+			if p.Rate != 0 && p.Rate != 1 {
+				ret[p.Name] = float64(ret[p.Name].(int32)) * p.Rate
+			}
 		case "qword", "uint32", "uint":
 			if p.BigEndian {
 				ret[p.Name] = bin.ParseUint32(buf[offset:])
 			} else {
 				ret[p.Name] = bin.ParseUint32LittleEndian(buf[offset:])
+			}
+			if p.Rate != 0 && p.Rate != 1 {
+				ret[p.Name] = float64(ret[p.Name].(uint32)) * p.Rate
 			}
 		case "float", "float32":
 			if p.BigEndian {
@@ -205,18 +217,18 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 			} else {
 				ret[p.Name] = bin.ParseFloat32LittleEndian(buf[offset:])
 			}
+			if p.Rate != 0 && p.Rate != 1 {
+				ret[p.Name] = float64(ret[p.Name].(float32)) * p.Rate
+			}
 		case "double", "float64":
 			if p.BigEndian {
 				ret[p.Name] = bin.ParseFloat64(buf[offset:])
 			} else {
 				ret[p.Name] = bin.ParseFloat64LittleEndian(buf[offset:])
 			}
-		}
-
-		//倍率转换
-		if p.Rate != 0 && p.Rate != 1 {
-			val := convert.ToFloat64(ret[p.Name])
-			ret[p.Name] = val * p.Rate
+			if p.Rate != 0 && p.Rate != 1 {
+				ret[p.Name] = float64(ret[p.Name].(float64)) * p.Rate
+			}
 		}
 	}
 }
