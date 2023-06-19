@@ -25,6 +25,7 @@ func (s *Serial) Open() error {
 	if s.running {
 		return errors.New("serial is opened")
 	}
+	s.closed = false
 
 	opts := serial.Mode{
 		BaudRate: int(s.model.BaudRate),
@@ -49,10 +50,33 @@ func (s *Serial) Open() error {
 	s.running = true
 	s.online = true
 	s.Conn = port
-	s.retry = 0
 
 	//清空重连计数
-	s.retry = 0
+	//s.retry = 0
+
+	//守护协程
+	go func() {
+		timeout := s.model.RetryTimeout
+		if timeout == 0 {
+			timeout = 10
+		}
+		for {
+			time.Sleep(time.Second * time.Duration(timeout))
+			if s.running {
+				continue
+			}
+			if s.closed {
+				return
+			}
+
+			//如果掉线了，就重新打开
+			err := s.Open()
+			if err != nil {
+				log.Error(err)
+			}
+			break //Open中，会重新启动协程
+		}
+	}()
 
 	//启动轮询
 	return s.start(&s.model.Tunnel)
