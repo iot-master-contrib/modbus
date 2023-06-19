@@ -19,6 +19,7 @@ type tunnelBase struct {
 
 	running bool
 	online  bool
+	closed  bool
 
 	retry      uint
 	retryTimer *time.Timer
@@ -43,6 +44,8 @@ func (l *tunnelBase) Close() error {
 	if !l.running {
 		return errors.New("tunnel closed")
 	}
+
+	l.closed = true
 
 	l.onClose()
 	return l.Conn.Close()

@@ -25,6 +25,7 @@ func (s *Serial) Open() error {
 	if s.running {
 		return errors.New("serial is opened")
 	}
+	s.closed = false
 
 	opts := serial.Mode{
 		BaudRate: int(s.model.BaudRate),
@@ -63,6 +64,9 @@ func (s *Serial) Open() error {
 			time.Sleep(time.Second * time.Duration(timeout))
 			if s.running {
 				continue
+			}
+			if s.closed {
+				return
 			}
 
 			//如果掉线了，就重新打开

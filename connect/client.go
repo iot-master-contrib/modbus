@@ -26,6 +26,7 @@ func (client *Client) Open() error {
 	if client.running {
 		return errors.New("client is opened")
 	}
+	client.closed = false
 
 	//发起连接
 	addr := fmt.Sprintf("%s:%d", client.model.Addr, client.model.Port)
@@ -48,6 +49,9 @@ func (client *Client) Open() error {
 			time.Sleep(time.Second * time.Duration(timeout))
 			if client.running {
 				continue
+			}
+			if client.closed {
+				return
 			}
 			//如果掉线了，就重新打开
 			err := client.Open()
