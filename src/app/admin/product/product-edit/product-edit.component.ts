@@ -79,6 +79,17 @@ export class ProductEditComponent implements OnInit {
     }]
 
 
+    listDataBits: EditTableItem[] = [{
+        label: '名称',
+        name: 'name'
+    }, {
+        label: '偏移',
+        name: 'offset',
+        type: 'number',
+        default: 0
+    }]
+
+
     listFilter = [{
         label: '过滤字段',
         name: 'name',

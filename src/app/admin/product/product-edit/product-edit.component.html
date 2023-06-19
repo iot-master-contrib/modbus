@@ -64,7 +64,7 @@
 
                 <button nz-button (click)="mapperDel(i)">删除映射</button>
 
-                <app-edit-table formControlName="points" [items]="listData"></app-edit-table>
+                <app-edit-table formControlName="points" [items]="mapper.get('code').value<3 ? listDataBits : listData"></app-edit-table>
             </nz-card>
         </div>
 

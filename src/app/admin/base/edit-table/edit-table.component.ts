@@ -39,9 +39,6 @@ export class EditTableComponent implements OnInit, ControlValueAccessor {
     onTouched: any = () => {
     }
 
-    @Input() data: any = {};
-
-    //TODO 只监听第一个？
     @Input()
     set items(data: EditTableItem[]) {
         //TODO 创建默认group
@@ -49,6 +46,8 @@ export class EditTableComponent implements OnInit, ControlValueAccessor {
         data.forEach(item => {
             //if (item.hasOwnProperty("default"))
             row[item.name] = item.default
+            //TODO 需要补充缺失的控件
+
         })
         this.row = row;
         this._items = data;
