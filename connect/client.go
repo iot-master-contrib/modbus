@@ -38,6 +38,26 @@ func (client *Client) Open() error {
 	client.retry = 0
 	client.Conn = &netConn{conn}
 
+	//守护协程
+	go func() {
+		timeout := client.model.RetryTimeout
+		if timeout == 0 {
+			timeout = 10
+		}
+		for {
+			time.Sleep(time.Second * time.Duration(timeout))
+			if client.running {
+				continue
+			}
+			//如果掉线了，就重新打开
+			err := client.Open()
+			if err != nil {
+				log.Error(err)
+			}
+			break //Open中，会重新启动协程
+		}
+	}()
+
 	//启动轮询
 	return client.start(&client.model.Tunnel)
 }
