@@ -100,7 +100,7 @@ func (p *poller) Poll() bool {
 					log.Error(err)
 					continue
 				}
-				name := product.Filters[i].Name
+				name := product.Calculators[i].Name
 				values[name] = ret
 			}
 
