@@ -112,15 +112,13 @@ func (p *poller) Poll() bool {
 			//上线提醒
 			if !device.Online {
 				device.Online = true
-				topic := fmt.Sprintf("online/%s/%s", device.ProductId, device.Id)
-				_ = mqtt.Publish(topic, nil, false, 0)
+				Online(device.ProductId, device.Id)
 			}
 		} else {
 			//掉线提醒
 			if device.Online {
 				device.Online = false
-				topic := fmt.Sprintf("offline/%s/%s", device.ProductId, device.Id)
-				_ = mqtt.Publish(topic, nil, false, 0)
+				Offline(device.ProductId, device.Id)
 			}
 		}
 	}
@@ -137,13 +135,7 @@ func (p *poller) Poll() bool {
 func (p *poller) Close() error {
 
 	for _, device := range p.devices {
-		//mqtt上传数据，暂定使用Object方式，简单
-		topic := fmt.Sprintf("offline/%s/%s", device.ProductId, device.Id)
-		//payload, _ := json.Marshal(values)
-		err := mqtt.Publish(topic, nil, false, 0)
-		if err != nil {
-			log.Error(err)
-		}
+		Offline(device.ProductId, device.Id)
 	}
 
 	return nil
