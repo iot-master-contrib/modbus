@@ -2,7 +2,6 @@ package internal
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"github.com/iot-master-contrib/modbus/define"
 	"github.com/iot-master-contrib/modbus/types"
@@ -106,8 +105,7 @@ func (p *poller) Poll() bool {
 
 			//mqtt上传数据，暂定使用Object方式，简单
 			topic := fmt.Sprintf("up/property/%s/%s", product.Id, device.Id)
-			payload, _ := json.Marshal(values)
-			_ = mqtt.Publish(topic, payload, false, 0)
+			_ = mqtt.Publish(topic, values)
 
 			//上线提醒
 			if !device.Online {

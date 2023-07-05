@@ -19,7 +19,7 @@ func Offline(pid, id string) {
 	//延迟1分钟报警
 	timer = time.AfterFunc(time.Minute, func() {
 		topic := fmt.Sprintf("offline/%s/%s", pid, id)
-		err := mqtt.Publish(topic, nil, false, 0)
+		err := mqtt.Publish(topic, nil)
 		if err != nil {
 			log.Error(err)
 		}
@@ -38,7 +38,7 @@ func Online(pid, id string) {
 	}
 
 	topic := fmt.Sprintf("online/%s/%s", pid, id)
-	err := mqtt.Publish(topic, nil, false, 0)
+	err := mqtt.Publish(topic, nil)
 	if err != nil {
 		log.Error(err)
 	}
