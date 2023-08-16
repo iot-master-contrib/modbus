@@ -21,7 +21,7 @@ func App() *model.App {
 		Id:   "modbus",
 		Name: "Modbus",
 		Icon: "/app/modbus/assets/modbus.svg",
-		Entries: []model.AppEntry{{
+		Entries: []*model.AppEntry{{
 			Path: "app/modbus",
 			Name: "modbus",
 		}},
