@@ -116,7 +116,7 @@ func (l *tunnelBase) start(model *types.Tunnel) (err error) {
 			start := time.Now().Unix()
 
 			//轮询
-			if !l.poller.Poll(model.PollerInterval) {
+			if !l.poller.Poll(model.PollerInterval) { //
 				break
 			}
 

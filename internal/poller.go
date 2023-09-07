@@ -58,7 +58,7 @@ func (p *poller) Poll(interval uint) bool {
 		sum := 0
 
 		for _, mapper := range product.Mappers {
-			time.Sleep(time.Duration(interval) * time.Millisecond)
+			time.Sleep(time.Duration(interval) * time.Millisecond) //
 
 			r, e := p.modbus.Read(uint8(device.Slave), mapper.Code, mapper.Addr, mapper.Size)
 			if e != nil {
