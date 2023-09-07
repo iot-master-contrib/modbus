@@ -2,12 +2,13 @@ package connect
 
 import (
 	"errors"
-	"github.com/iot-master-contrib/modbus/define"
-	"github.com/iot-master-contrib/modbus/types"
-	"github.com/zgwit/iot-master/v3/pkg/log"
 	"io"
 	"sync"
 	"time"
+
+	"github.com/iot-master-contrib/modbus/define"
+	"github.com/iot-master-contrib/modbus/types"
+	"github.com/zgwit/iot-master/v3/pkg/log"
 )
 
 type tunnelBase struct {
@@ -115,7 +116,7 @@ func (l *tunnelBase) start(model *types.Tunnel) (err error) {
 			start := time.Now().Unix()
 
 			//轮询
-			if !l.poller.Poll() {
+			if !l.poller.Poll(model.PollerInterval) {
 				break
 			}
 

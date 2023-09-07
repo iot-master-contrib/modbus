@@ -3,13 +3,14 @@ package internal
 import (
 	"context"
 	"fmt"
+	"io"
+	"time"
+
 	"github.com/iot-master-contrib/modbus/define"
 	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
-	"io"
-	"time"
 )
 
 func init() {
@@ -42,7 +43,7 @@ func (p *poller) Load(tunnel string) error {
 	return db.Engine.Where("tunnel_id=?", tunnel).Find(&p.devices)
 }
 
-func (p *poller) Poll() bool {
+func (p *poller) Poll(interval uint) bool {
 	total := 0
 
 	//TODO 将迭代器提升到p中，单次调用只查询一个设备
@@ -57,6 +58,8 @@ func (p *poller) Poll() bool {
 		sum := 0
 
 		for _, mapper := range product.Mappers {
+			time.Sleep(time.Duration(interval) * time.Millisecond)
+
 			r, e := p.modbus.Read(uint8(device.Slave), mapper.Code, mapper.Addr, mapper.Size)
 			if e != nil {
 				//连接关闭就退出

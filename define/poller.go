@@ -6,7 +6,7 @@ import (
 
 type Poller interface {
 	Load(tunnel string) error
-	Poll() bool
+	Poll(interval uint) bool
 	Close() error
 }
 
