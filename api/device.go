@@ -1,9 +1,12 @@
 package api
 
 import (
+	"encoding/hex"
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/modbus/connect"
 	"github.com/iot-master-contrib/modbus/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
+	"github.com/zgwit/iot-master/v3/pkg/db"
 )
 
 // @Summary 查询设备数量
@@ -141,4 +144,25 @@ func deviceRouter(app *gin.RouterGroup) {
 
 	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Device](true, nil, nil))
 	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisableHook[types.Device](false, nil, nil))
+
+	//临时添加接口
+	app.GET(":id/write", curd.ParseParamStringId, func(ctx *gin.Context) {
+		id := ctx.GetString("id")
+		bytes, _ := hex.DecodeString(ctx.Query("bytes"))
+
+		var dev types.Device
+		has, err := db.Engine.ID(id).Get(&dev)
+		if err != nil {
+			curd.Error(ctx, err)
+			return
+		}
+		if !has {
+			curd.Fail(ctx, "找不到")
+			return
+		}
+		//暂时只支持 客户端
+		cli := connect.GetClient(dev.TunnelId)
+		_, _ = cli.Write(bytes)
+		curd.OK(ctx, nil)
+	})
 }
