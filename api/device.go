@@ -160,9 +160,17 @@ func deviceRouter(app *gin.RouterGroup) {
 			curd.Fail(ctx, "找不到")
 			return
 		}
-		//暂时只支持 客户端
+
 		cli := connect.GetClient(dev.TunnelId)
-		_, _ = cli.Write(bytes)
+		if cli != nil {
+			_, _ = cli.Write(bytes)
+		} else {
+			lnk := connect.GetLink(dev.TunnelId)
+			if lnk != nil {
+				_, _ = lnk.Write(bytes)
+			}
+		}
+
 		curd.OK(ctx, nil)
 	})
 }
