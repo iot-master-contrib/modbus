@@ -3,10 +3,11 @@ package connect
 import (
 	"errors"
 	"fmt"
-	"github.com/iot-master-contrib/modbus/types"
-	"github.com/zgwit/iot-master/v3/pkg/log"
 	"net"
 	"time"
+
+	"github.com/iot-master-contrib/modbus/types"
+	"github.com/zgwit/iot-master/v3/pkg/log"
 )
 
 // Client 网络链接
@@ -23,6 +24,7 @@ func NewClient(client *types.Client) *Client {
 
 // Open 打开
 func (client *Client) Open() error {
+
 	if client.running {
 		return errors.New("client is opened")
 	}
@@ -36,6 +38,12 @@ func (client *Client) Open() error {
 		//time.AfterFunc(time.Minute, client.Retry)
 		return err
 	}
+
+	tcpConn := conn.(*net.TCPConn)
+
+	// 设置为开启 TCP KeepAlive，默认为不开启
+	tcpConn.SetKeepAlive(true)
+
 	client.retry = 0
 	client.Conn = &netConn{conn}
 
