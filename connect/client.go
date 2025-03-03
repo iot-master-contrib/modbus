@@ -13,7 +13,8 @@ import (
 // Client 网络链接
 type Client struct {
 	tunnelBase
-	model *types.Client
+	model   *types.Client
+	keeping bool
 }
 
 func NewClient(client *types.Client) *Client {
@@ -22,9 +23,33 @@ func NewClient(client *types.Client) *Client {
 	}
 }
 
+func (client *Client) keep() {
+	if client.keeping {
+		return
+	}
+	client.keeping = true
+
+	timeout := client.model.RetryTimeout
+	if timeout == 0 {
+		timeout = 10
+	}
+
+	for !client.closed {
+		time.Sleep(time.Second * time.Duration(timeout))
+		if client.running {
+			continue
+		}
+
+		//如果掉线了，就重新打开
+		err := client.Open()
+		if err != nil {
+			log.Error(err)
+		}
+	}
+}
+
 // Open 打开
 func (client *Client) Open() error {
-
 	if client.running {
 		return errors.New("client is opened")
 	}
@@ -48,27 +73,7 @@ func (client *Client) Open() error {
 	client.Conn = &netConn{conn}
 
 	//守护协程
-	go func() {
-		timeout := client.model.RetryTimeout
-		if timeout == 0 {
-			timeout = 10
-		}
-		for {
-			time.Sleep(time.Second * time.Duration(timeout))
-			if client.running {
-				continue
-			}
-			if client.closed {
-				return
-			}
-			//如果掉线了，就重新打开
-			err := client.Open()
-			if err != nil {
-				log.Error(err)
-			}
-			break //Open中，会重新启动协程
-		}
-	}()
+	go client.keep()
 
 	//启动轮询
 	return client.start(&client.model.Tunnel)
@@ -96,6 +101,8 @@ func (client *Client) Retry() {
 // Close 关闭
 func (client *Client) Close() error {
 	client.running = false
+	client.closed = true
+	client.keeping = false
 
 	if client.Conn != nil {
 		link := client.Conn
