@@ -50,6 +50,12 @@ export class ProductEditComponent implements OnInit {
             label: '无符号整数 UINT32',
             value: 'uint32'
         }, {
+            label: '整数 INT64',
+            value: 'int64'
+        }, {
+            label: '无符号整数 UINT64',
+            value: 'uint64'
+        }, {
             label: '浮点数 FLOAT',
             value: 'float'
         }, {
