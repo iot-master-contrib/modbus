@@ -111,6 +111,22 @@ func (m *Mapper) Encode(name string, data any) []byte {
 				} else {
 					bin.WriteUint32LittleEndian(ret, val)
 				}
+			case "int64":
+				ret = make([]byte, 8)
+				val := convert.ToInt64(data)
+				if p.BigEndian {
+					bin.WriteUint64(ret, uint64(val))
+				} else {
+					bin.WriteUint64LittleEndian(ret, uint64(val))
+				}
+			case "uint64":
+				ret = make([]byte, 8)
+				val := convert.ToUint64(data)
+				if p.BigEndian {
+					bin.WriteUint64(ret, val)
+				} else {
+					bin.WriteUint64LittleEndian(ret, val)
+				}
 			case "float", "float32":
 				ret = make([]byte, 4)
 				val := convert.ToFloat32(data)
@@ -210,6 +226,24 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 			}
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(uint32)) * p.Rate
+			}
+		case "int64":
+			if p.BigEndian {
+				ret[p.Name] = int64(bin.ParseUint64(buf[offset:]))
+			} else {
+				ret[p.Name] = int64(bin.ParseUint64LittleEndian(buf[offset:]))
+			}
+			if p.Rate != 0 && p.Rate != 1 {
+				ret[p.Name] = float64(ret[p.Name].(int64)) * p.Rate
+			}
+		case "uint64":
+			if p.BigEndian {
+				ret[p.Name] = bin.ParseUint64(buf[offset:])
+			} else {
+				ret[p.Name] = bin.ParseUint64LittleEndian(buf[offset:])
+			}
+			if p.Rate != 0 && p.Rate != 1 {
+				ret[p.Name] = float64(ret[p.Name].(uint64)) * p.Rate
 			}
 		case "float", "float32":
 			if p.BigEndian {
