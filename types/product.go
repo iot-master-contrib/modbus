@@ -37,12 +37,63 @@ type Mapper struct {
 }
 
 type Point struct {
-	Name      string  `json:"name"`           //名称
-	Type      string  `json:"type"`           //类型
-	Offset    uint16  `json:"offset"`         //偏移
-	Bits      uint16  `json:"bits,omitempty"` //位，1 2 3...
-	BigEndian bool    `json:"be,omitempty"`   //大端模式
-	Rate      float64 `json:"rate,omitempty"` //倍率
+	Name      string  `json:"name"`            //名称
+	Type      string  `json:"type"`            //类型
+	Offset    uint16  `json:"offset"`          //偏移
+	Bits      uint16  `json:"bits,omitempty"`  //位，1 2 3...
+	BigEndian bool    `json:"be,omitempty"`    //大端模式
+	Order     string  `json:"order,omitempty"` //字序：abcd badc cdab dcba
+	Rate      float64 `json:"rate,omitempty"`  //倍率
+}
+
+// reorder 根据字序重排前 n 字节，返回重排后的字节切片。
+// 仅对多字节类型（32位/64位）有意义，n 为字节长度（4 或 8）。
+// 四种字序：
+//   - abcd：大端字序 + 大端字节序（默认，不重排）
+//   - badc：大端字序 + 小端字节序（字内字节交换）
+//   - cdab：小端字序 + 大端字节序（字序交换）
+//   - dcba：小端字序 + 小端字节序（完全反转）
+//
+// 当 order 为空时，回退到 BigEndian 字段的旧语义（false 等价于 dcba）。
+func (p *Point) reorder(buf []byte, n int) []byte {
+	byteSwap := false
+	wordSwap := false
+	switch p.Order {
+	case "badc":
+		byteSwap = true
+	case "cdab":
+		wordSwap = true
+	case "dcba":
+		byteSwap = true
+		wordSwap = true
+	default:
+		if p.Order == "" && !p.BigEndian {
+			byteSwap = true
+			wordSwap = true
+		}
+	}
+
+	if !byteSwap && !wordSwap {
+		if len(buf) >= n {
+			return buf[:n]
+		}
+		return buf
+	}
+
+	b := make([]byte, n)
+	copy(b, buf[:n])
+	if byteSwap {
+		for i := 0; i+1 < n; i += 2 {
+			b[i], b[i+1] = b[i+1], b[i]
+		}
+	}
+	if wordSwap {
+		for i, j := 0, n-2; i < j; i, j = i+2, j-2 {
+			b[i], b[j] = b[j], b[i]
+			b[i+1], b[j+1] = b[j+1], b[i+1]
+		}
+	}
+	return b
 }
 
 func (m *Mapper) Encode(name string, data any) []byte {
@@ -98,51 +149,33 @@ func (m *Mapper) Encode(name string, data any) []byte {
 			case "int32", "int":
 				ret = make([]byte, 4)
 				val := convert.ToInt32(data)
-				if p.BigEndian {
-					bin.WriteUint32(ret, uint32(val))
-				} else {
-					bin.WriteUint32LittleEndian(ret, uint32(val))
-				}
+				bin.WriteUint32(ret, uint32(val))
+				ret = p.reorder(ret, 4)
 			case "qword", "uint32", "uint":
 				ret = make([]byte, 4)
 				val := convert.ToUint32(data)
-				if p.BigEndian {
-					bin.WriteUint32(ret, val)
-				} else {
-					bin.WriteUint32LittleEndian(ret, val)
-				}
+				bin.WriteUint32(ret, val)
+				ret = p.reorder(ret, 4)
 			case "int64":
 				ret = make([]byte, 8)
 				val := convert.ToInt64(data)
-				if p.BigEndian {
-					bin.WriteUint64(ret, uint64(val))
-				} else {
-					bin.WriteUint64LittleEndian(ret, uint64(val))
-				}
+				bin.WriteUint64(ret, uint64(val))
+				ret = p.reorder(ret, 8)
 			case "uint64":
 				ret = make([]byte, 8)
 				val := convert.ToUint64(data)
-				if p.BigEndian {
-					bin.WriteUint64(ret, val)
-				} else {
-					bin.WriteUint64LittleEndian(ret, val)
-				}
+				bin.WriteUint64(ret, val)
+				ret = p.reorder(ret, 8)
 			case "float", "float32":
 				ret = make([]byte, 4)
 				val := convert.ToFloat32(data)
-				if p.BigEndian {
-					bin.WriteFloat32(ret, val)
-				} else {
-					bin.WriteFloat32LittleEndian(ret, val)
-				}
+				bin.WriteFloat32(ret, val)
+				ret = p.reorder(ret, 4)
 			case "double", "float64":
 				ret = make([]byte, 8)
 				val := convert.ToFloat64(data)
-				if p.BigEndian {
-					bin.WriteFloat64(ret, val)
-				} else {
-					bin.WriteFloat64LittleEndian(ret, val)
-				}
+				bin.WriteFloat64(ret, val)
+				ret = p.reorder(ret, 8)
 			}
 
 			return ret
@@ -210,56 +243,32 @@ func (m *Mapper) Parse(buf []byte, ret map[string]interface{}) {
 				ret[p.Name] = float64(ret[p.Name].(uint16)) * p.Rate
 			}
 		case "int32", "int":
-			if p.BigEndian {
-				ret[p.Name] = int32(bin.ParseUint32(buf[offset:]))
-			} else {
-				ret[p.Name] = int32(bin.ParseUint32LittleEndian(buf[offset:]))
-			}
+			ret[p.Name] = int32(bin.ParseUint32(p.reorder(buf[offset:], 4)))
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(int32)) * p.Rate
 			}
 		case "qword", "uint32", "uint":
-			if p.BigEndian {
-				ret[p.Name] = bin.ParseUint32(buf[offset:])
-			} else {
-				ret[p.Name] = bin.ParseUint32LittleEndian(buf[offset:])
-			}
+			ret[p.Name] = bin.ParseUint32(p.reorder(buf[offset:], 4))
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(uint32)) * p.Rate
 			}
 		case "int64":
-			if p.BigEndian {
-				ret[p.Name] = int64(bin.ParseUint64(buf[offset:]))
-			} else {
-				ret[p.Name] = int64(bin.ParseUint64LittleEndian(buf[offset:]))
-			}
+			ret[p.Name] = int64(bin.ParseUint64(p.reorder(buf[offset:], 8)))
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(int64)) * p.Rate
 			}
 		case "uint64":
-			if p.BigEndian {
-				ret[p.Name] = bin.ParseUint64(buf[offset:])
-			} else {
-				ret[p.Name] = bin.ParseUint64LittleEndian(buf[offset:])
-			}
+			ret[p.Name] = bin.ParseUint64(p.reorder(buf[offset:], 8))
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(uint64)) * p.Rate
 			}
 		case "float", "float32":
-			if p.BigEndian {
-				ret[p.Name] = bin.ParseFloat32(buf[offset:])
-			} else {
-				ret[p.Name] = bin.ParseFloat32LittleEndian(buf[offset:])
-			}
+			ret[p.Name] = bin.ParseFloat32(p.reorder(buf[offset:], 4))
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = float64(ret[p.Name].(float32)) * p.Rate
 			}
 		case "double", "float64":
-			if p.BigEndian {
-				ret[p.Name] = bin.ParseFloat64(buf[offset:])
-			} else {
-				ret[p.Name] = bin.ParseFloat64LittleEndian(buf[offset:])
-			}
+			ret[p.Name] = bin.ParseFloat64(p.reorder(buf[offset:], 8))
 			if p.Rate != 0 && p.Rate != 1 {
 				ret[p.Name] = ret[p.Name].(float64) * p.Rate
 			}

@@ -78,6 +78,24 @@ export class ProductEditComponent implements OnInit {
         type: 'switch',
         default: true
     }, {
+        label: '字序',
+        name: 'order',
+        type: 'select',
+        default: 'abcd',
+        options: [{
+            label: 'ABCD',
+            value: 'abcd'
+        }, {
+            label: 'BADC',
+            value: 'badc'
+        }, {
+            label: 'CDAB',
+            value: 'cdab'
+        }, {
+            label: 'DCBA',
+            value: 'dcba'
+        }]
+    }, {
         label: '倍率',
         name: 'rate',
         type: 'number',
@@ -262,6 +280,7 @@ export class ProductEditComponent implements OnInit {
                 type: ['word', []],
                 offset: [0, []],
                 be: [true, []],
+                order: ['abcd', []],
                 rate: [1, []],
             })
         );
